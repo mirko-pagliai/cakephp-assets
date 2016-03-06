@@ -211,7 +211,7 @@
 </span><span id="115" class="l"><a href="#115">115: </a>        <span class="php-var">$bin</span> = which(<span class="php-quote">'cleancss'</span>);
 </span><span id="116" class="l"><a href="#116">116: </a>        
 </span><span id="117" class="l"><a href="#117">117: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$bin</span>))
-</span><span id="118" class="l"><a href="#118">118: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'assets'</span>, <span class="php-quote">'{0} is not availabl'</span>, <span class="php-quote">'cleancss'</span>));
+</span><span id="118" class="l"><a href="#118">118: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'assets'</span>, <span class="php-quote">'{0} is not available'</span>, <span class="php-quote">'cleancss'</span>));
 </span><span id="119" class="l"><a href="#119">119: </a>        
 </span><span id="120" class="l"><a href="#120">120: </a>        <span class="php-comment">//Executes `cleancss`</span>
 </span><span id="121" class="l"><a href="#121">121: </a>        <span class="php-keyword2">exec</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s -o %s --s0 %s'</span>, <span class="php-var">$bin</span>, <span class="php-var">$asset</span>, <span class="php-var">$asset</span>));
@@ -251,7 +251,7 @@
 </span><span id="155" class="l"><a href="#155">155: </a>        <span class="php-var">$bin</span> = which(<span class="php-quote">'uglifyjs'</span>);
 </span><span id="156" class="l"><a href="#156">156: </a>        
 </span><span id="157" class="l"><a href="#157">157: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$bin</span>))
-</span><span id="158" class="l"><a href="#158">158: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'assets'</span>, <span class="php-quote">'{0} is not availabl'</span>, <span class="php-quote">'uglifyjs'</span>));
+</span><span id="158" class="l"><a href="#158">158: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'assets'</span>, <span class="php-quote">'{0} is not available'</span>, <span class="php-quote">'uglifyjs'</span>));
 </span><span id="159" class="l"><a href="#159">159: </a>        
 </span><span id="160" class="l"><a href="#160">160: </a>        <span class="php-comment">//Executes `uglifyjs`</span>
 </span><span id="161" class="l"><a href="#161">161: </a>        <span class="php-keyword2">exec</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s %s --compress --mangle -o %s'</span>, <span class="php-var">$bin</span>, <span class="php-var">$asset</span>, <span class="php-var">$asset</span>));
