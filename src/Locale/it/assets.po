@@ -1,0 +1,28 @@
+# LANGUAGE translation of Assets
+# Copyright 2016 Mirko Pagliai <mirko.pagliai@gmail.com>
+#
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2016-03-06 11:51+0000\n"
+"PO-Revision-Date: 2016-03-06 12:52+0100\n"
+"Last-Translator: Mirko Pagliai <mirko.pagliai.it>\n"
+"Language-Team: Italian <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: it\n"
+
+#: /home/mirko/Server/Assets_Plugin/src/Utility/Asset.php:47
+msgid "File or directory {0} not writeable"
+msgstr "File o directory {0} non scrivibile"
+
+#: /home/mirko/Server/Assets_Plugin/src/Utility/Asset.php:113;153
+msgid "Failed to create file or directory {0}"
+msgstr "Impossibile creare file o directory {0}"
+
+#: /home/mirko/Server/Assets_Plugin/src/Utility/Asset.php:118;158
+msgid "{0} is not available"
+msgstr "{0} non è disponibile"
+
+
