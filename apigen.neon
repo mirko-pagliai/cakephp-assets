@@ -1,0 +1,9 @@
+accessLevels: [public, protected, private]
+destination: API
+download: false
+exclude: {*_old, *.old, *.old.*} 
+source: {src}
+main: Assets
+php: false
+title: Assets API
+todo: true

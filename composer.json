@@ -1,0 +1,20 @@
+{
+    "name": "mirko-pagliai/assets",
+    "description": "Assets plugin for CakePHP",
+    "homepage": "https://github.com/mirko-pagliai/assets",
+    "type": "cakephp-plugin",
+    "license": "AGPL",
+	"authors": [{
+		"name": "Mirko Pagliai",
+		"email": "mirko.pagliai@gmail.com"
+    }],
+    "require": {
+        "php": ">=5.5.9",
+        "cakephp/cakephp": "~3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Assets\\": "src"
+        }
+    }
+}
