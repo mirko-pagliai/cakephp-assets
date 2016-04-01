@@ -21,13 +21,22 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
 
-use Cake\Network\Exception\InternalErrorException;
+//Sets the default asset directory
+if(!defined('ASSETS'))
+	define('ASSETS', WWW_ROOT.'assets');
 
-require_once 'global_functions.php';
-require_once 'constants.php';
+//Sets the default asset address
+if(!defined('ASSETS_WWW'))
+	define('ASSETS_WWW', '/assets');
 
-if(!CLEANCSS_BIN)
-    throw new InternalErrorException(sprintf('The executable file for %s was not found', 'cleancss'));
+//If `FALSE`, assets will be used only if debugging is off. Else, if `TRUE`, assets will be always used
+if(!defined('FORCE_ASSETS'))
+	define('FORCE_ASSETS', FALSE);
 
-if(!UGLIFYJS_BIN)
-    throw new InternalErrorException(sprintf('The executable file for %s was not found', 'uglifyjs'));
+//Sets the cleancss executable
+if(!defined('CLEANCSS_BIN'))
+	define('CLEANCSS_BIN', which('cleancss'));
+
+//Sets the uglifyjs executable
+if(!defined('UGLIFYJS_BIN'))
+	define('UGLIFYJS_BIN', which('uglifyjs'));
