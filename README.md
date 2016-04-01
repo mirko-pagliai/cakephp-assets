@@ -5,6 +5,11 @@
 *Assets* uses [clean-css](https://github.com/jakubpawlowicz/clean-css) and [UglifyJS 2](https://github.com/mishoo/UglifyJS2)
 to create assets. Before you start, you have to install them by using [Node.js](https://nodejs.org).
 
+Example:
+	
+	$ sudo npm install clean-css -g
+	$ sudo npm install uglify-js -g
+
 Then, you can install the plugin via composer:
 
     $ composer require --prefer-dist mirko-pagliai/assets
