@@ -48,5 +48,6 @@ Example:
     Plugin::load('Assets', ['bootstrap' => TRUE]);
 
 ## Versioning
-For transparency and insight into our release cycle and to maintain backward compatibility, 
-MeTools will be maintained under the [Semantic Versioning guidelines](http://semver.org).
+For transparency and insight into our release cycle and to maintain backward 
+compatibility, *Assets* will be maintained under the 
+[Semantic Versioning guidelines](http://semver.org).
