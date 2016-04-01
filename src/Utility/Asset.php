@@ -38,16 +38,6 @@ use Cake\Network\Exception\InternalErrorException;
  */
 class Asset {
 	/**
-	 * Construct
-	 * @throws InternalErrorException
-	 */
-	public function __construct() {
-		//Checks if the assets directory is writeable
-		if(!is_writeable(ASSETS))
-			throw new InternalErrorException(__d('assets', 'File or directory {0} not writeable', ASSETS));
-	}
-
-	/**
 	 * Parses paths and for each path returns an array with the full path and the last modification time
      * @param string|array $paths String or array of css/js files
 	 * @param string $extension Extension (`css` or `js`)

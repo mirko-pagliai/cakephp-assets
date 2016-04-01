@@ -31,3 +31,6 @@ if(!CLEANCSS_BIN)
 
 if(!UGLIFYJS_BIN)
     throw new InternalErrorException(sprintf('The executable file for %s was not found', 'uglifyjs'));
+
+if(!is_writeable(ASSETS))
+    throw new InternalErrorException(sprintf('File or directory %s not writeable', ASSETS));
