@@ -112,13 +112,8 @@ class Asset {
 		if(!(new File($asset, TRUE, 0777))->write($content, 'w', TRUE))
 			throw new InternalErrorException(__d('assets', 'Failed to create file or directory {0}', $asset));
 		
-		$bin = which('cleancss');
-		
-		if(empty($bin))
-			throw new InternalErrorException(__d('assets', '{0} is not available', 'cleancss'));
-		
 		//Executes `cleancss`
-		exec(sprintf('%s -o %s --s0 %s', $bin, $asset, $asset));
+		exec(sprintf('%s -o %s --s0 %s', CLEANCSS_BIN, $asset, $asset));
 		
 		return $www;
 	}
@@ -152,13 +147,8 @@ class Asset {
 		if(!(new File($asset, TRUE, 0777))->write($content, 'w', TRUE))
 			throw new InternalErrorException(__d('assets', 'Failed to create file or directory {0}', $asset));
 		
-		$bin = which('uglifyjs');
-		
-		if(empty($bin))
-			throw new InternalErrorException(__d('assets', '{0} is not available', 'uglifyjs'));
-		
 		//Executes `uglifyjs`
-		exec(sprintf('%s %s --compress --mangle -o %s', $bin, $asset, $asset));
+		exec(sprintf('%s %s --compress --mangle -o %s', UGLIFYJS_BIN, $asset, $asset));
 		
 		return $www;
 	}

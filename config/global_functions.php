@@ -21,32 +21,15 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
 
-use Cake\Network\Exception\InternalErrorException;
-
-require_once 'global_functions.php';
-
-//Sets the cleancss executable
-if(!defined('CLEANCSS_BIN'))
-	define('CLEANCSS_BIN', which('cleancss'));
-
-//Sets the uglifyjs executable
-if(!defined('UGLIFYJS_BIN'))
-	define('UGLIFYJS_BIN', which('uglifyjs'));
-
-if(!CLEANCSS_BIN)
-    throw new InternalErrorException(sprintf('The executable file for %s was not found', 'cleancss'));
-
-if(!UGLIFYJS_BIN)
-    throw new InternalErrorException(sprintf('The executable file for %s was not found', 'uglifyjs'));
-
-//Sets the default asset directory
-if(!defined('ASSETS'))
-	define('ASSETS', WWW_ROOT.'assets');
-
-//Sets the default asset address
-if(!defined('ASSETS_WWW'))
-	define('ASSETS_WWW', '/assets');
-
-//If `FALSE`, assets will be used only if debugging is off. Else, if `TRUE`, assets will be always used
-if(!defined('FORCE_ASSETS'))
-	define('FORCE_ASSETS', FALSE);
+if(!function_exists('which')) {
+	/**
+	 * Executes the `which` command.
+	 * 
+	 * It shows the full path of (shell) commands.
+	 * @param string $command Command
+	 * @return string Full path of command
+	 */
+	function which($command) {
+		return exec(sprintf('which %s', $command));
+	}
+}
