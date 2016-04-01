@@ -46,3 +46,7 @@ Example:
 	define('CLEANCSS_BIN', '/full/path/to/cleancss');
 	define('UGLIFYJS_BIN', '/full/path/to/uglifyjs'));
     Plugin::load('Assets', ['bootstrap' => TRUE]);
+
+## Versioning
+For transparency and insight into our release cycle and to maintain backward compatibility, 
+MeTools will be maintained under the [Semantic Versioning guidelines](http://semver.org).
