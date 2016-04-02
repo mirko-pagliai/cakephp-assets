@@ -38,16 +38,6 @@ use Cake\Network\Exception\InternalErrorException;
  */
 class Asset {
 	/**
-	 * Construct
-	 * @throws InternalErrorException
-	 */
-	public function __construct() {
-		//Checks if the assets directory is writeable
-		if(!is_writeable(ASSETS))
-			throw new InternalErrorException(__d('assets', 'File or directory {0} not writeable', ASSETS));
-	}
-
-	/**
 	 * Parses paths and for each path returns an array with the full path and the last modification time
      * @param string|array $paths String or array of css/js files
 	 * @param string $extension Extension (`css` or `js`)
@@ -112,13 +102,8 @@ class Asset {
 		if(!(new File($asset, TRUE, 0777))->write($content, 'w', TRUE))
 			throw new InternalErrorException(__d('assets', 'Failed to create file or directory {0}', $asset));
 		
-		$bin = which('cleancss');
-		
-		if(empty($bin))
-			throw new InternalErrorException(__d('assets', '{0} is not available', 'cleancss'));
-		
 		//Executes `cleancss`
-		exec(sprintf('%s -o %s --s0 %s', $bin, $asset, $asset));
+		exec(sprintf('%s -o %s --s0 %s', CLEANCSS_BIN, $asset, $asset));
 		
 		return $www;
 	}
@@ -152,13 +137,8 @@ class Asset {
 		if(!(new File($asset, TRUE, 0777))->write($content, 'w', TRUE))
 			throw new InternalErrorException(__d('assets', 'Failed to create file or directory {0}', $asset));
 		
-		$bin = which('uglifyjs');
-		
-		if(empty($bin))
-			throw new InternalErrorException(__d('assets', '{0} is not available', 'uglifyjs'));
-		
 		//Executes `uglifyjs`
-		exec(sprintf('%s %s --compress --mangle -o %s', $bin, $asset, $asset));
+		exec(sprintf('%s %s --compress --mangle -o %s', UGLIFYJS_BIN, $asset, $asset));
 		
 		return $www;
 	}

@@ -21,16 +21,15 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
 
-use Cake\Network\Exception\InternalErrorException;
-
-require_once 'global_functions.php';
-require_once 'constants.php';
-
-if(!CLEANCSS_BIN)
-    throw new InternalErrorException(sprintf('The executable file for %s was not found', 'cleancss'));
-
-if(!UGLIFYJS_BIN)
-    throw new InternalErrorException(sprintf('The executable file for %s was not found', 'uglifyjs'));
-
-if(!is_writeable(ASSETS))
-    throw new InternalErrorException(sprintf('File or directory %s not writeable', ASSETS));
+if(!function_exists('which')) {
+	/**
+	 * Executes the `which` command.
+	 * 
+	 * It shows the full path of (shell) commands.
+	 * @param string $command Command
+	 * @return string Full path of command
+	 */
+	function which($command) {
+		return exec(sprintf('which %s', $command));
+	}
+}
