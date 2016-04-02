@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2016-03-06 11:51+0000\n"
-"PO-Revision-Date: 2016-03-06 12:52+0100\n"
+"POT-Creation-Date: 2016-04-02 18:08+0200\n"
+"PO-Revision-Date: 2016-04-02 18:09+0100\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai.it>\n"
 "Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
@@ -13,16 +13,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: it\n"
 
-#: /home/mirko/Server/Assets_Plugin/src/Utility/Asset.php:47
-msgid "File or directory {0} not writeable"
-msgstr "File o directory {0} non scrivibile"
-
-#: /home/mirko/Server/Assets_Plugin/src/Utility/Asset.php:113;153
+#: /home/mirko/Libs/Plugins/Assets/src/Utility/Asset.php:103;138
 msgid "Failed to create file or directory {0}"
 msgstr "Impossibile creare file o directory {0}"
-
-#: /home/mirko/Server/Assets_Plugin/src/Utility/Asset.php:118;158
-msgid "{0} is not available"
-msgstr "{0} non è disponibile"
 
 
