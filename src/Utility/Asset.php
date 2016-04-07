@@ -29,12 +29,7 @@ use Cake\Filesystem\File;
 use Cake\Network\Exception\InternalErrorException;
 
 /**
- * An utility to create assets.
- * 
- * You can use this utility by adding:
- * <code>
- * use Assets\Utility\Asset;
- * </code>
+ * An utility to create assets
  */
 class Asset {
 	/**
