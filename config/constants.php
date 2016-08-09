@@ -22,21 +22,26 @@
  */
 
 //Sets the default asset directory
-if(!defined('ASSETS'))
+if(!defined('ASSETS')) {
 	define('ASSETS', WWW_ROOT.'assets');
+}
 
 //Sets the default asset address
-if(!defined('ASSETS_WWW'))
+if(!defined('ASSETS_WWW')) {
 	define('ASSETS_WWW', '/assets');
+}
 
 //If `FALSE`, assets will be used only if debugging is off. Else, if `TRUE`, assets will be always used
-if(!defined('FORCE_ASSETS'))
+if(!defined('FORCE_ASSETS')) {
 	define('FORCE_ASSETS', FALSE);
+}
 
 //Sets the cleancss executable
-if(!defined('CLEANCSS_BIN'))
+if(!defined('CLEANCSS_BIN')) {
 	define('CLEANCSS_BIN', which('cleancss'));
+}
 
 //Sets the uglifyjs executable
-if(!defined('UGLIFYJS_BIN'))
+if(!defined('UGLIFYJS_BIN')) {
 	define('UGLIFYJS_BIN', which('uglifyjs'));
+}

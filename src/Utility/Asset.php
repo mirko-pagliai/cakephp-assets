@@ -47,19 +47,24 @@ class Asset {
 		$paths = array_map(function($path) use ($extension, $plugins) {
 			$plugin = pluginSplit($path);
 			
-			if(in_array($plugin[0], $plugins))
+			if(in_array($plugin[0], $plugins)) {
 				$path = $plugin[1];
-			
-			if(substr($path, 0, 1) === '/')
+            }
+            
+			if(substr($path, 0, 1) === '/') {
 				$path = substr($path, 1);
-			else
+            }
+			else {
 				$path = $extension.DS.$path;
-			
-			if(in_array($plugin[0], $plugins))
+            }
+            
+			if(in_array($plugin[0], $plugins)) {
 				$path = Plugin::path($plugin[0]).'webroot'.DS.$path;
-			else
+            }
+			else {
 				$path = WWW_ROOT.$path;
-			
+            }
+            
 			$path = sprintf('%s.%s', $path, $extension);
 			
 			return [$path, filemtime($path)];
@@ -87,16 +92,18 @@ class Asset {
 		$www = ASSETS_WWW.'/'.$filename;
 		
 		//Returns, if the asset already exists
-		if(is_readable($asset))
+		if(is_readable($asset)) {
 			return $www;
-		
+        }
+        
 		//Reads the content of all paths
 		$content = implode(PHP_EOL, array_map(function($path) { return file_get_contents($path[0]); }, $path));
 		
 		//Writes the file
-		if(!(new File($asset, TRUE, 0777))->write($content, 'w', TRUE))
+		if(!(new File($asset, TRUE, 0777))->write($content, 'w', TRUE)) {
 			throw new InternalErrorException(__d('assets', 'Failed to create file or directory {0}', $asset));
-		
+        }
+        
 		//Executes `cleancss`
 		exec(sprintf('%s -o %s --s0 %s', CLEANCSS_BIN, $asset, $asset));
 		
@@ -122,16 +129,18 @@ class Asset {
 		$www = ASSETS_WWW.'/'.$filename;
 		
 		//Returns, if the asset already exists
-		if(is_readable($asset))
+		if(is_readable($asset)) {
 			return $www;
-		
+        }
+        
 		//Reads the content of all paths
 		$content = implode(PHP_EOL, array_map(function($path) { return file_get_contents($path[0]); }, $path));
 		
 		//Writes the file
-		if(!(new File($asset, TRUE, 0777))->write($content, 'w', TRUE))
+		if(!(new File($asset, TRUE, 0777))->write($content, 'w', TRUE)) {
 			throw new InternalErrorException(__d('assets', 'Failed to create file or directory {0}', $asset));
-		
+        }
+        
 		//Executes `uglifyjs`
 		exec(sprintf('%s %s --compress --mangle -o %s', UGLIFYJS_BIN, $asset, $asset));
 		
