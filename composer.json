@@ -4,9 +4,9 @@
     "homepage": "https://github.com/mirko-pagliai/assets",
     "type": "cakephp-plugin",
     "license": "AGPL",
-	"authors": [{
-		"name": "Mirko Pagliai",
-		"email": "mirko.pagliai@gmail.com"
+    "authors": [{
+        "name": "Mirko Pagliai",
+        "email": "mirko.pagliai@gmail.com"
     }],
     "require": {
         "php": ">=5.5.9",

@@ -15,10 +15,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Assets.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 
 use Cake\Network\Exception\InternalErrorException;
@@ -26,14 +26,14 @@ use Cake\Network\Exception\InternalErrorException;
 require_once 'global_functions.php';
 require_once 'constants.php';
 
-if(!CLEANCSS_BIN) {
+if (!CLEANCSS_BIN) {
     throw new InternalErrorException(sprintf('The executable file for %s was not found', 'cleancss'));
 }
 
-if(!UGLIFYJS_BIN) {
+if (!UGLIFYJS_BIN) {
     throw new InternalErrorException(sprintf('The executable file for %s was not found', 'uglifyjs'));
 }
 
-if(!is_writeable(ASSETS)) {
+if (!is_writeable(ASSETS)) {
     throw new InternalErrorException(sprintf('File or directory %s not writeable', ASSETS));
 }

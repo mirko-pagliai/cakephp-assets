@@ -15,33 +15,33 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Assets.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 
 //Sets the default asset directory
-if(!defined('ASSETS')) {
-	define('ASSETS', WWW_ROOT.'assets');
+if (!defined('ASSETS')) {
+    define('ASSETS', WWW_ROOT . 'assets');
 }
 
 //Sets the default asset address
-if(!defined('ASSETS_WWW')) {
-	define('ASSETS_WWW', '/assets');
+if (!defined('ASSETS_WWW')) {
+    define('ASSETS_WWW', '/assets');
 }
 
 //If `FALSE`, assets will be used only if debugging is off. Else, if `TRUE`, assets will be always used
-if(!defined('FORCE_ASSETS')) {
-	define('FORCE_ASSETS', FALSE);
+if (!defined('FORCE_ASSETS')) {
+    define('FORCE_ASSETS', false);
 }
 
 //Sets the cleancss executable
-if(!defined('CLEANCSS_BIN')) {
-	define('CLEANCSS_BIN', which('cleancss'));
+if (!defined('CLEANCSS_BIN')) {
+    define('CLEANCSS_BIN', which('cleancss'));
 }
 
 //Sets the uglifyjs executable
-if(!defined('UGLIFYJS_BIN')) {
-	define('UGLIFYJS_BIN', which('uglifyjs'));
+if (!defined('UGLIFYJS_BIN')) {
+    define('UGLIFYJS_BIN', which('uglifyjs'));
 }
