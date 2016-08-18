@@ -60,8 +60,8 @@ class AssetHelper extends Helper
 
     /**
      * Alias for `script()` method
-     * @return mixed String of `<script />` tags or NULL if `$inline` is
-     *  FALSE or if `$once` is TRUE
+     * @return mixed String of `<script />` tags or null if `$inline` is
+     *  false or if `$once` is true
      * @see script()
      */
     public function js()
@@ -73,8 +73,8 @@ class AssetHelper extends Helper
      * Compresses and adds js files to the layout
      * @param string|array $url String or array of js files
      * @param array $options Array of options and HTML attributes
-     * @return mixed String of `<script />` tags or NULL if `$inline` is
-     *  FALSE or if `$once` is TRUE
+     * @return mixed String of `<script />` tags or null if `$inline` is
+     *  false or if `$once` is true
      * @uses Assets\Utility\Asset:script()
      */
     public function script($url, array $options = [])

@@ -31,7 +31,7 @@ if (!defined('ASSETS_WWW')) {
     define('ASSETS_WWW', '/assets');
 }
 
-//If `FALSE`, assets will be used only if debugging is off. Else, if `TRUE`, assets will be always used
+//If `false`, assets will be used only if debugging is off. Else, if `true`, assets will be always used
 if (!defined('FORCE_ASSETS')) {
     define('FORCE_ASSETS', false);
 }
