@@ -12,6 +12,9 @@
         "php": ">=5.5.9",
         "cakephp/cakephp": "~3.2"
     },
+    "require-dev": {
+        "cakephp/cakephp-codesniffer": "2.*"
+    },
     "autoload": {
         "psr-4": {
             "Assets\\": "src"
