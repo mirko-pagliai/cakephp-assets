@@ -59,17 +59,6 @@ class AssetHelper extends Helper
     }
 
     /**
-     * Alias for `script()` method
-     * @return mixed String of `<script />` tags or null if `$inline` is
-     *  false or if `$once` is true
-     * @see script()
-     */
-    public function js()
-    {
-        return call_user_func_array([get_class(), 'script'], func_get_args());
-    }
-
-    /**
      * Compresses and adds js files to the layout
      * @param string|array $url String or array of js files
      * @param array $options Array of options and HTML attributes
