@@ -31,17 +31,18 @@ if (!defined('ASSETS_WWW')) {
     define('ASSETS_WWW', '/assets');
 }
 
-//If `false`, assets will be used only if debugging is off. Else, if `true`, assets will be always used
+//If `false`, assets will be used only if debugging is off. Else, if `true`,
+//  assets will be always used
 if (!defined('FORCE_ASSETS')) {
     define('FORCE_ASSETS', false);
 }
 
 //Sets the cleancss executable
 if (!defined('CLEANCSS_BIN')) {
-    define('CLEANCSS_BIN', which('cleancss'));
+    define('CLEANCSS_BIN', exec(sprintf('which %s', ('cleancss'))));
 }
 
 //Sets the uglifyjs executable
 if (!defined('UGLIFYJS_BIN')) {
-    define('UGLIFYJS_BIN', which('uglifyjs'));
+    define('UGLIFYJS_BIN', exec(sprintf('which %s', ('uglifyjs'))));
 }

@@ -23,17 +23,22 @@
 
 use Cake\Network\Exception\InternalErrorException;
 
-require_once 'global_functions.php';
 require_once 'constants.php';
 
 if (!CLEANCSS_BIN) {
-    throw new InternalErrorException(sprintf('The executable file for %s was not found', 'cleancss'));
+    throw new InternalErrorException(
+        sprintf('The executable file for %s was not found', 'cleancss')
+    );
 }
 
 if (!UGLIFYJS_BIN) {
-    throw new InternalErrorException(sprintf('The executable file for %s was not found', 'uglifyjs'));
+    throw new InternalErrorException(
+        sprintf('The executable file for %s was not found', 'uglifyjs')
+    );
 }
 
 if (!is_writeable(ASSETS)) {
-    throw new InternalErrorException(sprintf('File or directory %s not writeable', ASSETS));
+    throw new InternalErrorException(
+        sprintf('File or directory %s not writeable', ASSETS)
+    );
 }

@@ -107,7 +107,9 @@ class Asset
 
         //Writes the file
         if (!(new File($asset, true, 0777))->write($content, 'w', true)) {
-            throw new InternalErrorException(__d('assets', 'Failed to create file or directory {0}', $asset));
+            throw new InternalErrorException(
+                __d('assets', 'Failed to create file or directory {0}', $asset)
+            );
         }
 
         //Executes `cleancss`
@@ -148,11 +150,18 @@ class Asset
 
         //Writes the file
         if (!(new File($asset, true, 0777))->write($content, 'w', true)) {
-            throw new InternalErrorException(__d('assets', 'Failed to create file or directory {0}', $asset));
+            throw new InternalErrorException(
+                __d('assets', 'Failed to create file or directory {0}', $asset)
+            );
         }
 
         //Executes `uglifyjs`
-        exec(sprintf('%s %s --compress --mangle -o %s', UGLIFYJS_BIN, $asset, $asset));
+        exec(sprintf(
+            '%s %s --compress --mangle -o %s',
+            UGLIFYJS_BIN,
+            $asset,
+            $asset
+        ));
 
         return $www;
     }
