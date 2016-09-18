@@ -70,7 +70,7 @@ class Asset
             $path = sprintf('%s.%s', $path, $extension);
 
             return [$path, filemtime($path)];
-        }, is_array($paths) ? $paths : [$paths]);
+        }, (array)$paths);
 
         return $paths;
     }
