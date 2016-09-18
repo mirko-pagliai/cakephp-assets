@@ -19,5 +19,11 @@
         "psr-4": {
             "Assets\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Assets\\Test\\": "tests",
+            "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src"
+        }
     }
 }

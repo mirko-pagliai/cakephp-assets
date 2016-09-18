@@ -2,7 +2,8 @@
 ## 1.1 branch
 ### 1.1.0
 * the `Asset` utility has been renamed as `AssetsCreator` and now it uses the
-    temporary directory (`APP/tmp/assets/`) to create assets.
+    temporary directory (`APP/tmp/assets/`) to create assets;
+* added tests for `AssetsCreator` and `AssetHelper` classes.
 
 ## 1.0 branch
 ### 1.0.2
