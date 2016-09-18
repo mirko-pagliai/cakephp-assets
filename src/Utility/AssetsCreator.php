@@ -31,7 +31,7 @@ use Cake\Network\Exception\InternalErrorException;
 /**
  * An utility to create assets
  */
-class Asset
+class AssetsCreator
 {
     /**
      * Parses paths and for each path returns an array with the full path and
@@ -39,19 +39,16 @@ class Asset
      * @param string|array $paths String or array of css/js files
      * @param string $extension Extension (`css` or `js`)
      * @return array
-     * @uses Cake\Core\Plugin::loaded()
-     * @uses Cake\Core\Plugin::path()
+     * @throws InternalErrorException
      */
-    protected function _parsePaths($paths, $extension)
+    protected static function _parsePaths($paths, $extension)
     {
-        $plugins = Plugin::loaded();
-
         //Parses paths and for each returns an array with the full path and
         //  the last modification time
-        $paths = array_map(function ($path) use ($extension, $plugins) {
+        return array_map(function ($path) use ($extension) {
             $plugin = pluginSplit($path);
 
-            if (in_array($plugin[0], $plugins)) {
+            if (!empty($plugin[0])) {
                 $path = $plugin[1];
             }
 
@@ -61,7 +58,7 @@ class Asset
                 $path = $extension . DS . $path;
             }
 
-            if (in_array($plugin[0], $plugins)) {
+            if (!empty($plugin[0])) {
                 $path = Plugin::path($plugin[0]) . 'webroot' . DS . $path;
             } else {
                 $path = WWW_ROOT . $path;
@@ -69,100 +66,104 @@ class Asset
 
             $path = sprintf('%s.%s', $path, $extension);
 
+            if (!file_exists($path)) {
+                throw new InternalErrorException(
+                    __d('assets', 'File or directory {0} doesn\'t exist', $path)
+                );
+            }
+
             return [$path, filemtime($path)];
         }, (array)$paths);
-
-        return $paths;
     }
 
     /**
      * Gets a css asset. The asset will be created, if doesn't exist
      * @param string|array $path String or array of css files
-     * @return string Asset address
+     * @return string
      * @see https://github.com/jakubpawlowicz/clean-css clean-css
      * @throws InternalErrorException
      * @uses _parsePaths()
      */
-    public function css($path)
+    public static function css($path)
     {
         //Parses paths and for each returns an array with the full path and
         //  the last modification time
-        $path = $this->_parsePaths($path, 'css');
-        //Sets the basename
-        $filename = sprintf('%s.%s', md5(serialize($path)), 'css');
-        //Sets the asset file
-        $asset = ASSETS . DS . $filename;
-        //Sets the asset address
-        $www = ASSETS_WWW . '/' . $filename;
+        $path = self::_parsePaths($path, 'css');
+
+        //Sets basename and full path of the asset
+        $assetBasename = md5(serialize($path));
+        $assetPath = ASSETS . DS . sprintf('%s.%s', $assetBasename, 'css');
 
         //Returns, if the asset already exists
-        if (is_readable($asset)) {
-            return $www;
+        if (is_readable($assetPath)) {
+            return $assetBasename;
         }
 
-        //Reads the content of all paths
+        //Reads and concatenates the content of all paths
         $content = implode(PHP_EOL, array_map(function ($path) {
             return file_get_contents($path[0]);
         }, $path));
 
         //Writes the file
-        if (!(new File($asset, true, 0777))->write($content, 'w', true)) {
-            throw new InternalErrorException(
-                __d('assets', 'Failed to create file or directory {0}', $asset)
-            );
+        if (!(new File($assetPath, true, 0777))->write($content)) {
+            throw new InternalErrorException(__d(
+                'assets',
+                'Failed to create file or directory {0}',
+                $assetPath
+            ));
         }
 
         //Executes `cleancss`
-        exec(sprintf('%s -o %s --s0 %s', CLEANCSS_BIN, $asset, $asset));
+        exec(sprintf('%s -o %s --s0 %s', CLEANCSS_BIN, $assetPath, $assetPath));
 
-        return $www;
+        return $assetBasename;
     }
 
     /**
      * Gets a js asset. The asset will be created, if doesn't exist
      * @param string|array $path String or array of js files
-     * @return string Asset address
+     * @return string
      * @see https://github.com/mishoo/UglifyJS2 UglifyJS
      * @throws InternalErrorException
      * @uses _parsePaths()
      */
-    public function script($path)
+    public static function script($path)
     {
         //Parses paths and for each returns an array with the full path and
         //  the last modification time
-        $path = $this->_parsePaths($path, 'js');
-        //Sets the basename
-        $filename = sprintf('%s.%s', md5(serialize($path)), 'js');
-        //Sets the asset file
-        $asset = ASSETS . DS . $filename;
-        //Sets the asset address
-        $www = ASSETS_WWW . '/' . $filename;
+        $path = self::_parsePaths($path, 'js');
+
+        //Sets basename and full path of the asset
+        $assetBasename = md5(serialize($path));
+        $assetPath = ASSETS . DS . sprintf('%s.%s', $assetBasename, 'js');
 
         //Returns, if the asset already exists
-        if (is_readable($asset)) {
-            return $www;
+        if (is_readable($assetPath)) {
+            return $assetBasename;
         }
 
-        //Reads the content of all paths
+        //Reads and concatenates the content of all paths
         $content = implode(PHP_EOL, array_map(function ($path) {
             return file_get_contents($path[0]);
         }, $path));
 
         //Writes the file
-        if (!(new File($asset, true, 0777))->write($content, 'w', true)) {
-            throw new InternalErrorException(
-                __d('assets', 'Failed to create file or directory {0}', $asset)
-            );
+        if (!(new File($assetPath, true, 0777))->write($content)) {
+            throw new InternalErrorException(__d(
+                'assets',
+                'Failed to create file or directory {0}',
+                $assetPath
+            ));
         }
 
         //Executes `uglifyjs`
         exec(sprintf(
             '%s %s --compress --mangle -o %s',
             UGLIFYJS_BIN,
-            $asset,
-            $asset
+            $assetPath,
+            $assetPath
         ));
 
-        return $www;
+        return $assetBasename;
     }
 }

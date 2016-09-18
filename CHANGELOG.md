@@ -1,4 +1,9 @@
 # 1.x branch
+## 1.1 branch
+### 1.1.0
+* the `Asset` utility has been renamed as `AssetsCreator` and now it uses the
+    temporary directory (`APP/tmp/assets/`) to create assets.
+
 ## 1.0 branch
 ### 1.0.2
 * fixed code for CakePHP Code Sniffer.

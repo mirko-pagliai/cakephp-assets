@@ -23,12 +23,7 @@
 
 //Sets the default asset directory
 if (!defined('ASSETS')) {
-    define('ASSETS', WWW_ROOT . 'assets');
-}
-
-//Sets the default asset address
-if (!defined('ASSETS_WWW')) {
-    define('ASSETS_WWW', '/assets');
+    define('ASSETS', TMP . 'assets');
 }
 
 //If `false`, assets will be used only if debugging is off. Else, if `true`,

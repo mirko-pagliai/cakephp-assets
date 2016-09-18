@@ -24,7 +24,7 @@
  */
 namespace Assets\View\Helper;
 
-use Assets\Utility\Asset;
+use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\View\Helper;
 
@@ -47,12 +47,12 @@ class AssetHelper extends Helper
      * @param string|array $path String or array of css files
      * @param array $options Array of options and HTML attributes
      * @return string Html, `<link>` or `<style>` tag
-     * @uses Assets\Utility\Asset:css()
+     * @uses Assets\Utility\AssetsCreator:css()
      */
     public function css($path, array $options = [])
     {
         if (!Configure::read('debug') || FORCE_ASSETS) {
-            $path = (new Asset())->css($path, 'css');
+            $path = AssetsCreator::css($path, 'css');
         }
 
         return $this->Html->css($path, $options);
@@ -64,12 +64,12 @@ class AssetHelper extends Helper
      * @param array $options Array of options and HTML attributes
      * @return mixed String of `<script />` tags or null if `$inline` is
      *  false or if `$once` is true
-     * @uses Assets\Utility\Asset:script()
+     * @uses Assets\Utility\AssetsCreator:script()
      */
     public function script($url, array $options = [])
     {
         if (!Configure::read('debug') || FORCE_ASSETS) {
-            $url = (new Asset())->script($url, 'js');
+            $url = AssetsCreator::script($url, 'js');
         }
 
         return $this->Html->script($url, $options);
