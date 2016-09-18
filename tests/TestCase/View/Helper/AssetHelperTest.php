@@ -72,8 +72,8 @@ class AssetHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = (bool)preg_match('/href="\/css\/[a-z0-9]+\.css"/', $result);
-        $this->assertTrue($result);
+        $result = preg_match('/href="\/assets\/css\/[a-z0-9]+\.css"/', $result);
+        $this->assertTrue((bool)$result);
 
         $result = $this->Asset->css(['test', 'test2']);
         $expected = [
@@ -84,8 +84,8 @@ class AssetHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = (bool)preg_match('/href="\/css\/[a-z0-9]+\.css"/', $result);
-        $this->assertTrue($result);
+        $result = preg_match('/href="\/assets\/css\/[a-z0-9]+\.css"/', $result);
+        $this->assertTrue((bool)$result);
     }
 
     /**
@@ -99,14 +99,14 @@ class AssetHelperTest extends TestCase
         $expected = ['script' => ['src']];
         $this->assertHtml($expected, $result);
 
-        $result = (bool)preg_match('/src="\/js\/[a-z0-9]+\.js"/', $result);
-        $this->assertTrue($result);
+        $result = preg_match('/src="\/assets\/js\/[a-z0-9]+\.js"/', $result);
+        $this->assertTrue((bool)$result);
 
         $result = $this->Asset->script(['test', 'test2']);
         $expected = ['script' => ['src']];
         $this->assertHtml($expected, $result);
 
-        $result = (bool)preg_match('/src="\/js\/[a-z0-9]+\.js"/', $result);
-        $this->assertTrue($result);
+        $result = preg_match('/src="\/assets\/js\/[a-z0-9]+\.js"/', $result);
+        $this->assertTrue((bool)$result);
     }
 }
