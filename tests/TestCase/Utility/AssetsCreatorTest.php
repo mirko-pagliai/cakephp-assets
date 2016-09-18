@@ -54,6 +54,9 @@ class AssetsCreatorTest extends TestCase
         ];
         $this->assertEquals($expected, $result);
 
+        $result = AssetsCreator::parsePaths('/css/test', 'css');
+        $this->assertEquals($expected, $result);
+
         $result = AssetsCreator::parsePaths([
             'test',
             'subdir/test',
@@ -77,8 +80,7 @@ class AssetsCreatorTest extends TestCase
         $expected = array_map(function ($file) {
             return [$file, filemtime($file)];
         }, $expected);
-
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $result);        
     }
 
     /**
@@ -95,7 +97,7 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `_parsePaths()` method, with no existing plugin
-     * @expectedException Cake\Core\Exception\MissingPluginException
+     * @expectedException Cake\Network\Exception\InternalErrorException
      * @return void
      * @uses AssetsCreator::parsePaths()
      * @test

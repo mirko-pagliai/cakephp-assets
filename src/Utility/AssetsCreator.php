@@ -43,12 +43,14 @@ class AssetsCreator
      */
     protected static function _parsePaths($paths, $extension)
     {
+        $plugins = Plugin::loaded();
+
         //Parses paths and for each returns an array with the full path and
         //  the last modification time
-        return array_map(function ($path) use ($extension) {
+        return array_map(function ($path) use ($extension, $plugins) {
             $plugin = pluginSplit($path);
 
-            if (!empty($plugin[0])) {
+            if (in_array($plugin[0], $plugins)) {
                 $path = $plugin[1];
             }
 
@@ -58,7 +60,7 @@ class AssetsCreator
                 $path = $extension . DS . $path;
             }
 
-            if (!empty($plugin[0])) {
+            if (in_array($plugin[0], $plugins)) {
                 $path = Plugin::path($plugin[0]) . 'webroot' . DS . $path;
             } else {
                 $path = WWW_ROOT . $path;
