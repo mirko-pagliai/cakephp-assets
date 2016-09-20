@@ -80,7 +80,7 @@ class AssetsCreatorTest extends TestCase
         $expected = array_map(function ($file) {
             return [$file, filemtime($file)];
         }, $expected);
-        $this->assertEquals($expected, $result);        
+        $this->assertEquals($expected, $result);
     }
 
     /**
