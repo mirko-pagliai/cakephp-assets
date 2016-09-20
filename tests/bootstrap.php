@@ -102,5 +102,9 @@ Cache::config([
     ],
 ]);
 
-Plugin::load('Assets', ['bootstrap' => true, 'path' => ROOT]);
+Plugin::load('Assets', [
+    'bootstrap' => true,
+    'path' => ROOT,
+    'routes' => true,
+]);
 Plugin::load('TestPlugin');
