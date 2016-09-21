@@ -107,7 +107,6 @@ Plugin::load('Assets', [
     'path' => ROOT,
     'routes' => true,
 ]);
-Plugin::load('TestPlugin');
 
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');

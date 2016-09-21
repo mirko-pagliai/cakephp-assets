@@ -23,6 +23,7 @@
 namespace Assets\Test\TestCase\View\Helper;
 
 use Assets\Utility\AssetsCreator as BaseAssetsCreator;
+use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -86,25 +87,47 @@ class AssetsCreatorTest extends TestCase
             'test',
             'subdir/test',
             '/othercssdir/test',
+        ], 'css');
+        $files = [
+            'css' . DS . 'test.css',
+            'css' . DS . 'subdir' . DS . 'test.css',
+            'othercssdir' . DS . 'test.css',
+        ];
+        $expected = array_map(function ($file) {
+            $file = APP . 'webroot' . DS . $file;
+
+            return [$file, filemtime($file)];
+        }, $files);
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Test for `_parsePaths()` method with files from plugin
+     * @return void
+     * @test
+     */
+    public function testParsePathsPlugin()
+    {
+        Plugin::load('TestPlugin');
+
+        $result = AssetsCreator::parsePaths([
             'TestPlugin.test',
             'TestPlugin.subdir/test',
             'TestPlugin./othercssdir/test',
         ], 'css');
-        $expected = [
-            APP . 'webroot' . DS . 'css' . DS . 'test.css',
-            APP . 'webroot' . DS . 'css' . DS . 'subdir' . DS . 'test.css',
-            APP . 'webroot' . DS . 'othercssdir' . DS . 'test.css',
-            APP . 'Plugin' . DS . 'TestPlugin' . DS . 'webroot' . DS . 'css' .
-                DS . 'test.css',
-            APP . 'Plugin' . DS . 'TestPlugin' . DS . 'webroot' . DS . 'css' .
-                DS . 'subdir' . DS . 'test.css',
-            APP . 'Plugin' . DS . 'TestPlugin' . DS . 'webroot' . DS .
-                'othercssdir' . DS . 'test.css',
+        $files = [
+            'css' . DS . 'test.css',
+            'css' . DS . 'subdir' . DS . 'test.css',
+            'othercssdir' . DS . 'test.css',
         ];
         $expected = array_map(function ($file) {
+            $file = APP . 'Plugin' . DS . 'TestPlugin' . DS . 'webroot' . DS . $file;
+
             return [$file, filemtime($file)];
-        }, $expected);
+        }, $files);
         $this->assertEquals($expected, $result);
+
+        Plugin::unload('TestPlugin');
     }
 
     /**
