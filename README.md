@@ -17,6 +17,9 @@ Then, you can install the plugin via composer:
 You have to edit `APP/config/bootstrap.php` to load the plugin:
 
     Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
+
+For more information on how to load the plugin, please refer to the 
+[Cookbook](http://book.cakephp.org/3.0/en/plugins.html#loading-a-plugin).
     
 By default the plugin uses the `APP/tmp/assets` directory to save the 
 asset files. So you have to create the directory and make it writable:
