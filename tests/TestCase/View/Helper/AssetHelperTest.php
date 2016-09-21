@@ -25,6 +25,7 @@ namespace Assets\Test\TestCase\View\Helper;
 use Assets\View\Helper\AssetHelper;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
+use Cake\View\Helper\HtmlHelper;
 use Cake\View\View;
 
 /**
@@ -42,8 +43,12 @@ class AssetHelperTest extends TestCase
     {
         parent::setUp();
 
+        Configure::write('debug', true);
+        Configure::write('Assets.force', true);
+
         $this->View = new View();
         $this->Asset = new AssetHelper($this->View);
+        $this->Html = new HtmlHelper($this->View);
     }
 
     /**
@@ -54,7 +59,7 @@ class AssetHelperTest extends TestCase
     {
         parent::tearDown();
 
-        unset($this->Asset, $this->View);
+        unset($this->Asset, $this->Html, $this->View);
 
         //Deletes all assets
         foreach (glob(Configure::read('Assets.target') . DS . '*') as $file) {
@@ -90,6 +95,48 @@ class AssetHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
         $this->assertRegExp($regex, $result);
+    }
+
+    /**
+     * Test for `css()` method with `debug` enabled/disabled
+     * @return void
+     * @test
+     */
+    public function testCssWithDebug()
+    {
+        //`force`  disabled, so it does not affect the test
+        Configure::write('Assets.force', false);
+
+        Configure::write('debug', true);
+
+        $result = $this->Asset->css('test');
+        $this->assertEquals($this->Html->css('test'), $result);
+
+        Configure::write('debug', false);
+
+        $result = $this->Asset->css('test');
+        $this->assertNotEquals($this->Html->css('test'), $result);
+    }
+
+    /**
+     * Test for `css()` method with `force` enabled/disabled
+     * @return void
+     * @test
+     */
+    public function testCssWithForce()
+    {
+        //Debugging disabled, so it does not affect the test
+        Configure::write('debug', true);
+
+        Configure::write('Assets.force', false);
+
+        $result = $this->Asset->css('test');
+        $this->assertEquals($this->Html->css('test'), $result);
+
+        Configure::write('Assets.force', true);
+
+        $result = $this->Asset->css('test');
+        $this->assertNotEquals($this->Html->css('test'), $result);
     }
 
     /**
