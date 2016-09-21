@@ -1,7 +1,7 @@
 # Assets
 *Assets* is a CakePHP plugin to allows you to generate assets.  
 It uses [matthiasmullie/minify](https://github.com/matthiasmullie/minify) and
-provides a convniente helper to generate and link assets files.
+provides a convenient helper to generate and link assets files.
 
 ## Installation
 You can install the plugin via composer:
