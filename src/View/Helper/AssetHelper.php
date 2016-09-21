@@ -48,7 +48,7 @@ class AssetHelper extends Helper
      */
     public function css($path, array $options = [])
     {
-        if (!Configure::read('debug') || FORCE_ASSETS) {
+        if (!Configure::read('debug') || Configure::read('Assets.force')) {
             $path = '/assets/css/' . AssetsCreator::css($path) . '.css';
         }
 
@@ -65,7 +65,7 @@ class AssetHelper extends Helper
      */
     public function script($url, array $options = [])
     {
-        if (!Configure::read('debug') || FORCE_ASSETS) {
+        if (!Configure::read('debug') || Configure::read('Assets.force')) {
             $url = '/assets/js/' . AssetsCreator::script($url) . '.js';
         }
 

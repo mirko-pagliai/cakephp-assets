@@ -21,9 +21,12 @@
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 
+use Cake\Core\Configure;
 use Cake\Network\Exception\InternalErrorException;
 
 require_once 'constants.php';
+
+Configure::write('Assets.force', false);
 
 if (!is_writeable(ASSETS)) {
     throw new InternalErrorException(

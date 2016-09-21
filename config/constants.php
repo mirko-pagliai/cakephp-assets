@@ -25,9 +25,3 @@
 if (!defined('ASSETS')) {
     define('ASSETS', TMP . 'assets');
 }
-
-//If `false`, assets will be used only if debugging is off. Else, if `true`,
-//  assets will be always used
-if (!defined('FORCE_ASSETS')) {
-    define('FORCE_ASSETS', false);
-}

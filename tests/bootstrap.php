@@ -49,7 +49,6 @@ define('SESSIONS', TMP . 'sessions' . DS);
 
 //For plugin
 define('ASSETS', TMP . 'assets');
-define('FORCE_ASSETS', true);
 
 //@codingStandardsIgnoreStart
 @mkdir(LOGS);
@@ -107,6 +106,8 @@ Plugin::load('Assets', [
     'path' => ROOT,
     'routes' => true,
 ]);
+
+Configure::write('Assets.force', true);
 
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
