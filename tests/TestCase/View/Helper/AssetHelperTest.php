@@ -54,6 +54,11 @@ class AssetHelperTest extends TestCase
         parent::tearDown();
 
         unset($this->Asset, $this->View);
+
+        //Deletes all assets
+        foreach (glob(ASSETS . DS . '*') as $file) {
+            unlink($file);
+        }
     }
 
     /**
@@ -63,6 +68,8 @@ class AssetHelperTest extends TestCase
      */
     public function testCss()
     {
+        $regex = '/href="\/assets\/css\/[a-z0-9]+\.css"/';
+
         $result = $this->Asset->css('test');
         $expected = [
             'link' => [
@@ -71,9 +78,7 @@ class AssetHelperTest extends TestCase
             ],
         ];
         $this->assertHtml($expected, $result);
-
-        $result = preg_match('/href="\/assets\/css\/[a-z0-9]+\.css"/', $result);
-        $this->assertTrue((bool)$result);
+        $this->assertRegExp($regex, $result);
 
         $result = $this->Asset->css(['test', 'test2']);
         $expected = [
@@ -83,9 +88,7 @@ class AssetHelperTest extends TestCase
             ],
         ];
         $this->assertHtml($expected, $result);
-
-        $result = preg_match('/href="\/assets\/css\/[a-z0-9]+\.css"/', $result);
-        $this->assertTrue((bool)$result);
+        $this->assertRegExp($regex, $result);
     }
 
     /**
@@ -95,18 +98,16 @@ class AssetHelperTest extends TestCase
      */
     public function testScript()
     {
+        $regex = '/src="\/assets\/js\/[a-z0-9]+\.js"/';
+
         $result = $this->Asset->script('test');
         $expected = ['script' => ['src']];
         $this->assertHtml($expected, $result);
-
-        $result = preg_match('/src="\/assets\/js\/[a-z0-9]+\.js"/', $result);
-        $this->assertTrue((bool)$result);
+        $this->assertRegExp($regex, $result);
 
         $result = $this->Asset->script(['test', 'test2']);
         $expected = ['script' => ['src']];
         $this->assertHtml($expected, $result);
-
-        $result = preg_match('/src="\/assets\/js\/[a-z0-9]+\.js"/', $result);
-        $this->assertTrue((bool)$result);
+        $this->assertRegExp($regex, $result);
     }
 }

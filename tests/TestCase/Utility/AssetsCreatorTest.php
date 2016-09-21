@@ -22,10 +22,22 @@
  */
 namespace Assets\Test\TestCase\View\Helper;
 
+use Assets\Utility\AssetsCreator as BaseAssetsCreator;
 use Cake\TestSuite\TestCase;
 
-class AssetsCreator extends \Assets\Utility\AssetsCreator
+/**
+ * Extends `Assets\Utility\AssetsCreator` and makes the `_parsePaths()` method
+ *  as a public method
+ */
+class AssetsCreator extends BaseAssetsCreator
 {
+    /**
+     * Makes the `_parsePaths()` method as a public method
+     * @param string|array $paths String or array of css/js files
+     * @param string $extension Extension (`css` or `js`)
+     * @return array
+     * @uses Assets\Utility\AssetsCreator::_parsePaths()
+     */
     public static function parsePaths($paths, $extension)
     {
         return parent::_parsePaths($paths, $extension);
@@ -38,9 +50,22 @@ class AssetsCreator extends \Assets\Utility\AssetsCreator
 class AssetsCreatorTest extends TestCase
 {
     /**
+     * Teardown any static object changes and restore them
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        //Deletes all assets
+        foreach (glob(ASSETS . DS . '*') as $file) {
+            unlink($file);
+        }
+    }
+
+    /**
      * Test for `_parsePaths()` method
      * @return void
-     * @uses AssetsCreator::parsePaths()
      * @test
      */
     public function testParsePaths()
@@ -76,7 +101,6 @@ class AssetsCreatorTest extends TestCase
             APP . 'Plugin' . DS . 'TestPlugin' . DS . 'webroot' . DS .
                 'othercssdir' . DS . 'test.css',
         ];
-
         $expected = array_map(function ($file) {
             return [$file, filemtime($file)];
         }, $expected);
@@ -87,7 +111,6 @@ class AssetsCreatorTest extends TestCase
      * Test for `_parsePaths()` method, with no existing file
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @return void
-     * @uses AssetsCreator::parsePaths()
      * @test
      */
     public function testParsePathsNoExistingFile()
@@ -99,7 +122,6 @@ class AssetsCreatorTest extends TestCase
      * Test for `_parsePaths()` method, with no existing plugin
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @return void
-     * @uses AssetsCreator::parsePaths()
      * @test
      */
     public function testParsePathsNoExistingPlugin()
@@ -111,7 +133,6 @@ class AssetsCreatorTest extends TestCase
      * Test for `_parsePaths()` method, with no existing file from plugin
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @return void
-     * @uses AssetsCreator::parsePaths()
      * @test
      */
     public function testParsePathsNoExistingPluginFile()
@@ -136,14 +157,9 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals($expected, $result);
 
         $file = ASSETS . DS . sprintf('%s.%s', $result, 'css');
-        $this->assertTrue(file_exists($file));
-
-        $result = file_get_contents($file);
         $expected = '#my-id{font-size:12px}.my-class{font-size:14px}';
-        $this->assertEquals($expected, $result);
-
-        //@codingStandardsIgnoreLine
-        @unlink($file);
+        $this->assertFileExists($file);
+        $this->assertStringEqualsFile($file, $expected);
 
         $result = AssetsCreator::css(['test', 'test2']);
         $expected = md5(serialize([
@@ -159,15 +175,10 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals($expected, $result);
 
         $file = ASSETS . DS . sprintf('%s.%s', $result, 'css');
-        $this->assertTrue(file_exists($file));
-
-        $result = file_get_contents($file);
         $expected = '#my-id{font-size:12px}.my-class{font-size:14px}' .
             '#my-id2{font-size:16px}.my-class2{font-size:18px}';
-        $this->assertEquals($expected, $result);
-
-        //@codingStandardsIgnoreLine
-        @unlink($file);
+        $this->assertFileExists($file);
+        $this->assertStringEqualsFile($file, $expected);
     }
 
     /**
@@ -187,15 +198,10 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals($expected, $result);
 
         $file = ASSETS . DS . sprintf('%s.%s', $result, 'js');
-        $this->assertTrue(file_exists($file));
-
-        $result = file_get_contents($file);
         $expected = 'function other_alert(){alert("Another alert")}' .
             '$(function(){var t="Ehi!";alert(t)});';
-        $this->assertEquals($expected, $result);
-
-        //@codingStandardsIgnoreLine
-        @unlink($file);
+        $this->assertFileExists($file);
+        $this->assertStringEqualsFile($file, $expected);
 
         $result = AssetsCreator::script(['test', 'test2']);
         $expected = md5(serialize([
@@ -211,16 +217,11 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals($expected, $result);
 
         $file = ASSETS . DS . sprintf('%s.%s', $result, 'js');
-        $this->assertTrue(file_exists($file));
-
-        $result = file_get_contents($file);
         $expected = 'function other_alert(){alert("Another alert")}' .
             '$(function(){var r="Ehi!";alert(r)});' .
             'var first="This is first",second="This is second";' .
             'alert(first+" and "+second);';
-        $this->assertEquals($expected, $result);
-
-        //@codingStandardsIgnoreLine
-        @unlink($file);
+        $this->assertFileExists($file);
+        $this->assertStringEqualsFile($file, $expected);
     }
 }

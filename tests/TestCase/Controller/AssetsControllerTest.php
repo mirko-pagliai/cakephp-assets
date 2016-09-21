@@ -55,7 +55,6 @@ class AssetsControllerTest extends IntegrationTestCase
         $filename = sprintf('%s.%s', AssetsCreator::css('test'), 'css');
 
         $this->get(sprintf('/assets/css/%s', $filename));
-
         $this->assertResponseOk();
         $this->assertContentType('text/css');
         $this->assertFileResponse(ASSETS . DS . $filename);
@@ -72,7 +71,6 @@ class AssetsControllerTest extends IntegrationTestCase
         $filename = sprintf('%s.%s', AssetsCreator::script('test'), 'js');
 
         $this->get(sprintf('/assets/js/%s', $filename));
-
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
         $this->assertFileResponse(ASSETS . DS . $filename);
@@ -86,7 +84,6 @@ class AssetsControllerTest extends IntegrationTestCase
     public function testAssetNoExistingFile()
     {
         $this->get('/assets/js/noexistingfile.js');
-
         $this->assertResponseError();
     }
 }
