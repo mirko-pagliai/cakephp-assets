@@ -41,6 +41,21 @@ enabled.
 Setting `Assets.target`, you can use another directory where the plugin will 
 generate the assets.
 
+## How to use
+You have to use only the `AssetHelper`. This helper provides `css()` and
+`script()` methods, similar to the methods provided by the `HtmlHelper`.
+
+The syntax is the same, you just have to change the name helper. Example for
+`AssetHelper::css()`.
+
+    echo $this->Asset->css(['one.css', 'two.css']);
+
+This will combine and compress `one.css` and `two.css` files, creating a unique
+asset file, and will create a link element for CSS stylesheets, as does the 
+method provided by the `HtmlHelper`.
+
+The same also applies to the `AssetHelper::script()` method.
+
 ## Versioning
 For transparency and insight into our release cycle and to maintain backward 
 compatibility, *Assets* will be maintained under the 
