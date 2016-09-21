@@ -23,6 +23,7 @@
 namespace Assets\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Core\Configure;
 
 /**
  * Assets controller class
@@ -38,7 +39,7 @@ class AssetsController extends Controller
     public function asset($filename, $type)
     {
         $this->response->type($type);
-        $this->response->file(ASSETS . DS . $filename);
+        $this->response->file(Configure::read('Assets.target') . DS . $filename);
 
         return $this->response;
     }

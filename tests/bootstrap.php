@@ -47,16 +47,12 @@ define('CACHE', TMP);
 define('LOGS', TMP);
 define('SESSIONS', TMP . 'sessions' . DS);
 
-//For plugin
-define('ASSETS', TMP . 'assets');
-
 //@codingStandardsIgnoreStart
 @mkdir(LOGS);
 @mkdir(SESSIONS);
 @mkdir(CACHE);
 @mkdir(CACHE . 'views');
 @mkdir(CACHE . 'models');
-@mkdir(ASSETS);
 //@codingStandardsIgnoreEnd
 
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
@@ -108,6 +104,11 @@ Plugin::load('Assets', [
 ]);
 
 Configure::write('Assets.force', true);
+Configure::write('Assets.target', TMP . 'assets');
+
+//@codingStandardsIgnoreStart
+@mkdir(Configure::read('Assets.target'));
+//@codingStandardsIgnoreEnd
 
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');

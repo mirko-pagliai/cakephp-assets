@@ -23,6 +23,7 @@
 namespace Assets\Test\TestCase\View\Helper;
 
 use Assets\Utility\AssetsCreator as BaseAssetsCreator;
+use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 
@@ -59,7 +60,7 @@ class AssetsCreatorTest extends TestCase
         parent::tearDown();
 
         //Deletes all assets
-        foreach (glob(ASSETS . DS . '*') as $file) {
+        foreach (glob(Configure::read('Assets.target') . DS . '*') as $file) {
             unlink($file);
         }
     }
@@ -179,7 +180,7 @@ class AssetsCreatorTest extends TestCase
         ]));
         $this->assertEquals($expected, $result);
 
-        $file = ASSETS . DS . sprintf('%s.%s', $result, 'css');
+        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
         $expected = '#my-id{font-size:12px}.my-class{font-size:14px}';
         $this->assertFileExists($file);
         $this->assertStringEqualsFile($file, $expected);
@@ -197,7 +198,7 @@ class AssetsCreatorTest extends TestCase
         ]));
         $this->assertEquals($expected, $result);
 
-        $file = ASSETS . DS . sprintf('%s.%s', $result, 'css');
+        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
         $expected = '#my-id{font-size:12px}.my-class{font-size:14px}' .
             '#my-id2{font-size:16px}.my-class2{font-size:18px}';
         $this->assertFileExists($file);
@@ -220,7 +221,7 @@ class AssetsCreatorTest extends TestCase
         ]));
         $this->assertEquals($expected, $result);
 
-        $file = ASSETS . DS . sprintf('%s.%s', $result, 'js');
+        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
         $expected = 'function other_alert()' . PHP_EOL .
             '{alert(\'Another alert\')}' . PHP_EOL .
             '$(function(){var msg=\'Ehi!\';alert(msg)})';
@@ -240,7 +241,7 @@ class AssetsCreatorTest extends TestCase
         ]));
         $this->assertEquals($expected, $result);
 
-        $file = ASSETS . DS . sprintf('%s.%s', $result, 'js');
+        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
         $expected = 'function other_alert()' . PHP_EOL .
             '{alert(\'Another alert\')}' . PHP_EOL .
             '$(function(){var msg=\'Ehi!\';alert(msg)});' .

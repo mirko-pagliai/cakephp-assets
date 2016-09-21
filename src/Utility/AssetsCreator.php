@@ -23,6 +23,7 @@
  */
 namespace Assets\Utility;
 
+use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Filesystem\File;
 use Cake\Network\Exception\InternalErrorException;
@@ -93,7 +94,7 @@ class AssetsCreator
 
         //Sets basename and full path of the asset
         $assetBasename = md5(serialize($paths));
-        $assetPath = ASSETS . DS . sprintf('%s.%s', $assetBasename, 'css');
+        $assetPath = Configure::read('Assets.target') . DS . sprintf('%s.%s', $assetBasename, 'css');
 
         //Returns, if the asset already exists
         if (is_readable($assetPath)) {
@@ -131,7 +132,7 @@ class AssetsCreator
 
         //Sets basename and full path of the asset
         $assetBasename = md5(serialize($paths));
-        $assetPath = ASSETS . DS . sprintf('%s.%s', $assetBasename, 'js');
+        $assetPath = Configure::read('Assets.target') . DS . sprintf('%s.%s', $assetBasename, 'js');
 
         //Returns, if the asset already exists
         if (is_readable($assetPath)) {

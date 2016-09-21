@@ -23,6 +23,7 @@
 namespace Assets\Test\TestCase\Controller;
 
 use Assets\Utility\AssetsCreator;
+use Cake\Core\Configure;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
@@ -39,7 +40,7 @@ class AssetsControllerTest extends IntegrationTestCase
         parent::tearDown();
 
         //Deletes all assets
-        foreach (glob(ASSETS . DS . '*') as $file) {
+        foreach (glob(Configure::read('Assets.target') . DS . '*') as $file) {
             unlink($file);
         }
     }
@@ -57,7 +58,7 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->get(sprintf('/assets/css/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('text/css');
-        $this->assertFileResponse(ASSETS . DS . $filename);
+        $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
     }
 
     /**
@@ -73,7 +74,7 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->get(sprintf('/assets/js/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
-        $this->assertFileResponse(ASSETS . DS . $filename);
+        $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
     }
 
     /**

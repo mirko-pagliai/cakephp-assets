@@ -23,6 +23,7 @@
 namespace Assets\Test\TestCase\View\Helper;
 
 use Assets\View\Helper\AssetHelper;
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -56,7 +57,7 @@ class AssetHelperTest extends TestCase
         unset($this->Asset, $this->View);
 
         //Deletes all assets
-        foreach (glob(ASSETS . DS . '*') as $file) {
+        foreach (glob(Configure::read('Assets.target') . DS . '*') as $file) {
             unlink($file);
         }
     }
