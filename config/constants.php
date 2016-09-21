@@ -31,13 +31,3 @@ if (!defined('ASSETS')) {
 if (!defined('FORCE_ASSETS')) {
     define('FORCE_ASSETS', false);
 }
-
-//Sets the cleancss executable
-if (!defined('CLEANCSS_BIN')) {
-    define('CLEANCSS_BIN', exec(sprintf('which %s', ('cleancss'))));
-}
-
-//Sets the uglifyjs executable
-if (!defined('UGLIFYJS_BIN')) {
-    define('UGLIFYJS_BIN', exec(sprintf('which %s', ('uglifyjs'))));
-}

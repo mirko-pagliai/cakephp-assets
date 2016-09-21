@@ -19,14 +19,14 @@
  * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
- * @see         https://github.com/jakubpawlowicz/clean-css clean-css
- * @see         https://github.com/mishoo/UglifyJS2 UglifyJS
+ * @see         https://github.com/matthiasmullie/minify
  */
 namespace Assets\Utility;
 
 use Cake\Core\Plugin;
 use Cake\Filesystem\File;
 use Cake\Network\Exception\InternalErrorException;
+use MatthiasMullie\Minify;
 
 /**
  * An utility to create assets
@@ -74,26 +74,25 @@ class AssetsCreator
                 );
             }
 
-            return [$path, filemtime($path)];
+            return ['path' => $path, 'time' => filemtime($path)];
         }, (array)$paths);
     }
 
     /**
      * Gets a css asset. The asset will be created, if doesn't exist
-     * @param string|array $path String or array of css files
+     * @param string|array $paths String or array of css files
      * @return string
-     * @see https://github.com/jakubpawlowicz/clean-css clean-css
      * @throws InternalErrorException
      * @uses _parsePaths()
      */
-    public static function css($path)
+    public static function css($paths)
     {
         //Parses paths and for each returns an array with the full path and
         //  the last modification time
-        $path = self::_parsePaths($path, 'css');
+        $paths = self::_parsePaths($paths, 'css');
 
         //Sets basename and full path of the asset
-        $assetBasename = md5(serialize($path));
+        $assetBasename = md5(serialize($paths));
         $assetPath = ASSETS . DS . sprintf('%s.%s', $assetBasename, 'css');
 
         //Returns, if the asset already exists
@@ -101,42 +100,37 @@ class AssetsCreator
             return $assetBasename;
         }
 
-        //Reads and concatenates the content of all paths
-        $content = implode(PHP_EOL, array_map(function ($path) {
-            return file_get_contents($path[0]);
-        }, $path));
+        $minifier = new Minify\CSS();
 
-        //Writes the file
-        if (!(new File($assetPath, true, 0777))->write($content)) {
-            throw new InternalErrorException(__d(
-                'assets',
-                'Failed to create file or directory {0}',
-                $assetPath
-            ));
+        foreach ($paths as $path) {
+            $minifier->add($path['path']);
         }
 
-        //Executes `cleancss`
-        exec(sprintf('%s -o %s --s0 %s', CLEANCSS_BIN, $assetPath, $assetPath));
+        //Writes the file
+        if (!(new File($assetPath, true, 0777))->write($minifier->minify())) {
+            throw new InternalErrorException(
+                __d('assets', 'Failed to create file or directory {0}', $assetPath)
+            );
+        }
 
         return $assetBasename;
     }
 
     /**
      * Gets a js asset. The asset will be created, if doesn't exist
-     * @param string|array $path String or array of js files
+     * @param string|array $paths String or array of js files
      * @return string
-     * @see https://github.com/mishoo/UglifyJS2 UglifyJS
      * @throws InternalErrorException
      * @uses _parsePaths()
      */
-    public static function script($path)
+    public static function script($paths)
     {
         //Parses paths and for each returns an array with the full path and
         //  the last modification time
-        $path = self::_parsePaths($path, 'js');
+        $paths = self::_parsePaths($paths, 'js');
 
         //Sets basename and full path of the asset
-        $assetBasename = md5(serialize($path));
+        $assetBasename = md5(serialize($paths));
         $assetPath = ASSETS . DS . sprintf('%s.%s', $assetBasename, 'js');
 
         //Returns, if the asset already exists
@@ -144,27 +138,18 @@ class AssetsCreator
             return $assetBasename;
         }
 
-        //Reads and concatenates the content of all paths
-        $content = implode(PHP_EOL, array_map(function ($path) {
-            return file_get_contents($path[0]);
-        }, $path));
+        $minifier = new Minify\JS();
 
-        //Writes the file
-        if (!(new File($assetPath, true, 0777))->write($content)) {
-            throw new InternalErrorException(__d(
-                'assets',
-                'Failed to create file or directory {0}',
-                $assetPath
-            ));
+        foreach ($paths as $path) {
+            $minifier->add($path['path']);
         }
 
-        //Executes `uglifyjs`
-        exec(sprintf(
-            '%s %s --compress --mangle -o %s',
-            UGLIFYJS_BIN,
-            $assetPath,
-            $assetPath
-        ));
+        //Writes the file
+        if (!(new File($assetPath, true, 0777))->write($minifier->minify())) {
+            throw new InternalErrorException(
+                __d('assets', 'Failed to create file or directory {0}', $assetPath)
+            );
+        }
 
         return $assetBasename;
     }

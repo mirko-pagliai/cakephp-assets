@@ -1,6 +1,7 @@
 # 1.x branch
 ## 1.1 branch
 ### 1.1.0
+* it uses `matthiasmullie/minify` instead of `clean-css` and `UglifyJS`;
 * the `Asset` utility has been renamed as `AssetsCreator` and now it uses the
     temporary directory (`APP/tmp/assets/`);
 * added the `AssetsController` with the `asset()` method, which takes care of

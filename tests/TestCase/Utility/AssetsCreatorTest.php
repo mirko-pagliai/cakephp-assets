@@ -74,8 +74,8 @@ class AssetsCreatorTest extends TestCase
         $result = AssetsCreator::parsePaths('test', 'css');
         $expected = [
             [
-                $file = APP . 'webroot' . DS . 'css' . DS . 'test.css',
-                filemtime($file),
+                'path' => $file = APP . 'webroot' . DS . 'css' . DS . 'test.css',
+                'time' => filemtime($file),
             ],
         ];
         $this->assertEquals($expected, $result);
@@ -88,16 +88,16 @@ class AssetsCreatorTest extends TestCase
             'subdir/test',
             '/othercssdir/test',
         ], 'css');
-        $files = [
+        $paths = [
             'css' . DS . 'test.css',
             'css' . DS . 'subdir' . DS . 'test.css',
             'othercssdir' . DS . 'test.css',
         ];
-        $expected = array_map(function ($file) {
-            $file = APP . 'webroot' . DS . $file;
+        $expected = array_map(function ($path) {
+            $path = APP . 'webroot' . DS . $path;
 
-            return [$file, filemtime($file)];
-        }, $files);
+            return ['path' => $path, 'time' => filemtime($path)];
+        }, $paths);
         $this->assertEquals($expected, $result);
     }
 
@@ -115,16 +115,16 @@ class AssetsCreatorTest extends TestCase
             'TestPlugin.subdir/test',
             'TestPlugin./othercssdir/test',
         ], 'css');
-        $files = [
+        $paths = [
             'css' . DS . 'test.css',
             'css' . DS . 'subdir' . DS . 'test.css',
             'othercssdir' . DS . 'test.css',
         ];
-        $expected = array_map(function ($file) {
-            $file = APP . 'Plugin' . DS . 'TestPlugin' . DS . 'webroot' . DS . $file;
+        $expected = array_map(function ($path) {
+            $path = APP . 'Plugin' . DS . 'TestPlugin' . DS . 'webroot' . DS . $path;
 
-            return [$file, filemtime($file)];
-        }, $files);
+            return ['path' => $path, 'time' => filemtime($path)];
+        }, $paths);
         $this->assertEquals($expected, $result);
 
         Plugin::unload('TestPlugin');
@@ -173,8 +173,8 @@ class AssetsCreatorTest extends TestCase
         $result = AssetsCreator::css('test');
         $expected = md5(serialize([
             [
-                $file = APP . 'webroot' . DS . 'css' . DS . 'test.css',
-                filemtime($file),
+                'path' => $file = APP . 'webroot' . DS . 'css' . DS . 'test.css',
+                'time' => filemtime($file),
             ],
         ]));
         $this->assertEquals($expected, $result);
@@ -187,12 +187,12 @@ class AssetsCreatorTest extends TestCase
         $result = AssetsCreator::css(['test', 'test2']);
         $expected = md5(serialize([
             [
-                $file = APP . 'webroot' . DS . 'css' . DS . 'test.css',
-                filemtime($file),
+                'path' => $file = APP . 'webroot' . DS . 'css' . DS . 'test.css',
+                'time' => filemtime($file),
             ],
             [
-                $file = APP . 'webroot' . DS . 'css' . DS . 'test2.css',
-                filemtime($file),
+                'path' => $file = APP . 'webroot' . DS . 'css' . DS . 'test2.css',
+                'time' => filemtime($file),
             ],
         ]));
         $this->assertEquals($expected, $result);
@@ -214,36 +214,39 @@ class AssetsCreatorTest extends TestCase
         $result = AssetsCreator::script('test');
         $expected = md5(serialize([
             [
-                $file = APP . 'webroot' . DS . 'js' . DS . 'test.js',
-                filemtime($file),
+                'path' => $file = APP . 'webroot' . DS . 'js' . DS . 'test.js',
+                'time' => filemtime($file),
             ],
         ]));
         $this->assertEquals($expected, $result);
 
         $file = ASSETS . DS . sprintf('%s.%s', $result, 'js');
-        $expected = 'function other_alert(){alert("Another alert")}' .
-            '$(function(){var t="Ehi!";alert(t)});';
+        $expected = 'function other_alert()' . PHP_EOL .
+            '{alert(\'Another alert\')}' . PHP_EOL .
+            '$(function(){var msg=\'Ehi!\';alert(msg)})';
         $this->assertFileExists($file);
         $this->assertStringEqualsFile($file, $expected);
 
         $result = AssetsCreator::script(['test', 'test2']);
         $expected = md5(serialize([
             [
-                $file = APP . 'webroot' . DS . 'js' . DS . 'test.js',
-                filemtime($file),
+                'path' => $file = APP . 'webroot' . DS . 'js' . DS . 'test.js',
+                'time' => filemtime($file),
             ],
             [
-                $file = APP . 'webroot' . DS . 'js' . DS . 'test2.js',
-                filemtime($file),
+                'path' => $file = APP . 'webroot' . DS . 'js' . DS . 'test2.js',
+                'time' => filemtime($file),
             ],
         ]));
         $this->assertEquals($expected, $result);
 
         $file = ASSETS . DS . sprintf('%s.%s', $result, 'js');
-        $expected = 'function other_alert(){alert("Another alert")}' .
-            '$(function(){var r="Ehi!";alert(r)});' .
-            'var first="This is first",second="This is second";' .
-            'alert(first+" and "+second);';
+        $expected = 'function other_alert()' . PHP_EOL .
+            '{alert(\'Another alert\')}' . PHP_EOL .
+            '$(function(){var msg=\'Ehi!\';alert(msg)});' .
+            'var first=\'This is first\';' .
+            'var second=\'This is second\';' .
+            'alert(first+\' and \'+second)';
         $this->assertFileExists($file);
         $this->assertStringEqualsFile($file, $expected);
     }
