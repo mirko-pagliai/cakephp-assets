@@ -1,16 +1,10 @@
 # Assets
-*Assets* is a CakePHP plugin to allows you to generate assets.
+*Assets* is a CakePHP plugin to allows you to generate assets.  
+It uses [matthiasmullie/minify](https://github.com/matthiasmullie/minify) and
+provides a convniente helper to generate and link assets files.
 
 ## Installation
-*Assets* uses [clean-css](https://github.com/jakubpawlowicz/clean-css) and 
-[UglifyJS 2](https://github.com/mishoo/UglifyJS2). Before you start, you have 
-to install them by using [Node.js](https://nodejs.org).  
-Example:
-	
-	$ sudo npm install clean-css -g
-	$ sudo npm install uglify-js -g
-
-Then, you can install the plugin via composer:
+You can install the plugin via composer:
 
     $ composer require --prefer-dist mirko-pagliai/assets
     
@@ -36,17 +30,6 @@ Example:
 
     define('ASSETS', TMP . 'custom_assets_dir');
     define('FORCE_ASSETS', true);
-    Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
-
-Note that the plugin tries to set the executables for *clean-css* and
-*UglifyJS 2* using the Unix `which` command.  
-If you want to set other executables or if your system can't use the `which`
-command, you have to define these constants in your bootstrap, before the 
-plugin is loaded.  
-Example:
-
-	define('CLEANCSS_BIN', '/full/path/to/cleancss');
-	define('UGLIFYJS_BIN', '/full/path/to/uglifyjs'));
     Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
 
 ## Versioning
