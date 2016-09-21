@@ -23,14 +23,23 @@ asset files. So you have to create the directory and make it writable:
 If you want to use a different directory, read below.
 
 ## Configuration
-The plugin is configured with some constants. You can find these constants into 
-`PLUGIN/config/constants.php`. To change the behavior of the plugin, you have 
-to define these constants in your bootstrap, before the plugin is loaded.  
-Example:
+The plugin uses some configuration parameters.
 
-    define('ASSETS', TMP . 'custom_assets_dir');
-    define('FORCE_ASSETS', true);
-    Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
+You must set the configuration after you've loaded the plugin, so the default
+configuration will be overwritten. For example, you can do this at the bottom 
+of the file `APP/config/app.php` of your application.
+
+### Configuration values
+
+    Configure::write('Assets.force', false);
+
+Setting `Assets.force` to `true`, the assets will be used even if debugging is 
+enabled.
+
+    Configure::write('Assets.target', TMP . 'assets');
+
+Setting `Assets.target`, you can use another directory where the plugin will 
+generate the assets.
 
 ## Versioning
 For transparency and insight into our release cycle and to maintain backward 
