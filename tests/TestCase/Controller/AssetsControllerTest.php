@@ -38,8 +38,6 @@ class AssetsControllerTest extends IntegrationTestCase
     {
         parent::tearDown();
 
-        $this->_compareBasePath = '';
-        
         //Deletes all assets
         foreach (glob(ASSETS . DS . '*') as $file) {
             unlink($file);
@@ -57,7 +55,7 @@ class AssetsControllerTest extends IntegrationTestCase
         $filename = sprintf('%s.%s', AssetsCreator::css('test'), 'css');
 
         $this->get(sprintf('/assets/css/%s', $filename));
-        
+
         $this->assertResponseOk();
         $this->assertContentType('text/css');
         $this->assertFileResponse(ASSETS . DS . $filename);
@@ -88,7 +86,7 @@ class AssetsControllerTest extends IntegrationTestCase
     public function testAssetNoExistingFile()
     {
         $this->get('/assets/js/noexistingfile.js');
-        
+
         $this->assertResponseError();
     }
 }

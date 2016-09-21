@@ -7,7 +7,7 @@ use Cake\Core\Configure;
     <?= h($message) ?>
 </p>
 <?php
-if (Configure::read('debug')):
+if (Configure::read('debug')) :
     echo $this->element('auto_table_warning');
     echo $this->element('exception_stack_trace');
 endif;
