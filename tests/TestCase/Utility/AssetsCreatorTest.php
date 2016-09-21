@@ -81,7 +81,16 @@ class AssetsCreatorTest extends TestCase
         ];
         $this->assertEquals($expected, $result);
 
+        //As in the previous case
+        $result = AssetsCreator::parsePaths('test.css', 'css');
+        $this->assertEquals($expected, $result);
+
+        //As in the previous case
         $result = AssetsCreator::parsePaths('/css/test', 'css');
+        $this->assertEquals($expected, $result);
+
+        //As in the previous case
+        $result = AssetsCreator::parsePaths('/css/test.css', 'css');
         $this->assertEquals($expected, $result);
 
         $result = AssetsCreator::parsePaths([
@@ -110,6 +119,28 @@ class AssetsCreatorTest extends TestCase
     public function testParsePathsPlugin()
     {
         Plugin::load('TestPlugin');
+
+        $result = AssetsCreator::parsePaths('TestPlugin.test', 'css');
+        $expected = [
+            [
+                'path' => $file = APP . 'Plugin' . DS . 'TestPlugin' . DS .
+                    'webroot' . DS . 'css' . DS . 'test.css',
+                'time' => filemtime($file),
+            ],
+        ];
+        $this->assertEquals($expected, $result);
+
+        //As in the previous case
+        $result = AssetsCreator::parsePaths('TestPlugin.test.css', 'css');
+        $this->assertEquals($expected, $result);
+
+        //As in the previous case
+        $result = AssetsCreator::parsePaths('TestPlugin./css/test', 'css');
+        $this->assertEquals($expected, $result);
+
+        //As in the previous case
+        $result = AssetsCreator::parsePaths('TestPlugin./css/test.css', 'css');
+        $this->assertEquals($expected, $result);
 
         $result = AssetsCreator::parsePaths([
             'TestPlugin.test',

@@ -97,18 +97,18 @@ Cache::config([
     ],
 ]);
 
-Plugin::load('Assets', [
-    'bootstrap' => true,
-    'path' => ROOT,
-    'routes' => true,
-]);
-
 Configure::write('Assets.force', true);
 Configure::write('Assets.target', TMP . 'assets');
 
 //@codingStandardsIgnoreStart
 @mkdir(Configure::read('Assets.target'));
 //@codingStandardsIgnoreEnd
+
+Plugin::load('Assets', [
+    'bootstrap' => true,
+    'path' => ROOT,
+    'routes' => true,
+]);
 
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');

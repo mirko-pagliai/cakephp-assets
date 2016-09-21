@@ -67,7 +67,10 @@ class AssetsCreator
                 $path = WWW_ROOT . $path;
             }
 
-            $path = sprintf('%s.%s', $path, $extension);
+            //Adds the file extension, if not already present
+            if (pathinfo($path, PATHINFO_EXTENSION) !== $extension) {
+                $path = sprintf('%s.%s', $path, $extension);
+            }
 
             if (!file_exists($path)) {
                 throw new InternalErrorException(
