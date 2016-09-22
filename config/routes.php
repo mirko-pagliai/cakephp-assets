@@ -15,21 +15,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Assets.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
+use Cake\Routing\Router;
 
-if(!function_exists('which')) {
-	/**
-	 * Executes the `which` command.
-	 * 
-	 * It shows the full path of (shell) commands.
-	 * @param string $command Command
-	 * @return string Full path of command
-	 */
-	function which($command) {
-		return exec(sprintf('which %s', $command));
-	}
-}
+Router::plugin('Assets', ['path' => '/assets'], function ($routes) {
+    $routes->connect(
+        '/:type/:filename',
+        ['controller' => 'Assets', 'action' => 'asset'],
+        [
+            'type' => '(css|js)',
+            'filename' => '[a-z0-9]+\.(css|js)',
+            'pass' => ['filename', 'type'],
+        ]
+    );
+});

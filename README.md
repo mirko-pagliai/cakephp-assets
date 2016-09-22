@@ -1,51 +1,60 @@
 # Assets
-*Assets* is a CakePHP plugin to allows you to generate assets.
+*Assets* is a CakePHP plugin to allows you to generate assets.  
+It uses [matthiasmullie/minify](https://github.com/matthiasmullie/minify) and
+provides a convenient helper to generate and link assets files.
 
 ## Installation
-*Assets* uses [clean-css](https://github.com/jakubpawlowicz/clean-css) and 
-[UglifyJS 2](https://github.com/mishoo/UglifyJS2). Before you start, you have 
-to install them by using [Node.js](https://nodejs.org).  
-Example:
-	
-	$ sudo npm install clean-css -g
-	$ sudo npm install uglify-js -g
-
-Then, you can install the plugin via composer:
+You can install the plugin via composer:
 
     $ composer require --prefer-dist mirko-pagliai/assets
     
 You have to edit `APP/config/bootstrap.php` to load the plugin:
 
-    Plugin::load('Assets', ['bootstrap' => TRUE]);
+    Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
+
+For more information on how to load the plugin, please refer to the 
+[Cookbook](http://book.cakephp.org/3.0/en/plugins.html#loading-a-plugin).
     
-By default the plugin uses the `APP/webroot/assets` directory to save the 
+By default the plugin uses the `APP/tmp/assets` directory to save the 
 asset files. So you have to create the directory and make it writable:
 
-    $ mkdir webroot/assets && chmod 775 webroot/assets
+    $ mkdir tmp/assets && chmod 775 tmp/assets
 
 If you want to use a different directory, read below.
 
 ## Configuration
-The plugin is configured with some constants. You can find these constants into 
-`PLUGIN/config/constants.php`. To change the behavior of the plugin, you have 
-to define these constants in your bootstrap, before the plugin is loaded.  
-Example:
+The plugin uses some configuration parameters.
 
-    define('ASSETS', WWW_ROOT.'custom_assets');
-	define('ASSETS_WWW', '/custom_assets');
-    define('FORCE_ASSETS', TRUE);
-    Plugin::load('Assets', ['bootstrap' => TRUE]);
+You must set the configuration after you've loaded the plugin, so the default
+configuration will be overwritten. For example, you can do this at the bottom 
+of the file `APP/config/app.php` of your application.
 
-Note that the plugin sets the executables for *clean-css* and *UglifyJS 2* 
-using the Unix `which` command.  
-If you want to set other executables or if you cannot use the `which` command, 
-you have to define these constants in your bootstrap, before the plugin is 
-loaded.  
-Example:
+### Configuration values
 
-	define('CLEANCSS_BIN', '/full/path/to/cleancss');
-	define('UGLIFYJS_BIN', '/full/path/to/uglifyjs'));
-    Plugin::load('Assets', ['bootstrap' => TRUE]);
+    Configure::write('Assets.force', false);
+
+Setting `Assets.force` to `true`, the assets will be used even if debugging is 
+enabled.
+
+    Configure::write('Assets.target', TMP . 'assets');
+
+Setting `Assets.target`, you can use another directory where the plugin will 
+generate the assets.
+
+## How to use
+You have to use only the `AssetHelper`. This helper provides `css()` and
+`script()` methods, similar to the methods provided by the `HtmlHelper`.
+
+The syntax is the same, you just have to change the name helper. Example for
+`AssetHelper::css()`.
+
+    echo $this->Asset->css(['one.css', 'two.css']);
+
+This will combine and compress `one.css` and `two.css` files, creating a unique
+asset file, and will create a link element for CSS stylesheets, as does the 
+method provided by the `HtmlHelper`.
+
+The same also applies to the `AssetHelper::script()` method.
 
 ## Versioning
 For transparency and insight into our release cycle and to maintain backward 

@@ -1,5 +1,6 @@
 .directory
 *_old
 *.old.*
-API/
-tests/
+composer.lock
+vendor/
+

@@ -20,18 +20,27 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
+namespace Assets\Controller;
 
+use Cake\Controller\Controller;
 use Cake\Core\Configure;
-use Cake\Network\Exception\InternalErrorException;
 
-//If `true`, assets will be used even if debugging is enabled
-Configure::write('Assets.force', false);
+/**
+ * Assets controller class
+ */
+class AssetsController extends Controller
+{
+    /**
+     * Renders an asset
+     * @param string $filename Asset filename
+     * @param string $type Asset type (`css` or `js`)
+     * @return Cake\Network\Response|null
+     */
+    public function asset($filename, $type)
+    {
+        $this->response->type($type);
+        $this->response->file(Configure::read('Assets.target') . DS . $filename);
 
-//Default assets directory
-Configure::write('Assets.target', TMP . 'assets');
-
-if (!is_writeable(Configure::read('Assets.target'))) {
-    throw new InternalErrorException(
-        sprintf('File or directory %s not writeable', Configure::read('Assets.target'))
-    );
+        return $this->response;
+    }
 }

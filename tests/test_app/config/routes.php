@@ -20,18 +20,7 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
+use Cake\Core\Plugin;
 
-use Cake\Core\Configure;
-use Cake\Network\Exception\InternalErrorException;
-
-//If `true`, assets will be used even if debugging is enabled
-Configure::write('Assets.force', false);
-
-//Default assets directory
-Configure::write('Assets.target', TMP . 'assets');
-
-if (!is_writeable(Configure::read('Assets.target'))) {
-    throw new InternalErrorException(
-        sprintf('File or directory %s not writeable', Configure::read('Assets.target'))
-    );
-}
+//Load all plugin routes
+Plugin::routes();
