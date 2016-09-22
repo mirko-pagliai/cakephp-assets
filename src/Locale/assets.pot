@@ -1,11 +1,11 @@
-# LANGUAGE translation of Asset plugin
+# LANGUAGE translation of Assets plugin
 # Copyright 2016 Mirko Pagliai <mirko.pagliai@gmail.com>
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-04-02 18:08+0200\n"
+"POT-Creation-Date: 2016-09-22 12:40+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>
 "MIME-Version: 1.0\n"
@@ -13,7 +13,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /home/mirko/Libs/Plugins/Assets/src/Utility/Asset.php:103;138
+#: /home/mirko/Libs/Plugins/Assets/src/Utility/AssetsCreator.php:77
+msgid "File or directory {0} doesn't exist"
+msgstr ""
+
+#: /home/mirko/Libs/Plugins/Assets/src/Utility/AssetsCreator.php:116;154
 msgid "Failed to create file or directory {0}"
 msgstr ""
 
