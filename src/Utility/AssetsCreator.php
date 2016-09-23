@@ -44,16 +44,16 @@ class AssetsCreator
      */
     protected static function _parsePaths($paths, $extension)
     {
-        $plugins = Plugin::loaded();
+        $loadedPlugins = Plugin::loaded();
 
         //Parses paths and for each returns an array with the full path and
         //  the last modification time
-        return array_map(function ($path) use ($extension, $plugins) {
+        return array_map(function ($path) use ($extension, $loadedPlugins) {
             $pluginSplit = pluginSplit($path);
 
             //Note that using `pluginSplit()` is not sufficient, because
             //  `$path` may still contain a dot
-            if (!empty($pluginSplit[0]) && in_array($pluginSplit[0], $plugins)) {
+            if (!empty($pluginSplit[0]) && in_array($pluginSplit[0], $loadedPlugins)) {
                 list($plugin, $path) = $pluginSplit;
             }
 
