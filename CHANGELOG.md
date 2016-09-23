@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.1
+* fixed bug: the configuration was always overwritten.
+
 ### 1.1.0
 * it uses `matthiasmullie/minify` instead of `clean-css` and `UglifyJS`;
 * the `Asset` utility has been renamed as `AssetsCreator` and now it uses the
