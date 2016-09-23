@@ -22,16 +22,20 @@
  */
 
 use Cake\Core\Configure;
-use Cake\Network\Exception\InternalErrorException;
 
 //If `true`, assets will be used even if debugging is enabled
-Configure::write('Assets.force', false);
+if (!Configure::check('Assets.force')) {
+    Configure::write('Assets.force', false);
+}
 
 //Default assets directory
-Configure::write('Assets.target', TMP . 'assets');
+if (!Configure::check('Assets.target')) {
+    Configure::write('Assets.target', TMP . 'assets');
+}
 
 if (!is_writeable(Configure::read('Assets.target'))) {
-    throw new InternalErrorException(
-        sprintf('File or directory %s not writeable', Configure::read('Assets.target'))
+    trigger_error(
+        sprintf('Directory %s not writeable', Configure::read('Assets.target')),
+        E_USER_ERROR
     );
 }
