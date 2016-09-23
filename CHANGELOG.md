@@ -1,7 +1,7 @@
 # 1.x branch
 ## 1.1 branch
 ### 1.1.1
-* fixed bug: the configuration was always overwritten.
+* you can configure the plugin both before and after it is loaded.
 
 ### 1.1.0
 * it uses `matthiasmullie/minify` instead of `clean-css` and `UglifyJS`;

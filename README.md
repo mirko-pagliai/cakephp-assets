@@ -23,11 +23,12 @@ asset files. So you have to create the directory and make it writable:
 If you want to use a different directory, read below.
 
 ## Configuration
-The plugin uses some configuration parameters.
+The plugin uses some configuration parameters and you can set them using the 
+`\Cake\Core\Configure` class. It does not matter if you do it before or after
+loading the plugin.
 
-You must set the configuration after you've loaded the plugin, so the default
-configuration will be overwritten. For example, you can do this at the bottom 
-of the file `APP/config/app.php` of your application.
+For example, you can do this at the bottom of the file `APP/config/app.php`
+of your application.
 
 ### Configuration values
 
