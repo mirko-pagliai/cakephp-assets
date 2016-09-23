@@ -49,10 +49,12 @@ class AssetsCreator
         //Parses paths and for each returns an array with the full path and
         //  the last modification time
         return array_map(function ($path) use ($extension, $plugins) {
-            $plugin = pluginSplit($path);
+            $pluginSplit = pluginSplit($path);
 
-            if (in_array($plugin[0], $plugins)) {
-                $path = $plugin[1];
+            //Note that using `pluginSplit()` is not sufficient, because
+            //  `$path` may still contain a dot
+            if (!empty($pluginSplit[0]) && in_array($pluginSplit[0], $plugins)) {
+                list($plugin, $path) = $pluginSplit;
             }
 
             if (substr($path, 0, 1) === '/') {
@@ -61,13 +63,13 @@ class AssetsCreator
                 $path = $extension . DS . $path;
             }
 
-            if (in_array($plugin[0], $plugins)) {
-                $path = Plugin::path($plugin[0]) . 'webroot' . DS . $path;
+            if (!empty($plugin)) {
+                $path = Plugin::path($plugin) . 'webroot' . DS . $path;
             } else {
                 $path = WWW_ROOT . $path;
             }
 
-            //Adds the file extension, if not already present
+            //Appends the file extension, if not already present
             if (pathinfo($path, PATHINFO_EXTENSION) !== $extension) {
                 $path = sprintf('%s.%s', $path, $extension);
             }
