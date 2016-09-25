@@ -1,5 +1,10 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.1
+* the `AssetCreator` class has been rewritten, using only objects and improving
+    the code;
+* you can configure the plugin both before and after it is loaded.
+
 ### 1.1.0
 * it uses `matthiasmullie/minify` instead of `clean-css` and `UglifyJS`;
 * the `Asset` utility has been renamed as `AssetsCreator` and now it uses the

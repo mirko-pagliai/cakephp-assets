@@ -1,14 +1,19 @@
-# Assets
-*Assets* is a CakePHP plugin to allows you to generate assets.  
+# Assets plugin
+
+[![Build Status](https://travis-ci.org/mirko-pagliai/assets.svg?branch=master)](https://travis-ci.org/mirko-pagliai/assets)
+
+*Assets* is a CakePHP plugin to allows you to handle and generate assets.
+
 It uses [matthiasmullie/minify](https://github.com/matthiasmullie/minify) and
-provides a convenient helper to generate and link assets files.
+provides a convenient helper that allows you to combine multiple asset files
+into one single compressed file.
 
 ## Installation
 You can install the plugin via composer:
 
     $ composer require --prefer-dist mirko-pagliai/assets
     
-You have to edit `APP/config/bootstrap.php` to load the plugin:
+Then you have to edit `APP/config/bootstrap.php` to load the plugin:
 
     Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
 
@@ -23,11 +28,12 @@ asset files. So you have to create the directory and make it writable:
 If you want to use a different directory, read below.
 
 ## Configuration
-The plugin uses some configuration parameters.
+The plugin uses some configuration parameters and you can set them using the 
+`\Cake\Core\Configure` class. It does not matter if you do it before or after
+loading the plugin.
 
-You must set the configuration after you've loaded the plugin, so the default
-configuration will be overwritten. For example, you can do this at the bottom 
-of the file `APP/config/app.php` of your application.
+For example, you can do this at the bottom of the file `APP/config/app.php`
+of your application.
 
 ### Configuration values
 
