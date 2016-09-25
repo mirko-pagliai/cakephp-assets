@@ -85,9 +85,6 @@ class AssetsCreatorTest extends TestCase
     /**
      * Test for `__construct()` method
      * @test
-     * @uses AssetCreator::getAsset()
-     * @uses AssetCreator::getPaths()
-     * @uses AssetCreator::getType()
      */
     public function testConstruct()
     {
@@ -141,7 +138,6 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `_resolvePath()` method
-     * @uses AssetCreator::getPaths()
      * @ŧest
      */
     public function testResolvePath()
@@ -184,7 +180,6 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `_resolvePath()` method, using file from plugin
-     * @uses AssetCreator::getPaths()
      * @ŧest
      */
     public function testResolvePathFromPlugin()
@@ -227,7 +222,6 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `_getAssetPath()` method
-     * @uses AssetCreator::getAsset()
      * @test
      */
     public function testGetAsset()
@@ -248,7 +242,6 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `_getAssetPath()` method, using file from plugin
-     * @uses AssetCreator::getAsset()
      * @test
      */
     public function testGetAssetFromPlugin()

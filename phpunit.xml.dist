@@ -9,7 +9,14 @@
 
 	<testsuites>
 		<testsuite name="Assets Test Cases">
-			<directory>./tests/</directory>
+			<directory>./tests/TestCase</directory>
 		</testsuite>
 	</testsuites>
+    
+	<!-- configure code coverage -->
+	<filter>
+		<whitelist>
+			<directory suffix=".php">./src/</directory>
+		</whitelist>
+	</filter>
 </phpunit>
