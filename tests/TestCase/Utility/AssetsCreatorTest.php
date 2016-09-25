@@ -64,6 +64,8 @@ class AssetsCreatorTest extends TestCase
         parent::setUp();
 
         Plugin::load('TestPlugin');
+
+        Configure::write('Assets.target', TMP . 'assets');
     }
 
     /**
@@ -345,5 +347,18 @@ class AssetsCreatorTest extends TestCase
         //Tries to create again the same asset. Now the creation time is different
         $result = (new AssetsCreator('test', 'css'))->create();
         $this->assertNotEquals($time, filemtime($file));
+    }
+
+    /**
+     * Test for `create()` method with no existing target directory
+     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedExceptionMessageRegExp /^Failed to create file noExistingDir\/[a-z0-9]+\.css$/
+     * @test
+     */
+    public function testCreateNoExistingTarget()
+    {
+        Configure::write('Assets.target', 'noExistingDir');
+
+        (new AssetsCreator('test', 'css'))->create();
     }
 }

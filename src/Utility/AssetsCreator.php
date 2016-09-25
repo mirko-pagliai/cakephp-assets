@@ -168,7 +168,7 @@ class AssetsCreator
             }
 
             //Writes the file
-            if (!(new File($this->asset, true, 0777))->write($minifier->minify())) {
+            if (!(new File($this->asset, false, 0755))->write($minifier->minify())) {
                 throw new InternalErrorException(
                     __d('assets', 'Failed to create file {0}', str_replace(APP, null, $this->asset))
                 );
