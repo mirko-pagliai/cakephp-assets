@@ -53,7 +53,7 @@ class AssetsControllerTest extends IntegrationTestCase
     public function testAssetWithCss()
     {
         //This is the filename
-        $filename = sprintf('%s.%s', AssetsCreator::css('test'), 'css');
+        $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
 
         $this->get(sprintf('/assets/css/%s', $filename));
         $this->assertResponseOk();
@@ -69,7 +69,7 @@ class AssetsControllerTest extends IntegrationTestCase
     public function testAssetWithJs()
     {
         //This is the filename
-        $filename = sprintf('%s.%s', AssetsCreator::script('test'), 'js');
+        $filename = sprintf('%s.%s', (new AssetsCreator('test', 'js'))->create(), 'js');
 
         $this->get(sprintf('/assets/js/%s', $filename));
         $this->assertResponseOk();
