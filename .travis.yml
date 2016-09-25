@@ -19,7 +19,7 @@ install:
 
 script:
   - phpunit
-  - if [[ $PHPCS = 1 ]]; then vendor/bin/phpcs -p --extensions=php,ctp,js,css --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=*.min.css,*.min.js ./config ./src ./tests; fi
+  - if [[ $PHPCS = 1 ]]; then vendor/bin/phpcs -p --extensions=php,ctp,js,css --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=*.min.css,*.min.js --coverage-clover=coverage.xml ./config ./src ./tests; fi
   
 after_success:
   - bash <(curl -s https://codecov.io/bash)
