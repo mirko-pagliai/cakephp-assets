@@ -112,3 +112,5 @@ Plugin::load('Assets', [
 
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
+
+ini_set('intl.default_locale', 'en_US');
