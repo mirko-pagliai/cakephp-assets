@@ -1,6 +1,8 @@
 # 1.x branch
 ## 1.1 branch
 ### 1.1.1
+* the `AssetCreator` class has been rewritten, using only objects and improving
+    the code;
 * you can configure the plugin both before and after it is loaded.
 
 ### 1.1.0

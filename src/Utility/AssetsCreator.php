@@ -35,20 +35,64 @@ use MatthiasMullie\Minify;
 class AssetsCreator
 {
     /**
-     * Parses paths and for each path returns an array with the full path and
-     * the last modification time
-     * @param string|array $paths String or array of css/js files
-     * @param string $extension Extension (`css` or `js`)
+     * Asset path
+     * @var string
+     */
+    protected $asset = null;
+
+    /**
+     * Paths
+     * @var array
+     */
+    protected $paths = [];
+
+    /**
+     * Asset type
+     * @var string
+     */
+    protected $type = null;
+
+    /**
+     * Construct. Sets the asset type and paths
+     * @param string|array $paths String or array of css files
+     * @param string $type Extension (`css` or `js`)
+     * @return \Assets\Utility\AssetsCreator
+     * @throws InternalErrorException
+     * @uses _getAssetPath()
+     * @uses _resolvePath()
+     * @uses $asset
+     * @uses $paths
+     * @uses $type
+     */
+    public function __construct($paths, $type)
+    {
+        if (!in_array($type, ['css', 'js'])) {
+            throw new InternalErrorException(
+                __d('assets', 'Asset type `{0}` not supported', $type)
+            );
+        }
+
+        //Note: `_resolvePath()` needs `$type`; `_getAssetPath()` needs
+        //  `$type` and `$paths`
+        $this->type = $type;
+        $this->paths = $this->_resolvePath($paths);
+        $this->asset = $this->_getAssetPath();
+
+        return $this;
+    }
+
+    /**
+     * Internal method to resolve partial paths, returning full paths
+     * @param string|array $paths Partial paths
      * @return array
      * @throws InternalErrorException
+     * @use $type
      */
-    protected static function _parsePaths($paths, $extension)
+    protected function _resolvePath($paths)
     {
         $loadedPlugins = Plugin::loaded();
 
-        //Parses paths and for each returns an array with the full path and
-        //  the last modification time
-        return array_map(function ($path) use ($extension, $loadedPlugins) {
+        return array_map(function ($path) use ($loadedPlugins) {
             $pluginSplit = pluginSplit($path);
 
             //Note that using `pluginSplit()` is not sufficient, because
@@ -60,7 +104,7 @@ class AssetsCreator
             if (substr($path, 0, 1) === '/') {
                 $path = substr($path, 1);
             } else {
-                $path = $extension . DS . $path;
+                $path = $this->type . DS . $path;
             }
 
             if (!empty($plugin)) {
@@ -70,93 +114,67 @@ class AssetsCreator
             }
 
             //Appends the file extension, if not already present
-            if (pathinfo($path, PATHINFO_EXTENSION) !== $extension) {
-                $path = sprintf('%s.%s', $path, $extension);
+            if (pathinfo($path, PATHINFO_EXTENSION) !== $this->type) {
+                $path = sprintf('%s.%s', $path, $this->type);
             }
 
             if (!file_exists($path)) {
                 throw new InternalErrorException(
-                    __d('assets', 'File or directory {0} doesn\'t exist', $path)
+                    __d('assets', 'File `{0}` doesn\'t exist', str_replace(APP, null, $path))
                 );
             }
 
-            return ['path' => $path, 'time' => filemtime($path)];
+            return $path;
         }, (array)$paths);
     }
 
     /**
-     * Gets a css asset. The asset will be created, if doesn't exist
-     * @param string|array $paths String or array of css files
+     * Gets the asset path
      * @return string
-     * @throws InternalErrorException
-     * @uses _parsePaths()
+     * @use $paths
+     * @use $type
      */
-    public static function css($paths)
+    protected function _getAssetPath()
     {
-        //Parses paths and for each returns an array with the full path and
-        //  the last modification time
-        $paths = self::_parsePaths($paths, 'css');
+        $basename = md5(serialize(array_map(function ($path) {
+            return ['path' => $path, 'time' => filemtime($path)];
+        }, $this->paths)));
 
-        //Sets basename and full path of the asset
-        $assetBasename = md5(serialize($paths));
-        $assetPath = Configure::read('Assets.target') . DS . sprintf('%s.%s', $assetBasename, 'css');
-
-        //Returns, if the asset already exists
-        if (is_readable($assetPath)) {
-            return $assetBasename;
-        }
-
-        $minifier = new Minify\CSS();
-
-        foreach ($paths as $path) {
-            $minifier->add($path['path']);
-        }
-
-        //Writes the file
-        if (!(new File($assetPath, true, 0777))->write($minifier->minify())) {
-            throw new InternalErrorException(
-                __d('assets', 'Failed to create file or directory {0}', $assetPath)
-            );
-        }
-
-        return $assetBasename;
+        return Configure::read('Assets.target') . DS . sprintf('%s.%s', $basename, $this->type);
     }
 
     /**
-     * Gets a js asset. The asset will be created, if doesn't exist
-     * @param string|array $paths String or array of js files
+     * Creates the asset
      * @return string
      * @throws InternalErrorException
-     * @uses _parsePaths()
+     * @uses $asset
+     * @uses $paths
+     * @uses $type
      */
-    public static function script($paths)
+    public function create()
     {
-        //Parses paths and for each returns an array with the full path and
-        //  the last modification time
-        $paths = self::_parsePaths($paths, 'js');
+        if (!is_readable($this->asset)) {
+            switch ($this->type) {
+                case 'css':
+                    $minifier = new Minify\CSS();
+                    break;
+                case 'js':
+                    $minifier = new Minify\JS();
+                    break;
+            }
 
-        //Sets basename and full path of the asset
-        $assetBasename = md5(serialize($paths));
-        $assetPath = Configure::read('Assets.target') . DS . sprintf('%s.%s', $assetBasename, 'js');
+            foreach ($this->paths as $path) {
+                $minifier->add($path);
+            }
 
-        //Returns, if the asset already exists
-        if (is_readable($assetPath)) {
-            return $assetBasename;
+            //Writes the file
+            if (!(new File($this->asset, true, 0777))->write($minifier->minify())) {
+                throw new InternalErrorException(
+                    __d('assets', 'Failed to create file {0}', str_replace(APP, null, $this->asset))
+                );
+            }
         }
 
-        $minifier = new Minify\JS();
-
-        foreach ($paths as $path) {
-            $minifier->add($path['path']);
-        }
-
-        //Writes the file
-        if (!(new File($assetPath, true, 0777))->write($minifier->minify())) {
-            throw new InternalErrorException(
-                __d('assets', 'Failed to create file or directory {0}', $assetPath)
-            );
-        }
-
-        return $assetBasename;
+        return pathinfo($this->asset, PATHINFO_FILENAME);
     }
 }
