@@ -22,31 +22,10 @@
  */
 namespace Assets\Test\TestCase\Utility;
 
-use Assets\Utility\AssetsCreator as BaseAssetsCreator;
+use Assets\Test\TestCase\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
-
-/**
- * Makes public some protected methods/properties from `AssetsCreator`
- */
-class AssetsCreator extends BaseAssetsCreator
-{
-    public function getAsset()
-    {
-        return $this->asset;
-    }
-
-    public function getPaths()
-    {
-        return $this->paths;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-}
 
 /**
  * AssetsCreatorTest class
