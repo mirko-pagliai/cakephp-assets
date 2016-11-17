@@ -9,14 +9,6 @@ It uses [matthiasmullie/minify](https://github.com/matthiasmullie/minify) and
 provides a convenient helper that allows you to combine multiple asset files
 into one single compressed file.
 
-***
-
-  * [Installation](#installation)
-  * [Configuration](#configuration)
-    + [Configuration values](#configuration-values)
-  * [How to use](#how-to-use)
-  * [Versioning](#versioning)
-
 ## Installation
 You can install the plugin via composer:
 
@@ -38,7 +30,7 @@ If you want to use a different directory, read below.
 
 ## Configuration
 The plugin uses some configuration parameters and you can set them using the 
-`\Cake\Core\Configure` class. It does not matter if you do it **before** loading 
+`\Cake\Core\Configure` class, **before** loading 
 the plugin.
 
 For example, you can do this at the bottom of the file `APP/config/app.php`
