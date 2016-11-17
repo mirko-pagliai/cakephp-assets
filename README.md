@@ -9,6 +9,14 @@ It uses [matthiasmullie/minify](https://github.com/matthiasmullie/minify) and
 provides a convenient helper that allows you to combine multiple asset files
 into one single compressed file.
 
+   * [Installation](#installation)
+   * [Configuration](#configuration)
+      * [Configuration values](#configuration-values)
+   * [How to use](#how-to-use)
+   * [Versioning](#versioning)
+
+***
+
 ## Installation
 You can install the plugin via composer:
 
