@@ -47,7 +47,6 @@ class AssetsControllerTest extends IntegrationTestCase
 
     /**
      * Test for `asset()` method, with a css asset
-     * @return void
      * @test
      */
     public function testAssetWithCss()
@@ -55,15 +54,26 @@ class AssetsControllerTest extends IntegrationTestCase
         //This is the filename
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
 
-        $this->get(sprintf('/assets/css/%s', $filename));
+        $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('text/css');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
+
+        $file = $this->_response->getFile();
+
+        $this->assertEquals('Cake\Filesystem\File', get_class($file));
+        $this->assertEquals([
+            'dirname' => Configure::read('Assets.target'),
+            'basename' => $filename,
+            'extension' => 'css',
+            'filename' => pathinfo($filename, PATHINFO_FILENAME),
+            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
+            'mime' => 'text/plain',
+        ], $file->info);
     }
 
     /**
      * Test for `asset()` method, with a js asset
-     * @return void
      * @test
      */
     public function testAssetWithJs()
@@ -71,20 +81,32 @@ class AssetsControllerTest extends IntegrationTestCase
         //This is the filename
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'js'))->create(), 'js');
 
-        $this->get(sprintf('/assets/js/%s', $filename));
+        $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
+
+        $file = $this->_response->getFile();
+
+        $this->assertEquals('Cake\Filesystem\File', get_class($file));
+        $this->assertEquals([
+            'dirname' => Configure::read('Assets.target'),
+            'basename' => $filename,
+            'extension' => 'js',
+            'filename' => pathinfo($filename, PATHINFO_FILENAME),
+            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
+            'mime' => 'text/plain',
+        ], $file->info);
     }
 
     /**
      * Test for `asset()` method, with a a no existing file
-     * @return void
      * @test
      */
     public function testAssetNoExistingFile()
     {
-        $this->get('/assets/js/noexistingfile.js');
+        $this->get('/assets/noexistingfile.js');
         $this->assertResponseError();
+        $this->assertNull($this->_response->getFile());
     }
 }

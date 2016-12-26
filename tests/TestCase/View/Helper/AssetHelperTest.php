@@ -34,6 +34,16 @@ use Cake\View\View;
 class AssetHelperTest extends TestCase
 {
     /**
+     * @var \Assets\View\Helper\AssetHelper
+     */
+    protected $Asset;
+
+    /**
+     * @var \Cake\View\Helper\HtmlHelper
+     */
+    protected $Html;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up
@@ -46,9 +56,9 @@ class AssetHelperTest extends TestCase
         Configure::write('debug', true);
         Configure::write('Assets.force', true);
 
-        $this->View = new View();
-        $this->Asset = new AssetHelper($this->View);
-        $this->Html = new HtmlHelper($this->View);
+        $view = new View();
+        $this->Asset = new AssetHelper($view);
+        $this->Html = new HtmlHelper($view);
     }
 
     /**
@@ -59,47 +69,35 @@ class AssetHelperTest extends TestCase
     {
         parent::tearDown();
 
-        unset($this->Asset, $this->Html, $this->View);
-
         //Deletes all assets
         foreach (glob(Configure::read('Assets.target') . DS . '*') as $file) {
             unlink($file);
         }
+
+        unset($this->Asset, $this->Html);
     }
 
     /**
      * Test for `css()` method
-     * @return void
      * @test
      */
     public function testCss()
     {
-        $regex = '/href="\/assets\/css\/[a-z0-9]+\.css"/';
+        $regex = '/href="\/assets\/[a-z0-9]+\.css"/';
 
         $result = $this->Asset->css('test');
-        $expected = [
-            'link' => [
-                'rel' => 'stylesheet',
-                'href',
-            ],
-        ];
+        $expected = ['link' => ['rel' => 'stylesheet', 'href']];
         $this->assertHtml($expected, $result);
         $this->assertRegExp($regex, $result);
 
         $result = $this->Asset->css(['test', 'test2']);
-        $expected = [
-            'link' => [
-                'rel' => 'stylesheet',
-                'href',
-            ],
-        ];
+        $expected = ['link' => ['rel' => 'stylesheet', 'href']];
         $this->assertHtml($expected, $result);
         $this->assertRegExp($regex, $result);
     }
 
     /**
      * Test for `css()` method with `debug` enabled/disabled
-     * @return void
      * @test
      */
     public function testCssWithDebug()
@@ -120,7 +118,6 @@ class AssetHelperTest extends TestCase
 
     /**
      * Test for `css()` method with `force` enabled/disabled
-     * @return void
      * @test
      */
     public function testCssWithForce()
@@ -141,12 +138,11 @@ class AssetHelperTest extends TestCase
 
     /**
      * Test for `script()` method
-     * @return void
      * @test
      */
     public function testScript()
     {
-        $regex = '/src="\/assets\/js\/[a-z0-9]+\.js"/';
+        $regex = '/src="\/assets\/[a-z0-9]+\.js"/';
 
         $result = $this->Asset->script('test');
         $expected = ['script' => ['src']];

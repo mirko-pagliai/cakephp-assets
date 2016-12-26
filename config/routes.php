@@ -24,12 +24,11 @@ use Cake\Routing\Router;
 
 Router::plugin('Assets', ['path' => '/assets'], function ($routes) {
     $routes->connect(
-        '/:type/:filename',
+        '/:filename',
         ['controller' => 'Assets', 'action' => 'asset'],
         [
-            'type' => '(css|js)',
             'filename' => '[a-z0-9]+\.(css|js)',
-            'pass' => ['filename', 'type'],
+            'pass' => ['filename'],
         ]
     );
 });
