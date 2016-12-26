@@ -22,16 +22,19 @@
  */
 namespace Assets\Test\TestCase\Utility;
 
-use Assets\Test\TestCase\Utility\AssetsCreator;
+use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
+use Reflection\ReflectionTrait;
 
 /**
  * AssetsCreatorTest class
  */
 class AssetsCreatorTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
@@ -71,17 +74,18 @@ class AssetsCreatorTest extends TestCase
     {
         $asset = new AssetsCreator('test', 'css');
 
-        $this->assertEquals(get_parent_class($asset), 'Assets\Utility\AssetsCreator');
+        $this->assertEquals(get_class($asset), 'Assets\Utility\AssetsCreator');
 
-        //Tests only attributes exist and are valid
-        $this->assertClassHasAttribute('asset', get_class($asset));
-        $this->assertTrue(!empty($asset->getType()) && is_string($asset->getType()));
+        $this->assertEquals('css', $this->getProperty($asset, 'type'));
 
-        $this->assertClassHasAttribute('paths', get_class($asset));
-        $this->assertTrue(!empty($asset->getPaths()) && is_array($asset->getPaths()));
+        $paths = $this->getProperty($asset, 'paths');
+        $this->assertEquals(1, count($paths));
+        $this->assertEquals(WWW_ROOT . 'css', dirname($paths[0]));
+        $this->assertEquals('test.css', basename($paths[0]));
 
-        $this->assertClassHasAttribute('type', get_class($asset));
-        $this->assertTrue(!empty($asset->getAsset()) && is_string($asset->getAsset()));
+        $asset = $this->getProperty($asset, 'asset');
+        $this->assertEquals(Configure::read('Assets.target'), dirname($asset));
+        $this->assertRegExp('/^[0-9a-z]+\.css$/', basename($asset));
     }
 
     /**
@@ -125,79 +129,87 @@ class AssetsCreatorTest extends TestCase
     {
         $expected = [WWW_ROOT . 'css' . DS . 'test.css'];
 
-        $result = (new AssetsCreator('test', 'css'))->getPaths();
+        $asset = new AssetsCreator('test', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
-        $result = (new AssetsCreator('test.css', 'css'))->getPaths();
+        $asset = new AssetsCreator('test.css', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
-        $result = (new AssetsCreator('/css/test', 'css'))->getPaths();
+        $asset = new AssetsCreator('/css/test', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
-        $result = (new AssetsCreator('/css/test.css', 'css'))->getPaths();
+        $asset = new AssetsCreator('/css/test.css', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
-        $result = (new AssetsCreator('subdir/test', 'css'))->getPaths();
+        $asset = new AssetsCreator('subdir/test', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $expected = [WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css'];
         $this->assertEquals($expected, $result);
 
-        $result = (new AssetsCreator('/othercssdir/test', 'css'))->getPaths();
+        $asset = new AssetsCreator('/othercssdir/test', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $expected = [WWW_ROOT . 'othercssdir' . DS . 'test.css'];
         $this->assertEquals($expected, $result);
 
         //Tests array
-        $result = (new AssetsCreator([
+        $asset = new AssetsCreator([
             'test',
             'subdir/test',
             '/othercssdir/test',
-        ], 'css'))->getPaths();
+        ], 'css');
+        $result = $this->getProperty($asset, 'paths');
         $expected = [
             WWW_ROOT . 'css' . DS . 'test.css',
             WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css',
             WWW_ROOT . 'othercssdir' . DS . 'test.css',
         ];
         $this->assertEquals($expected, $result);
-    }
 
-    /**
-     * Test for `_resolvePath()` method, using file from plugin
-     * @ŧest
-     */
-    public function testResolvePathFromPlugin()
-    {
+        //Tests plugins
         $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css'];
 
-        $result = (new AssetsCreator('TestPlugin.test', 'css'))->getPaths();
+        $asset = new AssetsCreator('TestPlugin.test', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
-        $result = (new AssetsCreator('TestPlugin.test.css', 'css'))->getPaths();
+        $asset = new AssetsCreator('TestPlugin.test.css', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
-        $result = (new AssetsCreator('TestPlugin./css/test', 'css'))->getPaths();
+        $asset = new AssetsCreator('TestPlugin./css/test', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
-        $result = (new AssetsCreator('TestPlugin./css/test.css', 'css'))->getPaths();
+        $asset = new AssetsCreator('TestPlugin./css/test.css', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
         $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'subdir' . DS . 'test.css'];
-        $result = (new AssetsCreator('TestPlugin.subdir/test', 'css'))->getPaths();
+        $asset = new AssetsCreator('TestPlugin.subdir/test', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
         $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'othercssdir' . DS . 'test.css'];
-        $result = (new AssetsCreator('TestPlugin./othercssdir/test', 'css'))->getPaths();
+        $asset = new AssetsCreator('TestPlugin./othercssdir/test', 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
 
         //Tests array
-        $result = (new AssetsCreator([
-            'TestPlugin.test',
-            'TestPlugin.subdir/test',
-            'TestPlugin./othercssdir/test'
-        ], 'css'))->getPaths();
         $expected = [
             Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
             Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'subdir' . DS . 'test.css',
             Plugin::path('TestPlugin') . 'webroot' . DS . 'othercssdir' . DS . 'test.css',
         ];
+        $asset = new AssetsCreator([
+            'TestPlugin.test',
+            'TestPlugin.subdir/test',
+            'TestPlugin./othercssdir/test'
+        ], 'css');
+        $result = $this->getProperty($asset, 'paths');
         $this->assertEquals($expected, $result);
     }
 
@@ -205,9 +217,10 @@ class AssetsCreatorTest extends TestCase
      * Test for `_getAssetPath()` method
      * @test
      */
-    public function testGetAsset()
+    public function testGetAssetPath()
     {
-        $result = (new AssetsCreator('test', 'css'))->getAsset();
+        $asset = (new AssetsCreator('test', 'css'));
+        $result = $this->invokeMethod($asset, '_getAssetPath');
         $expected = Configure::read('Assets.target') . DS . sprintf(
             '%s.%s',
             md5(serialize([
@@ -219,15 +232,10 @@ class AssetsCreatorTest extends TestCase
             'css'
         );
         $this->assertEquals($expected, $result);
-    }
 
-    /**
-     * Test for `_getAssetPath()` method, using file from plugin
-     * @test
-     */
-    public function testGetAssetFromPlugin()
-    {
-        $result = (new AssetsCreator('TestPlugin.test', 'css'))->getAsset();
+        //From plugin
+        $asset = (new AssetsCreator('TestPlugin.test', 'css'));
+        $result = $this->invokeMethod($asset, '_getAssetPath');
         $expected = Configure::read('Assets.target') . DS . sprintf(
             '%s.%s',
             md5(serialize([
