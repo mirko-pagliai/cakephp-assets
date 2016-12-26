@@ -74,7 +74,7 @@ class AssetHelperTest extends TestCase
      */
     public function testCss()
     {
-        $regex = '/href="\/assets\/css\/[a-z0-9]+\.css"/';
+        $regex = '/href="\/assets\/[a-z0-9]+\.css"/';
 
         $result = $this->Asset->css('test');
         $expected = [
@@ -146,7 +146,7 @@ class AssetHelperTest extends TestCase
      */
     public function testScript()
     {
-        $regex = '/src="\/assets\/js\/[a-z0-9]+\.js"/';
+        $regex = '/src="\/assets\/[a-z0-9]+\.js"/';
 
         $result = $this->Asset->script('test');
         $expected = ['script' => ['src']];
