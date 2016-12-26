@@ -49,7 +49,7 @@ class AssetHelper extends Helper
     public function css($path, array $options = [])
     {
         if (!Configure::read('debug') || Configure::read('Assets.force')) {
-            $path = '/assets/css/' . (new AssetsCreator($path, 'css'))->create();
+            $path = '/assets/' . (new AssetsCreator($path, 'css'))->create();
         }
 
         return $this->Html->css($path, $options);
@@ -66,7 +66,7 @@ class AssetHelper extends Helper
     public function script($url, array $options = [])
     {
         if (!Configure::read('debug') || Configure::read('Assets.force')) {
-            $url = '/assets/js/' . (new AssetsCreator($url, 'js'))->create();
+            $url = '/assets/' . (new AssetsCreator($url, 'js'))->create();
         }
 
         return $this->Html->script($url, $options);

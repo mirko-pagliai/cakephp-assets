@@ -33,12 +33,11 @@ class AssetsController extends Controller
     /**
      * Renders an asset
      * @param string $filename Asset filename
-     * @param string $type Asset type (`css` or `js`)
      * @return Cake\Network\Response|null
      */
-    public function asset($filename, $type)
+    public function asset($filename)
     {
-        $this->response->type($type);
+        $this->response->type(pathinfo($filename, PATHINFO_EXTENSION));
         $this->response->file(Configure::read('Assets.target') . DS . $filename);
 
         return $this->response;
