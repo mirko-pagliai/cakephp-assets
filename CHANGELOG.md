@@ -1,4 +1,8 @@
 # 1.x branch
+## 1.2 branch
+### 1.2.0
+* fixed bug. Urls no longer contain the type of asset, but only the filename.
+
 ## 1.1 branch
 ### 1.1.1
 * the `AssetCreator` class has been rewritten, using only objects and improving
