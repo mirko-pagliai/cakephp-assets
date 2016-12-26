@@ -34,6 +34,16 @@ use Cake\View\View;
 class AssetHelperTest extends TestCase
 {
     /**
+     * @var \Assets\View\Helper\AssetHelper
+     */
+    protected $Asset;
+
+    /**
+     * @var \Cake\View\Helper\HtmlHelper
+     */
+    protected $Html;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up
@@ -46,9 +56,9 @@ class AssetHelperTest extends TestCase
         Configure::write('debug', true);
         Configure::write('Assets.force', true);
 
-        $this->View = new View();
-        $this->Asset = new AssetHelper($this->View);
-        $this->Html = new HtmlHelper($this->View);
+        $view = new View();
+        $this->Asset = new AssetHelper($view);
+        $this->Html = new HtmlHelper($view);
     }
 
     /**
@@ -64,7 +74,7 @@ class AssetHelperTest extends TestCase
             unlink($file);
         }
 
-        unset($this->Asset, $this->Html, $this->View);
+        unset($this->Asset, $this->Html);
     }
 
     /**
