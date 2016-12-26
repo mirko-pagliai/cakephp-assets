@@ -59,17 +59,16 @@ class AssetHelperTest extends TestCase
     {
         parent::tearDown();
 
-        unset($this->Asset, $this->Html, $this->View);
-
         //Deletes all assets
         foreach (glob(Configure::read('Assets.target') . DS . '*') as $file) {
             unlink($file);
         }
+
+        unset($this->Asset, $this->Html, $this->View);
     }
 
     /**
      * Test for `css()` method
-     * @return void
      * @test
      */
     public function testCss()
@@ -77,29 +76,18 @@ class AssetHelperTest extends TestCase
         $regex = '/href="\/assets\/css\/[a-z0-9]+\.css"/';
 
         $result = $this->Asset->css('test');
-        $expected = [
-            'link' => [
-                'rel' => 'stylesheet',
-                'href',
-            ],
-        ];
+        $expected = ['link' => ['rel' => 'stylesheet', 'href']];
         $this->assertHtml($expected, $result);
         $this->assertRegExp($regex, $result);
 
         $result = $this->Asset->css(['test', 'test2']);
-        $expected = [
-            'link' => [
-                'rel' => 'stylesheet',
-                'href',
-            ],
-        ];
+        $expected = ['link' => ['rel' => 'stylesheet', 'href']];
         $this->assertHtml($expected, $result);
         $this->assertRegExp($regex, $result);
     }
 
     /**
      * Test for `css()` method with `debug` enabled/disabled
-     * @return void
      * @test
      */
     public function testCssWithDebug()
@@ -120,7 +108,6 @@ class AssetHelperTest extends TestCase
 
     /**
      * Test for `css()` method with `force` enabled/disabled
-     * @return void
      * @test
      */
     public function testCssWithForce()
@@ -141,7 +128,6 @@ class AssetHelperTest extends TestCase
 
     /**
      * Test for `script()` method
-     * @return void
      * @test
      */
     public function testScript()
