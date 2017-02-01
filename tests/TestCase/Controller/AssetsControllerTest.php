@@ -61,7 +61,7 @@ class AssetsControllerTest extends IntegrationTestCase
 
         $file = $this->_response->getFile();
 
-        $this->assertEquals('Cake\Filesystem\File', get_class($file));
+        $this->assertInstanceOf('Cake\Filesystem\File', $file);
         $this->assertEquals([
             'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,
@@ -88,7 +88,7 @@ class AssetsControllerTest extends IntegrationTestCase
 
         $file = $this->_response->getFile();
 
-        $this->assertEquals('Cake\Filesystem\File', get_class($file));
+        $this->assertInstanceOf('Cake\Filesystem\File', $file);
         $this->assertEquals([
             'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,
