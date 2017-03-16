@@ -19,35 +19,14 @@
  * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @see         https://github.com/matthiasmullie/minify
+ * @since       1.1.3
  */
-namespace Assets\Controller;
+namespace Assets\Network\Exception;
 
-use Assets\Network\Exception\AssetNotFoundException;
-use Cake\Controller\Controller;
-use Cake\Core\Configure;
+use Cake\Network\Exception\NotFoundException;
 
-/**
- * Assets controller class
- */
-class AssetsController extends Controller
-{
-    /**
-     * Renders an asset
-     * @param string $filename Asset filename
-     * @return Cake\Network\Response|null
-     * @throws AssetNotFoundException
-     */
-    public function asset($filename)
-    {
-        $file = Configure::read('Assets.target') . DS . $filename;
+class AssetNotFoundException extends NotFoundException {
 
-        if (!is_readable($file)) {
-            throw new AssetNotFoundException(__d('assets', 'File `{0}` doesn\'t exist', $file));
-        }
-
-        $this->response->type(pathinfo($file, PATHINFO_EXTENSION));
-        $this->response->file($file);
-
-        return $this->response;
-    }
 }
+

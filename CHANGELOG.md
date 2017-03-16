@@ -1,6 +1,8 @@
 # 1.x branch
 ## 1.1 branch
 ### 1.1.3
+* added `AssetNotFoundException` class. This exception is thrown when you
+    request an asset that is not available;
 * updated for CakePHP 3.4.
 
 ### 1.1.2
