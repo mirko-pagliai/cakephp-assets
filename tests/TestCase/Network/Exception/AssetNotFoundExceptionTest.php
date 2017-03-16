@@ -23,8 +23,8 @@
  */
 namespace Assets\Test\TestCase\Network\Exception;
 
-use Cake\TestSuite\TestCase;
 use Assets\Network\Exception\AssetNotFoundException;
+use Cake\TestSuite\TestCase;
 
 /**
  * AssetNotFoundExceptionTest class

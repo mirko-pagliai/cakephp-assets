@@ -26,7 +26,7 @@ namespace Assets\Network\Exception;
 
 use Cake\Network\Exception\NotFoundException;
 
-class AssetNotFoundException extends NotFoundException {
+class AssetNotFoundException extends NotFoundException
+{
 
 }
-
