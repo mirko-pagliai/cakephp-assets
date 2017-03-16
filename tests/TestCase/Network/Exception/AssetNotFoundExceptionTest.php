@@ -19,35 +19,40 @@
  * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @see         https://github.com/matthiasmullie/minify
  */
-namespace Assets\Controller;
+namespace Assets\Test\TestCase\Network\Exception;
 
 use Assets\Network\Exception\AssetNotFoundException;
-use Cake\Controller\Controller;
-use Cake\Core\Configure;
+use Cake\TestSuite\TestCase;
 
 /**
- * Assets controller class
+ * AssetNotFoundExceptionTest class
  */
-class AssetsController extends Controller
+class AssetNotFoundExceptionTest extends TestCase
 {
     /**
-     * Renders an asset
-     * @param string $filename Asset filename
-     * @return Cake\Network\Response|null
+     * Test for the exception
+     * @expectedException Assets\Network\Exception\AssetNotFoundException
+     * @expectedExceptionCode 404
+     * @test
      * @throws AssetNotFoundException
      */
-    public function asset($filename)
+    public function testException()
     {
-        $file = Configure::read('Assets.target') . DS . $filename;
+        throw new AssetNotFoundException;
+    }
 
-        if (!is_readable($file)) {
-            throw new AssetNotFoundException(__d('assets', 'File `{0}` doesn\'t exist', $file));
-        }
-
-        $this->response->type(pathinfo($file, PATHINFO_EXTENSION));
-        $this->response->file($file);
-
-        return $this->response;
+    /**
+     * Test for the exception, with a message
+     * @expectedException Assets\Network\Exception\AssetNotFoundException
+     * @expectedExceptionCode 404
+     * @expectedExceptionMessage Asset not found!
+     * @test
+     * @throws AssetNotFoundException
+     */
+    public function testExceptionWithMessage()
+    {
+        throw new AssetNotFoundException('Asset not found!');
     }
 }

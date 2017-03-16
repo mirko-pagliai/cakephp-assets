@@ -74,7 +74,7 @@ class AssetsCreatorTest extends TestCase
     {
         $asset = new AssetsCreator('test', 'css');
 
-        $this->assertEquals(get_class($asset), 'Assets\Utility\AssetsCreator');
+        $this->assertInstanceOf('Assets\Utility\AssetsCreator', $asset);
 
         $this->assertEquals('css', $this->getProperty($asset, 'type'));
 

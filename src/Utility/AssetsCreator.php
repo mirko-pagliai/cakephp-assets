@@ -67,9 +67,7 @@ class AssetsCreator
     public function __construct($paths, $type)
     {
         if (!in_array($type, ['css', 'js'])) {
-            throw new InternalErrorException(
-                __d('assets', 'Asset type `{0}` not supported', $type)
-            );
+            throw new InternalErrorException(__d('assets', 'Asset type `{0}` not supported', $type));
         }
 
         //Note: `_resolvePath()` needs `$type`; `_getAssetPath()` needs
@@ -119,9 +117,7 @@ class AssetsCreator
             }
 
             if (!file_exists($path)) {
-                throw new InternalErrorException(
-                    __d('assets', 'File `{0}` doesn\'t exist', str_replace(APP, null, $path))
-                );
+                throw new InternalErrorException(__d('assets', 'File `{0}` doesn\'t exist', str_replace(APP, null, $path)));
             }
 
             return $path;
@@ -169,9 +165,7 @@ class AssetsCreator
 
             //Writes the file
             if (!(new File($this->asset, false, 0755))->write($minifier->minify())) {
-                throw new InternalErrorException(
-                    __d('assets', 'Failed to create file {0}', str_replace(APP, null, $this->asset))
-                );
+                throw new InternalErrorException(__d('assets', 'Failed to create file {0}', str_replace(APP, null, $this->asset)));
             }
         }
 
