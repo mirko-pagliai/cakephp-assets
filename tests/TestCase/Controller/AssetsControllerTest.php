@@ -115,10 +115,11 @@ class AssetsControllerTest extends IntegrationTestCase
      * Test the response for `asset()` method, with a a no existing file
      * @test
      */
-    public function testAssetResponseNoExistingFile()
+    public function testAssetNoExistingFileResponse()
     {
         $this->get('/assets/noexistingfile.js');
         $this->assertEquals(404, $this->_response->getStatusCode());
         $this->assertNull($this->_response->getFile());
+        $this->assertResponseError();
     }
 }
