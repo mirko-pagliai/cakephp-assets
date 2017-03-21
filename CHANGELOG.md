@@ -3,6 +3,7 @@
 ### 1.1.3
 * added `AssetNotFoundException` class. This exception is thrown when you
     request an asset that is not available;
+* methods that have been deprecated with CakePHP 3.4 have been replaced;
 * updated for CakePHP 3.4.
 
 ### 1.1.2
