@@ -221,31 +221,23 @@ class AssetsCreatorTest extends TestCase
     {
         $asset = (new AssetsCreator('test', 'css'));
         $result = $this->invokeMethod($asset, '_getAssetPath');
-        $expected = Configure::read('Assets.target') . DS . sprintf(
-            '%s.%s',
-            md5(serialize([
-                [
-                    'path' => $file = WWW_ROOT . 'css' . DS . 'test.css',
-                    'time' => filemtime($file),
-                ],
-            ])),
-            'css'
-        );
+        $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([
+            [
+                $file = WWW_ROOT . 'css' . DS . 'test.css',
+                filemtime($file),
+            ],
+        ])), 'css');
         $this->assertEquals($expected, $result);
 
         //From plugin
         $asset = (new AssetsCreator('TestPlugin.test', 'css'));
         $result = $this->invokeMethod($asset, '_getAssetPath');
-        $expected = Configure::read('Assets.target') . DS . sprintf(
-            '%s.%s',
-            md5(serialize([
-                [
-                    'path' => $file = Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
-                    'time' => filemtime($file),
-                ],
-            ])),
-            'css'
-        );
+        $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([
+            [
+                $file = Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
+                filemtime($file),
+            ],
+        ])), 'css');
         $this->assertEquals($expected, $result);
     }
 

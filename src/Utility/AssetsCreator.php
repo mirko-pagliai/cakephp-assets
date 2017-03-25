@@ -132,9 +132,9 @@ class AssetsCreator
      */
     protected function _getAssetPath()
     {
-        $basename = md5(serialize(array_map(function ($path) {
-            return ['path' => $path, 'time' => filemtime($path)];
-        }, $this->paths)));
+        $basename = md5(serialize(collection($this->paths)->map(function ($path) {
+            return [$path, filemtime($path)];
+        })->toList()));
 
         return Configure::read('Assets.target') . DS . sprintf('%s.%s', $basename, $this->type);
     }
