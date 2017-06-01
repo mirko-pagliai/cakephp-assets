@@ -100,10 +100,6 @@ Cache::setConfig([
 Configure::write('Assets.force', true);
 Configure::write('Assets.target', TMP . 'assets');
 
-//@codingStandardsIgnoreStart
-@mkdir(Configure::read('Assets.target'));
-//@codingStandardsIgnoreEnd
-
 Plugin::load('Assets', [
     'bootstrap' => true,
     'path' => ROOT,
