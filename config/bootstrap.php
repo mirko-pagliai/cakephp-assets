@@ -22,18 +22,23 @@
  */
 use Cake\Core\Configure;
 
+//Sets the default Assets name
+if (!defined('ASSETS')) {
+    define('ASSETS', 'Assets');
+}
+
 //If `true`, assets will be used even if debugging is enabled
-if (!Configure::check('Assets.force')) {
-    Configure::write('Assets.force', false);
+if (!Configure::check(ASSETS . '.force')) {
+    Configure::write(ASSETS . '.force', false);
 }
 
 //Default assets directory
-if (!Configure::check('Assets.target')) {
-    Configure::write('Assets.target', TMP . 'assets');
+if (!Configure::check(ASSETS . '.target')) {
+    Configure::write(ASSETS . '.target', TMP . 'assets');
 }
 
 //Checks for target directory
-$target = Configure::read('Assets.target');
+$target = Configure::read(ASSETS . '.target');
 
 if (!file_exists($target)) {
     //@codingStandardsIgnoreLine

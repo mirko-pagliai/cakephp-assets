@@ -136,7 +136,7 @@ class AssetsCreator
             return [$path, filemtime($path)];
         })->toList()));
 
-        return Configure::read('Assets.target') . DS . sprintf('%s.%s', $basename, $this->type);
+        return Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $basename, $this->type);
     }
 
     /**

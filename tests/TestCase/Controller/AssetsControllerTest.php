@@ -41,7 +41,7 @@ class AssetsControllerTest extends IntegrationTestCase
         parent::tearDown();
 
         //Deletes all assets
-        foreach (glob(Configure::read('Assets.target') . DS . '*') as $file) {
+        foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
             unlink($file);
         }
     }
@@ -81,17 +81,17 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('text/css');
-        $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
+        $this->assertFileResponse(Configure::read(ASSETS . '.target') . DS . $filename);
 
         $file = $this->_response->getFile();
 
         $this->assertInstanceOf('Cake\Filesystem\File', $file);
         $this->assertEquals([
-            'dirname' => Configure::read('Assets.target'),
+            'dirname' => Configure::read(ASSETS . '.target'),
             'basename' => $filename,
             'extension' => 'css',
             'filename' => pathinfo($filename, PATHINFO_FILENAME),
-            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
+            'filesize' => filesize(Configure::read(ASSETS . '.target') . DS . $filename),
             'mime' => 'text/plain',
         ], $file->info);
     }
@@ -108,17 +108,17 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
-        $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
+        $this->assertFileResponse(Configure::read(ASSETS . '.target') . DS . $filename);
 
         $file = $this->_response->getFile();
 
         $this->assertInstanceOf('Cake\Filesystem\File', $file);
         $this->assertEquals([
-            'dirname' => Configure::read('Assets.target'),
+            'dirname' => Configure::read(ASSETS . '.target'),
             'basename' => $filename,
             'extension' => 'js',
             'filename' => pathinfo($filename, PATHINFO_FILENAME),
-            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
+            'filesize' => filesize(Configure::read(ASSETS . '.target') . DS . $filename),
             'mime' => 'text/plain',
         ], $file->info);
     }

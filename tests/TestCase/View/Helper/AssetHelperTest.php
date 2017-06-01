@@ -54,7 +54,7 @@ class AssetHelperTest extends TestCase
         parent::setUp();
 
         Configure::write('debug', true);
-        Configure::write('Assets.force', true);
+        Configure::write(ASSETS . '.force', true);
 
         $view = new View();
         $this->Asset = new AssetHelper($view);
@@ -70,7 +70,7 @@ class AssetHelperTest extends TestCase
         parent::tearDown();
 
         //Deletes all assets
-        foreach (glob(Configure::read('Assets.target') . DS . '*') as $file) {
+        foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
             unlink($file);
         }
 
@@ -103,7 +103,7 @@ class AssetHelperTest extends TestCase
     public function testCssWithDebug()
     {
         //`force`  disabled, so it does not affect the test
-        Configure::write('Assets.force', false);
+        Configure::write(ASSETS . '.force', false);
 
         Configure::write('debug', true);
 
@@ -125,12 +125,12 @@ class AssetHelperTest extends TestCase
         //Debugging disabled, so it does not affect the test
         Configure::write('debug', true);
 
-        Configure::write('Assets.force', false);
+        Configure::write(ASSETS . '.force', false);
 
         $result = $this->Asset->css('test');
         $this->assertEquals($this->Html->css('test'), $result);
 
-        Configure::write('Assets.force', true);
+        Configure::write(ASSETS . '.force', true);
 
         $result = $this->Asset->css('test');
         $this->assertNotEquals($this->Html->css('test'), $result);
