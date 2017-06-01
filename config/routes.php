@@ -22,13 +22,9 @@
  */
 use Cake\Routing\Router;
 
-Router::plugin('Assets', ['path' => '/assets'], function ($routes) {
-    $routes->connect(
-        '/:filename',
-        ['controller' => 'Assets', 'action' => 'asset'],
-        [
-            'filename' => '[a-z0-9]+\.(css|js)',
-            'pass' => ['filename'],
-        ]
-    );
+Router::plugin(ASSETS, ['path' => '/assets'], function ($routes) {
+    $routes->connect('/:filename', ['controller' => 'Assets', 'action' => 'asset'], [
+        'filename' => '[a-z0-9]+\.(css|js)',
+        'pass' => ['filename'],
+    ]);
 });

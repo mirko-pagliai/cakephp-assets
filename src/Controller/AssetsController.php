@@ -39,7 +39,7 @@ class AssetsController extends Controller
      */
     public function asset($filename)
     {
-        $file = Configure::read('Assets.target') . DS . $filename;
+        $file = Configure::read(ASSETS . '.target') . DS . $filename;
 
         if (!is_readable($file)) {
             throw new AssetNotFoundException(__d('assets', 'File `{0}` doesn\'t exist', $file));

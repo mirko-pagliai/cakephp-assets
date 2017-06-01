@@ -47,7 +47,7 @@ class AssetsCreatorTest extends TestCase
 
         Plugin::load('TestPlugin');
 
-        Configure::write('Assets.target', TMP . 'assets');
+        Configure::write(ASSETS . '.target', TMP . 'assets');
     }
 
     /**
@@ -61,7 +61,7 @@ class AssetsCreatorTest extends TestCase
         Plugin::unload('TestPlugin');
 
         //Deletes all assets
-        foreach (glob(Configure::read('Assets.target') . DS . '*') as $file) {
+        foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
             unlink($file);
         }
     }
@@ -74,7 +74,7 @@ class AssetsCreatorTest extends TestCase
     {
         $asset = new AssetsCreator('test', 'css');
 
-        $this->assertInstanceOf('Assets\Utility\AssetsCreator', $asset);
+        $this->assertInstanceOf(ASSETS . '\Utility\AssetsCreator', $asset);
 
         $this->assertEquals('css', $this->getProperty($asset, 'type'));
 
@@ -84,7 +84,7 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals('test.css', basename($paths[0]));
 
         $asset = $this->getProperty($asset, 'asset');
-        $this->assertEquals(Configure::read('Assets.target'), dirname($asset));
+        $this->assertEquals(Configure::read(ASSETS . '.target'), dirname($asset));
         $this->assertRegExp('/^[0-9a-z]+\.css$/', basename($asset));
     }
 
@@ -221,7 +221,7 @@ class AssetsCreatorTest extends TestCase
     {
         $asset = (new AssetsCreator('test', 'css'));
         $result = $this->invokeMethod($asset, '_getAssetPath');
-        $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([
+        $expected = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([
             [
                 $file = WWW_ROOT . 'css' . DS . 'test.css',
                 filemtime($file),
@@ -232,7 +232,7 @@ class AssetsCreatorTest extends TestCase
         //From plugin
         $asset = (new AssetsCreator('TestPlugin.test', 'css'));
         $result = $this->invokeMethod($asset, '_getAssetPath');
-        $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([
+        $expected = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([
             [
                 $file = Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
                 filemtime($file),
@@ -250,7 +250,7 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator('test', 'css'))->create();
         $this->assertRegExp('/^[a-z0-9]+$/', $result);
 
-        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
+        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'css');
         $this->assertFileExists($file);
 
         $expected = '#my-id{font-size:12px}.my-class{font-size:14px}';
@@ -260,7 +260,7 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator(['test', 'test2'], 'css'))->create();
         $this->assertRegExp('/^[a-z0-9]+$/', $result);
 
-        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
+        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'css');
         $this->assertFileExists($file);
 
         $expected = '#my-id{font-size:12px}.my-class{font-size:14px}' .
@@ -277,7 +277,7 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator('test', 'js'))->create();
         $this->assertRegExp('/^[a-z0-9]+$/', $result);
 
-        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
+        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
         $this->assertFileExists($file);
 
         $expected = 'function other_alert()' . PHP_EOL .
@@ -289,7 +289,7 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator(['test', 'test2'], 'js'))->create();
         $this->assertRegExp('/^[a-z0-9]+$/', $result);
 
-        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
+        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
         $this->assertFileExists($file);
 
         $expected = 'function other_alert()' . PHP_EOL .
@@ -312,7 +312,7 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator('test', 'css'))->create();
 
         //Sets the file path and the creation time
-        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
+        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'css');
         $time = filemtime($file);
 
         //Tries to create again the same asset. Now the creation time is the same
@@ -336,7 +336,7 @@ class AssetsCreatorTest extends TestCase
      */
     public function testCreateNoExistingTarget()
     {
-        Configure::write('Assets.target', 'noExistingDir');
+        Configure::write(ASSETS . '.target', 'noExistingDir');
 
         (new AssetsCreator('test', 'css'))->create();
     }

@@ -1,5 +1,9 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.4
+* the target directory is created automatically, if it does not exist;
+* added `ASSETS` constant.
+
 ### 1.1.3
 * added `AssetNotFoundException` class. This exception is thrown when you
     request an asset that is not available;
