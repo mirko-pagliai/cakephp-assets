@@ -3,7 +3,7 @@
     "description": "Assets plugin for CakePHP",
     "homepage": "https://github.com/mirko-pagliai/assets",
     "type": "cakephp-plugin",
-    "license": "AGPL",
+    "license": "AGPL-3.0",
     "authors": [{
         "name": "Mirko Pagliai",
         "email": "mirko.pagliai@gmail.com"
