@@ -58,8 +58,8 @@ class AssetsCreator
      * @param string $type Extension (`css` or `js`)
      * @return \Assets\Utility\AssetsCreator
      * @throws InternalErrorException
-     * @uses _getAssetPath()
-     * @uses _resolvePath()
+     * @uses getAssetPath()
+     * @uses resolvePath()
      * @uses $asset
      * @uses $paths
      * @uses $type
@@ -70,11 +70,11 @@ class AssetsCreator
             throw new InternalErrorException(__d('assets', 'Asset type `{0}` not supported', $type));
         }
 
-        //Note: `_resolvePath()` needs `$type`; `_getAssetPath()` needs
+        //Note: `resolvePath()` needs `$type`; `getAssetPath()` needs
         //  `$type` and `$paths`
         $this->type = $type;
-        $this->paths = $this->_resolvePath($paths);
-        $this->asset = $this->_getAssetPath();
+        $this->paths = $this->resolvePath($paths);
+        $this->asset = $this->getAssetPath();
 
         return $this;
     }
@@ -86,7 +86,7 @@ class AssetsCreator
      * @throws InternalErrorException
      * @use $type
      */
-    protected function _resolvePath($paths)
+    protected function resolvePath($paths)
     {
         $loadedPlugins = Plugin::loaded();
 
@@ -125,12 +125,12 @@ class AssetsCreator
     }
 
     /**
-     * Gets the asset path
+     * Internal method to get the asset path
      * @return string
      * @use $paths
      * @use $type
      */
-    protected function _getAssetPath()
+    protected function getAssetPath()
     {
         $basename = md5(serialize(collection($this->paths)->map(function ($path) {
             return [$path, filemtime($path)];

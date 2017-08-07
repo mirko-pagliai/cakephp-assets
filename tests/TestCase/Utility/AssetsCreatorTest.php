@@ -122,7 +122,7 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `_resolvePath()` method
+     * Test for `resolvePath()` method
      * @ŧest
      */
     public function testResolvePath()
@@ -214,13 +214,13 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `_getAssetPath()` method
+     * Test for `getAssetPath()` method
      * @test
      */
     public function testGetAssetPath()
     {
         $asset = (new AssetsCreator('test', 'css'));
-        $result = $this->invokeMethod($asset, '_getAssetPath');
+        $result = $this->invokeMethod($asset, 'getAssetPath');
         $expected = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([
             [
                 $file = WWW_ROOT . 'css' . DS . 'test.css',
@@ -231,7 +231,7 @@ class AssetsCreatorTest extends TestCase
 
         //From plugin
         $asset = (new AssetsCreator('TestPlugin.test', 'css'));
-        $result = $this->invokeMethod($asset, '_getAssetPath');
+        $result = $this->invokeMethod($asset, 'getAssetPath');
         $expected = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([
             [
                 $file = Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
