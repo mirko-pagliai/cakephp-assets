@@ -1,5 +1,6 @@
 # Assets plugin
 
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.txt)
 [![Build Status](https://travis-ci.org/mirko-pagliai/assets.svg?branch=master)](https://travis-ci.org/mirko-pagliai/assets)
 [![Coverage Status](https://img.shields.io/codecov/c/github/mirko-pagliai/assets.svg?style=flat-square)](https://codecov.io/github/mirko-pagliai/assets)
 
