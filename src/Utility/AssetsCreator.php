@@ -2,23 +2,13 @@
 /**
  * This file is part of Assets.
  *
- * Assets is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * Assets is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Assets.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/assets
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @see         https://github.com/matthiasmullie/minify
  */
 namespace Assets\Utility;
@@ -58,8 +48,8 @@ class AssetsCreator
      * @param string $type Extension (`css` or `js`)
      * @return \Assets\Utility\AssetsCreator
      * @throws InternalErrorException
-     * @uses _getAssetPath()
-     * @uses _resolvePath()
+     * @uses getAssetPath()
+     * @uses resolvePath()
      * @uses $asset
      * @uses $paths
      * @uses $type
@@ -70,11 +60,11 @@ class AssetsCreator
             throw new InternalErrorException(__d('assets', 'Asset type `{0}` not supported', $type));
         }
 
-        //Note: `_resolvePath()` needs `$type`; `_getAssetPath()` needs
+        //Note: `resolvePath()` needs `$type`; `getAssetPath()` needs
         //  `$type` and `$paths`
         $this->type = $type;
-        $this->paths = $this->_resolvePath($paths);
-        $this->asset = $this->_getAssetPath();
+        $this->paths = $this->resolvePath($paths);
+        $this->asset = $this->getAssetPath();
 
         return $this;
     }
@@ -86,7 +76,7 @@ class AssetsCreator
      * @throws InternalErrorException
      * @use $type
      */
-    protected function _resolvePath($paths)
+    protected function resolvePath($paths)
     {
         $loadedPlugins = Plugin::loaded();
 
@@ -125,12 +115,12 @@ class AssetsCreator
     }
 
     /**
-     * Gets the asset path
+     * Internal method to get the asset path
      * @return string
      * @use $paths
      * @use $type
      */
-    protected function _getAssetPath()
+    protected function getAssetPath()
     {
         $basename = md5(serialize(collection($this->paths)->map(function ($path) {
             return [$path, filemtime($path)];

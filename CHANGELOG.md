@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.5
+* the MIT license has been applied.
+
 ### 1.1.4
 * the target directory is created automatically, if it does not exist;
 * added `ASSETS` constant.
