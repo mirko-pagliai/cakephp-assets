@@ -1,5 +1,9 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.6
+* fixed `composer.json`. The package requires `cakephp >=3.4 <3.6`. For previous
+    versions (3.2 or 3.3), you can use the `cakephp3.2` branch.
+
 ### 1.1.5
 * the MIT license has been applied.
 
