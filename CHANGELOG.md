@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.6
+* updated for CakePHP 3.5.
+
 ### 1.1.5
 * the MIT license has been applied.
 
