@@ -84,6 +84,23 @@ class AssetsControllerTest extends IntegrationTestCase
             'filesize' => filesize(Configure::read(ASSETS . '.target') . DS . $filename),
             'mime' => 'text/plain',
         ], $file->info);
+
+        //Gets the `Last-Modified` header
+        $lastModified = $this->_response->getHeader('Last-Modified')[0];
+        $this->assertNotEmpty($lastModified);
+
+        //It still requires the same asset file. The `Last-Modified` header is the same
+        sleep(1);
+        $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
+        $this->get(sprintf('/assets/%s', $filename));
+        $this->assertEquals($lastModified, $this->_response->getHeader('Last-Modified')[0]);
+
+        //Deletes the asset file. Now the `Last-Modified` header is different
+        unlink(Configure::read(ASSETS . '.target') . DS . $filename);
+        sleep(1);
+        $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
+        $this->get(sprintf('/assets/%s', $filename));
+        $this->assertNotEquals($lastModified, $this->_response->getHeader('Last-Modified')[0]);
     }
 
     /**
