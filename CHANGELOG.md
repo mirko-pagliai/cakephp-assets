@@ -3,9 +3,9 @@
 ### 1.1.7
 * the timestamp is attached to the assets, if required by the application
     configuration (`Asset.timestamp`);
-* added `AssetCreator::getAssetFilename()` and `getAssetPath()` methods;
+* added `AssetCreator:filename()` and `AssetCreator::path()` methods;
 * `AssetCreator::getAssetPath()` method renamed as `resolveAssetPath()` and 
-    `AssetCreatorresolvePath()` method renamed as `resolveFilePaths()`. This
+    `AssetCreator::resolvePath()` method renamed as `resolveFilePaths()`. This
     creates less confusion about the names and functions of class methods.
 
 ### 1.1.6

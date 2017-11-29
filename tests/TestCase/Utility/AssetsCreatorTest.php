@@ -310,23 +310,23 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `getAssetFilename()` method
+     * Test for `filename()` method
      * @test
      */
-    public function testGetAssetFilename()
+    public function testFilename()
     {
         $asset = new AssetsCreator('test', 'css');
-        $this->assertRegExp('/^[a-z0-9]+$/', $asset->getAssetFilename());
+        $this->assertRegExp('/^[a-z0-9]+$/', $asset->filename());
     }
 
     /**
-     * Test for `getAssetPath()` method
+     * Test for `path()` method
      * @test
      */
-    public function testGetAssetPath()
+    public function testPath()
     {
         $asset = new AssetsCreator('test', 'css');
         $filename = $asset->create();
-        $this->assertEquals(Configure::read(ASSETS . '.target') . DS . $filename . '.css', $asset->getAssetPath());
+        $this->assertEquals(Configure::read(ASSETS . '.target') . DS . $filename . '.css', $asset->path());
     }
 }

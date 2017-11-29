@@ -124,14 +124,14 @@ class AssetsCreator
      * Creates the asset
      * @return string
      * @throws InternalErrorException
-     * @uses getAssetFilename()
-     * @uses getAssetPath()
+     * @uses filename()
+     * @uses path()
      * @uses $paths
      * @uses $type
      */
     public function create()
     {
-        $asset = $this->getAssetPath();
+        $asset = $this->path();
 
         if (!is_readable($asset)) {
             switch ($this->type) {
@@ -151,14 +151,14 @@ class AssetsCreator
             }
         }
 
-        return $this->getAssetFilename();
+        return $this->filename();
     }
 
     /**
      * Returns the asset filename
      * @return string Asset filename
      */
-    public function getAssetFilename()
+    public function filename()
     {
         return pathinfo($this->asset, PATHINFO_FILENAME);
     }
@@ -167,7 +167,7 @@ class AssetsCreator
      * Returns the asset full path
      * @return string Asset full path
      */
-    public function getAssetPath()
+    public function path()
     {
         return $this->asset;
     }
