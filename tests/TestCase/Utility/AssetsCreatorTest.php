@@ -308,4 +308,25 @@ class AssetsCreatorTest extends TestCase
 
         (new AssetsCreator('test', 'css'))->create();
     }
+
+    /**
+     * Test for `getAssetFilename()` method
+     * @test
+     */
+    public function testGetAssetFilename()
+    {
+        $asset = new AssetsCreator('test', 'css');
+        $this->assertRegExp('/^[a-z0-9]+$/', $asset->getAssetFilename());
+    }
+
+    /**
+     * Test for `getAssetPath()` method
+     * @test
+     */
+    public function testGetAssetPath()
+    {
+        $asset = new AssetsCreator('test', 'css');
+        $filename = $asset->create();
+        $this->assertEquals(Configure::read(ASSETS . '.target') . DS . $filename . '.css', $asset->getAssetPath());
+    }
 }

@@ -124,13 +124,16 @@ class AssetsCreator
      * Creates the asset
      * @return string
      * @throws InternalErrorException
-     * @uses $asset
+     * @uses getAssetFilename()
+     * @uses getAssetPath()
      * @uses $paths
      * @uses $type
      */
     public function create()
     {
-        if (!is_readable($this->asset)) {
+        $asset = $this->getAssetPath();
+
+        if (!is_readable($asset)) {
             switch ($this->type) {
                 case 'css':
                     $minifier = new Minify\CSS();
@@ -143,11 +146,29 @@ class AssetsCreator
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            if (!(new File($this->asset, false, 0755))->write($minifier->minify())) {
-                throw new InternalErrorException(__d('assets', 'Failed to create file {0}', str_replace(APP, null, $this->asset)));
+            if (!(new File($asset, false, 0755))->write($minifier->minify())) {
+                throw new InternalErrorException(__d('assets', 'Failed to create file {0}', str_replace(APP, null, $asset)));
             }
         }
 
+        return $this->getAssetFilename();
+    }
+
+    /**
+     * Returns the asset filename
+     * @return string Asset filename
+     */
+    public function getAssetFilename()
+    {
         return pathinfo($this->asset, PATHINFO_FILENAME);
+    }
+
+    /**
+     * Returns the asset full path
+     * @return string Asset full path
+     */
+    public function getAssetPath()
+    {
+        return $this->asset;
     }
 }

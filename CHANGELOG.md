@@ -1,6 +1,7 @@
 # 1.x branch
 ## 1.1 branch
 ### 1.1.7
+* added `AssetCreator::getAssetFilename()` and `getAssetPath()` methods;
 * `AssetCreator::getAssetPath()` method renamed as `resolveAssetPath()` and 
     `AssetCreatorresolvePath()` method renamed as `resolveFilePaths()`. This
     creates less confusion about the names and functions of class methods.
