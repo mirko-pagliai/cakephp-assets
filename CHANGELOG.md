@@ -1,6 +1,8 @@
 # 1.x branch
 ## 1.1 branch
 ### 1.1.7
+* the timestamp is attached to the assets, if required by the application
+    configuration (`Asset.timestamp`);
 * added `AssetCreator::getAssetFilename()` and `getAssetPath()` methods;
 * `AssetCreator::getAssetPath()` method renamed as `resolveAssetPath()` and 
     `AssetCreatorresolvePath()` method renamed as `resolveFilePaths()`. This

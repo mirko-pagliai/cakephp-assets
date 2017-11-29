@@ -43,12 +43,13 @@ class AssetHelperTest extends TestCase
     {
         parent::setUp();
 
-        Configure::write('debug', true);
-        Configure::write(ASSETS . '.force', true);
+        Configure::write([
+            'debug' => true,
+            ASSETS . '.force' => true,
+        ]);
 
-        $view = new View();
-        $this->Asset = new AssetHelper($view);
-        $this->Html = new HtmlHelper($view);
+        $this->Asset = new AssetHelper(new View);
+        $this->Html = new HtmlHelper(new View);
     }
 
     /**
@@ -63,8 +64,6 @@ class AssetHelperTest extends TestCase
         foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
             unlink($file);
         }
-
-        unset($this->Asset, $this->Html);
     }
 
     /**
@@ -73,17 +72,12 @@ class AssetHelperTest extends TestCase
      */
     public function testCss()
     {
-        $regex = '/href="\/assets\/[a-z0-9]+\.css"/';
-
-        $result = $this->Asset->css('test');
-        $expected = ['link' => ['rel' => 'stylesheet', 'href']];
-        $this->assertHtml($expected, $result);
-        $this->assertRegExp($regex, $result);
-
-        $result = $this->Asset->css(['test', 'test2']);
-        $expected = ['link' => ['rel' => 'stylesheet', 'href']];
-        $this->assertHtml($expected, $result);
-        $this->assertRegExp($regex, $result);
+        $expected = ['link' => [
+            'rel' => 'stylesheet',
+            'href' => 'preg:/\/assets\/[\w\d]+\.css\?\d{10}/',
+        ]];
+        $this->assertHtml($expected, $this->Asset->css('test'));
+        $this->assertHtml($expected, $this->Asset->css(['test', 'test2']));
     }
 
     /**
@@ -127,21 +121,39 @@ class AssetHelperTest extends TestCase
     }
 
     /**
+     * Test for `css()` method with `timestamp` enabled/disabled
+     * @test
+     */
+    public function testCssWithTimestamp()
+    {
+        //Debugging disabled, so it does not affect the test
+        Configure::write('debug', true);
+
+        Configure::write('Asset.timestamp', false);
+
+        $expected = ['link' => [
+            'rel' => 'stylesheet',
+            'href' => 'preg:/\/assets\/[\w\d]+\.css/',
+        ]];
+        $this->assertHtml($expected, $this->Asset->css('test'));
+
+        Configure::write('Asset.timestamp', true);
+
+        $expected = ['link' => [
+            'rel' => 'stylesheet',
+            'href' => 'preg:/\/assets\/[\w\d]+\.css\?\d{10}/',
+        ]];
+        $this->assertHtml($expected, $this->Asset->css('test'));
+    }
+
+    /**
      * Test for `script()` method
      * @test
      */
     public function testScript()
     {
-        $regex = '/src="\/assets\/[a-z0-9]+\.js"/';
-
-        $result = $this->Asset->script('test');
-        $expected = ['script' => ['src']];
-        $this->assertHtml($expected, $result);
-        $this->assertRegExp($regex, $result);
-
-        $result = $this->Asset->script(['test', 'test2']);
-        $expected = ['script' => ['src']];
-        $this->assertHtml($expected, $result);
-        $this->assertRegExp($regex, $result);
+        $expected = ['script' => ['src' => 'preg:/\/assets\/[\w\d]+\.js\?\d{10}/']];
+        $this->assertHtml($expected, $this->Asset->script('test'));
+        $this->assertHtml($expected, $this->Asset->script(['test', 'test2']));
     }
 }
