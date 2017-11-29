@@ -1,5 +1,10 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.7
+* `AssetCreator::getAssetPath()` method renamed as `resolveAssetPath()` and 
+    `AssetCreatorresolvePath()` method renamed as `resolveFilePaths()`. This
+    creates less confusion about the names and functions of class methods.
+
 ### 1.1.6
 * updated for CakePHP 3.5.
 

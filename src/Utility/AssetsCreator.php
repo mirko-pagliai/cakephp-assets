@@ -48,8 +48,8 @@ class AssetsCreator
      * @param string $type Extension (`css` or `js`)
      * @return $this
      * @throws InternalErrorException
-     * @uses getAssetPath()
-     * @uses resolvePath()
+     * @uses resolveAssetPath()
+     * @uses resolveFilePaths()
      * @uses $asset
      * @uses $paths
      * @uses $type
@@ -60,23 +60,38 @@ class AssetsCreator
             throw new InternalErrorException(__d('assets', 'Asset type `{0}` not supported', $type));
         }
 
-        //Note: `resolvePath()` method needs `$type` property; `getAssetPath()`
-        //  method needs `$type` and `$paths` properties
+        //Note: `resolveFilePaths()` method needs `$type` property;
+        //  `resolveAssetPath()` method needs `$type` and `$paths` properties
         $this->type = $type;
-        $this->paths = $this->resolvePath($paths);
-        $this->asset = $this->getAssetPath();
+        $this->paths = $this->resolveFilePaths($paths);
+        $this->asset = $this->resolveAssetPath();
 
         return $this;
     }
 
     /**
-     * Internal method to resolve partial paths and return full paths
-     * @param string|array $paths Partial paths
-     * @return array Full paths
+     * Internal method to resolve the asset path
+     * @return string Asset full path
+     * @use $paths
+     * @use $type
+     */
+    protected function resolveAssetPath()
+    {
+        $basename = md5(serialize(array_map(function ($path) {
+            return [$path, filemtime($path)];
+        }, $this->paths)));
+
+        return Configure::read(ASSETS . '.target') . DS . $basename . '.' . $this->type;
+    }
+
+    /**
+     * Internal method to resolve partial file paths and return full paths
+     * @param string|array $paths Partial file paths
+     * @return array Full file paths
      * @throws InternalErrorException
      * @use $type
      */
-    protected function resolvePath($paths)
+    protected function resolveFilePaths($paths)
     {
         $loadedPlugins = Plugin::loaded();
 
@@ -103,21 +118,6 @@ class AssetsCreator
 
             return $path;
         }, (array)$paths);
-    }
-
-    /**
-     * Internal method to get the asset full path
-     * @return string Full path
-     * @use $paths
-     * @use $type
-     */
-    protected function getAssetPath()
-    {
-        $basename = md5(serialize(array_map(function ($path) {
-            return [$path, filemtime($path)];
-        }, $this->paths)));
-
-        return Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $basename, $this->type);
     }
 
     /**
