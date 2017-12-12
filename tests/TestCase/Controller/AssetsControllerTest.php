@@ -72,10 +72,7 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
         $this->assertContentType('text/css');
         $this->assertFileResponse(Configure::read(ASSETS . '.target') . DS . $filename);
-
-        $file = $this->_response->getFile();
-
-        $this->assertInstanceOf('Cake\Filesystem\File', $file);
+        $this->assertInstanceOf('Cake\Filesystem\File', $this->_response->getFile());
         $this->assertEquals([
             'dirname' => Configure::read(ASSETS . '.target'),
             'basename' => $filename,
@@ -83,23 +80,24 @@ class AssetsControllerTest extends IntegrationTestCase
             'filename' => pathinfo($filename, PATHINFO_FILENAME),
             'filesize' => filesize(Configure::read(ASSETS . '.target') . DS . $filename),
             'mime' => 'text/plain',
-        ], $file->info);
+        ], $this->_response->getFile()->info);
 
         //Gets the `Last-Modified` header
         $lastModified = $this->_response->getHeader('Last-Modified')[0];
         $this->assertNotEmpty($lastModified);
 
-        //It still requires the same asset file. The `Last-Modified` header is the same
+        //It still requires the same asset file. It gets the 304 status code
         sleep(1);
-        $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
+        $this->configRequest(['headers' => ['If-Modified-Since' => $lastModified]]);
         $this->get(sprintf('/assets/%s', $filename));
-        $this->assertEquals($lastModified, $this->_response->getHeader('Last-Modified')[0]);
+        $this->assertResponseCode(304);
 
         //Deletes the asset file. Now the `Last-Modified` header is different
         unlink(Configure::read(ASSETS . '.target') . DS . $filename);
         sleep(1);
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
         $this->get(sprintf('/assets/%s', $filename));
+        $this->assertResponseOk();
         $this->assertNotEquals($lastModified, $this->_response->getHeader('Last-Modified')[0]);
     }
 
