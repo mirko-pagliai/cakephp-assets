@@ -1,5 +1,15 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.7
+* the `Last-Modified` header is set up and sent to the client. It indicates the
+    date and time at which the asset file was modified for the last time;
+* the timestamp is attached to the assets, if required by the application
+    configuration (`Asset.timestamp`);
+* added `AssetCreator:filename()` and `AssetCreator::path()` methods;
+* `AssetCreator::getAssetPath()` method renamed as `resolveAssetPath()` and 
+    `AssetCreator::resolvePath()` method renamed as `resolveFilePaths()`. This
+    creates less confusion about the names and functions of class methods.
+
 ### 1.1.6
 * updated for CakePHP 3.5.
 

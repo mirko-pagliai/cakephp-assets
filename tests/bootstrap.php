@@ -70,6 +70,7 @@ Configure::write('App', [
         'templates' => [APP . 'TestApp' . DS . 'Template' . DS],
     ]
 ]);
+Configure::write('Asset.timestamp', true);
 
 Cache::setConfig([
     '_cake_core_' => [

@@ -25,19 +25,19 @@ use MatthiasMullie\Minify;
 class AssetsCreator
 {
     /**
-     * Asset path
+     * Asset full path
      * @var string
      */
     protected $asset = null;
 
     /**
-     * Paths
+     * File paths that will be transformed into a single asset
      * @var array
      */
     protected $paths = [];
 
     /**
-     * Asset type
+     * Asset type (`css` or `js`)
      * @var string
      */
     protected $type = null;
@@ -46,10 +46,10 @@ class AssetsCreator
      * Construct. Sets the asset type and paths
      * @param string|array $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
-     * @return \Assets\Utility\AssetsCreator
+     * @return $this
      * @throws InternalErrorException
-     * @uses getAssetPath()
-     * @uses resolvePath()
+     * @uses resolveAssetPath()
+     * @uses resolveFilePaths()
      * @uses $asset
      * @uses $paths
      * @uses $type
@@ -60,23 +60,38 @@ class AssetsCreator
             throw new InternalErrorException(__d('assets', 'Asset type `{0}` not supported', $type));
         }
 
-        //Note: `resolvePath()` needs `$type`; `getAssetPath()` needs
-        //  `$type` and `$paths`
+        //Note: `resolveFilePaths()` method needs `$type` property;
+        //  `resolveAssetPath()` method needs `$type` and `$paths` properties
         $this->type = $type;
-        $this->paths = $this->resolvePath($paths);
-        $this->asset = $this->getAssetPath();
+        $this->paths = $this->resolveFilePaths($paths);
+        $this->asset = $this->resolveAssetPath();
 
         return $this;
     }
 
     /**
-     * Internal method to resolve partial paths, returning full paths
-     * @param string|array $paths Partial paths
-     * @return array
+     * Internal method to resolve the asset path
+     * @return string Asset full path
+     * @use $paths
+     * @use $type
+     */
+    protected function resolveAssetPath()
+    {
+        $basename = md5(serialize(array_map(function ($path) {
+            return [$path, filemtime($path)];
+        }, $this->paths)));
+
+        return Configure::read(ASSETS . '.target') . DS . $basename . '.' . $this->type;
+    }
+
+    /**
+     * Internal method to resolve partial file paths and return full paths
+     * @param string|array $paths Partial file paths
+     * @return array Full file paths
      * @throws InternalErrorException
      * @use $type
      */
-    protected function resolvePath($paths)
+    protected function resolveFilePaths($paths)
     {
         $loadedPlugins = Plugin::loaded();
 
@@ -89,17 +104,8 @@ class AssetsCreator
                 list($plugin, $path) = $pluginSplit;
             }
 
-            if (substr($path, 0, 1) === '/') {
-                $path = substr($path, 1);
-            } else {
-                $path = $this->type . DS . $path;
-            }
-
-            if (!empty($plugin)) {
-                $path = Plugin::path($plugin) . 'webroot' . DS . $path;
-            } else {
-                $path = WWW_ROOT . $path;
-            }
+            $path = substr($path, 0, 1) === '/' ? substr($path, 1) : $this->type . DS . $path;
+            $path = empty($plugin) ? WWW_ROOT . $path : Plugin::path($plugin) . 'webroot' . DS . $path;
 
             //Appends the file extension, if not already present
             if (pathinfo($path, PATHINFO_EXTENSION) !== $this->type) {
@@ -115,31 +121,19 @@ class AssetsCreator
     }
 
     /**
-     * Internal method to get the asset path
-     * @return string
-     * @use $paths
-     * @use $type
-     */
-    protected function getAssetPath()
-    {
-        $basename = md5(serialize(collection($this->paths)->map(function ($path) {
-            return [$path, filemtime($path)];
-        })->toList()));
-
-        return Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $basename, $this->type);
-    }
-
-    /**
      * Creates the asset
      * @return string
      * @throws InternalErrorException
-     * @uses $asset
+     * @uses filename()
+     * @uses path()
      * @uses $paths
      * @uses $type
      */
     public function create()
     {
-        if (!is_readable($this->asset)) {
+        $asset = $this->path();
+
+        if (!is_readable($asset)) {
             switch ($this->type) {
                 case 'css':
                     $minifier = new Minify\CSS();
@@ -149,16 +143,32 @@ class AssetsCreator
                     break;
             }
 
-            foreach ($this->paths as $path) {
-                $minifier->add($path);
-            }
+            array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            if (!(new File($this->asset, false, 0755))->write($minifier->minify())) {
-                throw new InternalErrorException(__d('assets', 'Failed to create file {0}', str_replace(APP, null, $this->asset)));
+            if (!(new File($asset, false, 0755))->write($minifier->minify())) {
+                throw new InternalErrorException(__d('assets', 'Failed to create file {0}', str_replace(APP, null, $asset)));
             }
         }
 
+        return $this->filename();
+    }
+
+    /**
+     * Returns the asset filename
+     * @return string Asset filename
+     */
+    public function filename()
+    {
         return pathinfo($this->asset, PATHINFO_FILENAME);
+    }
+
+    /**
+     * Returns the asset full path
+     * @return string Asset full path
+     */
+    public function path()
+    {
+        return $this->asset;
     }
 }

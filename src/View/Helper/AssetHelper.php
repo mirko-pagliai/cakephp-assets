@@ -30,17 +30,44 @@ class AssetHelper extends Helper
     public $helpers = ['Html'];
 
     /**
+     * Gets the asset path
+     * @param string|array $path String or array of css/js files
+     * @param string $type `css` or `js`
+     * @return string Asset path
+     * @uses Assets\Utility\AssetsCreator::create()
+     * @uses Assets\Utility\AssetsCreator::filename()
+     * @uses Assets\Utility\AssetsCreator::path()
+     */
+    protected function path($path, $type)
+    {
+        if (Configure::read('debug') && !Configure::read(ASSETS . '.force')) {
+            return $path;
+        }
+
+        $asset = new AssetsCreator($path, $type);
+        $asset->create();
+        $path = '/assets/' . $asset->filename();
+
+        //Appends the timestamp
+        $stamp = Configure::read('Asset.timestamp');
+        $timestampEnabled = $stamp === 'force' || ($stamp === true && Configure::read('debug'));
+        if ($timestampEnabled) {
+            $path .= '.' . $type . '?' . filemtime($asset->path());
+        }
+
+        return $path;
+    }
+
+    /**
      * Compresses and adds a css file to the layout
      * @param string|array $path String or array of css files
      * @param array $options Array of options and HTML attributes
      * @return string Html, `<link>` or `<style>` tag
-     * @uses Assets\Utility\AssetsCreator:css()
+     * @uses path()
      */
     public function css($path, array $options = [])
     {
-        if (!Configure::read('debug') || Configure::read(ASSETS . '.force')) {
-            $path = '/assets/' . (new AssetsCreator($path, 'css'))->create();
-        }
+        $path = $this->path($path, 'css');
 
         return $this->Html->css($path, $options);
     }
@@ -51,13 +78,11 @@ class AssetHelper extends Helper
      * @param array $options Array of options and HTML attributes
      * @return mixed String of `<script />` tags or null if `$inline` is
      *  false or if `$once` is true
-     * @uses Assets\Utility\AssetsCreator:script()
+     * @uses path()
      */
     public function script($url, array $options = [])
     {
-        if (!Configure::read('debug') || Configure::read(ASSETS . '.force')) {
-            $url = '/assets/' . (new AssetsCreator($url, 'js'))->create();
-        }
+        $url = $this->path($url, 'js');
 
         return $this->Html->script($url, $options);
     }
