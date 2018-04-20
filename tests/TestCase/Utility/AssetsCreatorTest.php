@@ -16,7 +16,7 @@ use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
-use Reflection\ReflectionTrait;
+use Tools\ReflectionTrait;
 
 /**
  * AssetsCreatorTest class
@@ -248,8 +248,7 @@ class AssetsCreatorTest extends TestCase
         $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
         $this->assertFileExists($file);
 
-        $expected = 'function other_alert()' . PHP_EOL .
-            '{alert(\'Another alert\')}' . PHP_EOL .
+        $expected = 'function other_alert(){alert(\'Another alert\')}' . PHP_EOL .
             '$(function(){var msg=\'Ehi!\';alert(msg)})';
         $this->assertStringEqualsFile($file, $expected);
 
@@ -260,8 +259,7 @@ class AssetsCreatorTest extends TestCase
         $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
         $this->assertFileExists($file);
 
-        $expected = 'function other_alert()' . PHP_EOL .
-            '{alert(\'Another alert\')}' . PHP_EOL .
+        $expected = 'function other_alert(){alert(\'Another alert\')}' . PHP_EOL .
             '$(function(){var msg=\'Ehi!\';alert(msg)});' .
             'var first=\'This is first\';' .
             'var second=\'This is second\';' .
