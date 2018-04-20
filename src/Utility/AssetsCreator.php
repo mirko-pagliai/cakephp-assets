@@ -16,8 +16,9 @@ namespace Assets\Utility;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Filesystem\File;
-use Cake\Network\Exception\InternalErrorException;
+use InvalidArgumentException;
 use MatthiasMullie\Minify;
+use RuntimeException;
 
 /**
  * An utility to create assets
@@ -47,7 +48,7 @@ class AssetsCreator
      * @param string|array $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
      * @return $this
-     * @throws InternalErrorException
+     * @throws InvalidArgumentException
      * @uses resolveAssetPath()
      * @uses resolveFilePaths()
      * @uses $asset
@@ -57,7 +58,7 @@ class AssetsCreator
     public function __construct($paths, $type)
     {
         if (!in_array($type, ['css', 'js'])) {
-            throw new InternalErrorException(__d('assets', 'Asset type `{0}` not supported', $type));
+            throw new InvalidArgumentException(__d('assets', 'Asset type `{0}` not supported', $type));
         }
 
         //Note: `resolveFilePaths()` method needs `$type` property;
@@ -88,7 +89,7 @@ class AssetsCreator
      * Internal method to resolve partial file paths and return full paths
      * @param string|array $paths Partial file paths
      * @return array Full file paths
-     * @throws InternalErrorException
+     * @throws RuntimeException
      * @use $type
      */
     protected function resolveFilePaths($paths)
@@ -113,7 +114,7 @@ class AssetsCreator
             }
 
             if (!file_exists($path)) {
-                throw new InternalErrorException(__d('assets', 'File `{0}` doesn\'t exist', str_replace(APP, null, $path)));
+                throw new RuntimeException(__d('assets', 'File `{0}` doesn\'t exist', str_replace(APP, null, $path)));
             }
 
             return $path;
@@ -123,7 +124,7 @@ class AssetsCreator
     /**
      * Creates the asset
      * @return string
-     * @throws InternalErrorException
+     * @throws RuntimeException
      * @uses filename()
      * @uses path()
      * @uses $paths
@@ -147,7 +148,7 @@ class AssetsCreator
 
             //Writes the file
             if (!(new File($asset, false, 0755))->write($minifier->minify())) {
-                throw new InternalErrorException(__d('assets', 'Failed to create file {0}', str_replace(APP, null, $asset)));
+                throw new RuntimeException(__d('assets', 'Failed to create file {0}', str_replace(APP, null, $asset)));
             }
         }
 

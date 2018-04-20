@@ -1,6 +1,8 @@
 # 1.x branch
 ## 1.1 branch
 ### 1.1.8
+* replaced `InternalErrorException` with `InvalidArgumentException` and 
+    `RuntimeException`. This allows compatibility with CakePHP 3.6 branch;
 * now it uses the `mirko-pagliai/php-tools` package. This also replaces
     `mirko-pagliai/reflection`.
 

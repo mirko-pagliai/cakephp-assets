@@ -80,7 +80,7 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `__construct()` method, passing a no existing file
-     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedException RuntimeException
      * @expectedExceptionMessage File `webroot/css/noExistingFile.css` doesn't exist
      * @test
      */
@@ -91,7 +91,7 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `__construct()` method, passing a no existing file from plugin
-     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedException RuntimeException
      * @expectedExceptionMessage File `Plugin/TestPlugin/webroot/css/noExistingFile.css` doesn't exist
      * @test
      */
@@ -102,7 +102,7 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `__construct()` method, passing unsupported type
-     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Asset type `html` not supported
      * @test
      */
@@ -296,7 +296,7 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `create()` method with no existing target directory
-     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedException RuntimeException
      * @expectedExceptionMessageRegExp /^Failed to create file noExistingDir\/[a-z0-9]+\.css$/
      * @test
      */
