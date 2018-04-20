@@ -12,8 +12,8 @@
  */
 namespace Assets\Test\TestCase\Utility;
 
-use Assets\Utility\AssetsCreator;
 use Assets\TestSuite\TestCase;
+use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 
