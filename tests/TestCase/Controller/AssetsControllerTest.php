@@ -13,29 +13,15 @@
 namespace Assets\Test\TestCase\Controller;
 
 use Assets\Controller\AssetsController;
+use Assets\TestSuite\IntegrationTestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
-use Cake\TestSuite\IntegrationTestCase;
 
 /**
  * AssetControllerTest class
  */
 class AssetsControllerTest extends IntegrationTestCase
 {
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        //Deletes all assets
-        foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
-            unlink($file);
-        }
-    }
-
     /**
      * Test for `asset()` method, with a a no existing file
      * @expectedException Assets\Http\Exception\AssetNotFoundException
@@ -54,9 +40,8 @@ class AssetsControllerTest extends IntegrationTestCase
     public function testAssetNoExistingFileResponse()
     {
         $this->get('/assets/noexistingfile.js');
-        $this->assertEquals(404, $this->_response->getStatusCode());
-        $this->assertNull($this->_response->getFile());
         $this->assertResponseError();
+        $this->assertNull($this->_response->getFile());
     }
 
     /**
@@ -93,7 +78,9 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->assertResponseCode(304);
 
         //Deletes the asset file. Now the `Last-Modified` header is different
-        unlink(Configure::read(ASSETS . '.target') . DS . $filename);
+        //@codingStandardsIgnoreLine
+        @unlink(Configure::read(ASSETS . '.target') . DS . $filename);
+
         sleep(1);
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
         $this->get(sprintf('/assets/%s', $filename));
@@ -114,10 +101,7 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
         $this->assertFileResponse(Configure::read(ASSETS . '.target') . DS . $filename);
-
-        $file = $this->_response->getFile();
-
-        $this->assertInstanceOf('Cake\Filesystem\File', $file);
+        $this->assertInstanceOf('Cake\Filesystem\File', $this->_response->getFile());
         $this->assertEquals([
             'dirname' => Configure::read(ASSETS . '.target'),
             'basename' => $filename,
@@ -125,6 +109,6 @@ class AssetsControllerTest extends IntegrationTestCase
             'filename' => pathinfo($filename, PATHINFO_FILENAME),
             'filesize' => filesize(Configure::read(ASSETS . '.target') . DS . $filename),
             'mime' => 'text/plain',
-        ], $file->info);
+        ], $this->_response->getFile()->info);
     }
 }
