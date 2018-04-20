@@ -1,5 +1,9 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.8
+* now it uses the `mirko-pagliai/php-tools` package. This also replaces
+    `mirko-pagliai/reflection`.
+
 ### 1.1.7
 * the `Last-Modified` header is set up and sent to the client. It indicates the
     date and time at which the asset file was modified for the last time;
