@@ -109,11 +109,9 @@ class AssetsCreator
             $path = empty($plugin) ? WWW_ROOT . $path : Plugin::path($plugin) . 'webroot' . DS . $path;
 
             //Appends the file extension, if not already present
-            if (pathinfo($path, PATHINFO_EXTENSION) !== $this->type) {
-                $path = sprintf('%s.%s', $path, $this->type);
-            }
+            $path = pathinfo($path, PATHINFO_EXTENSION) == $this->type ? $path : sprintf('%s.%s', $path, $this->type);
 
-            if (!file_exists($path)) {
+            if (!is_readable($path)) {
                 throw new RuntimeException(__d('assets', 'File `{0}` doesn\'t exist', str_replace(APP, null, $path)));
             }
 
@@ -132,9 +130,7 @@ class AssetsCreator
      */
     public function create()
     {
-        $asset = $this->path();
-
-        if (!is_readable($asset)) {
+        if (!is_readable($this->path())) {
             switch ($this->type) {
                 case 'css':
                     $minifier = new Minify\CSS();
@@ -147,8 +143,8 @@ class AssetsCreator
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            if (!(new File($asset, false, 0755))->write($minifier->minify())) {
-                throw new RuntimeException(__d('assets', 'Failed to create file {0}', str_replace(APP, null, $asset)));
+            if (!(new File($this->path(), false, 0755))->write($minifier->minify())) {
+                throw new RuntimeException(__d('assets', 'Failed to create file {0}', rtr($this->path())));
             }
         }
 
@@ -158,10 +154,11 @@ class AssetsCreator
     /**
      * Returns the asset filename
      * @return string Asset filename
+     * @uses path()
      */
     public function filename()
     {
-        return pathinfo($this->asset, PATHINFO_FILENAME);
+        return pathinfo($this->path(), PATHINFO_FILENAME);
     }
 
     /**
