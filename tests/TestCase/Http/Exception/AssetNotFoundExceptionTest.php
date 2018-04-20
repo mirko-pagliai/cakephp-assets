@@ -10,9 +10,9 @@
  * @link        https://github.com/mirko-pagliai/assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Assets\Test\TestCase\Network\Exception;
+namespace Assets\Test\TestCase\Http\Exception;
 
-use Assets\Network\Exception\AssetNotFoundException;
+use Assets\Http\Exception\AssetNotFoundException;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -22,7 +22,7 @@ class AssetNotFoundExceptionTest extends TestCase
 {
     /**
      * Test for the exception
-     * @expectedException Assets\Network\Exception\AssetNotFoundException
+     * @expectedException Assets\Http\Exception\AssetNotFoundException
      * @expectedExceptionCode 404
      * @test
      * @throws AssetNotFoundException
@@ -34,7 +34,7 @@ class AssetNotFoundExceptionTest extends TestCase
 
     /**
      * Test for the exception, with a message
-     * @expectedException Assets\Network\Exception\AssetNotFoundException
+     * @expectedException Assets\Http\Exception\AssetNotFoundException
      * @expectedExceptionCode 404
      * @expectedExceptionMessage Asset not found!
      * @test

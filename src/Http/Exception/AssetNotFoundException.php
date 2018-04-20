@@ -11,14 +11,18 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       1.1.3
  */
-namespace Assets\Network\Exception;
+namespace Assets\Http\Exception;
 
-use Cake\Network\Exception\NotFoundException;
+use Cake\Core\Exception\Exception;
 
 /**
  * AssetNotFoundException
  */
-class AssetNotFoundException extends NotFoundException
+class AssetNotFoundException extends Exception
 {
-
+    /**
+     * Default exception code
+     * @var integer
+     */
+    protected $_defaultCode = 404;
 }

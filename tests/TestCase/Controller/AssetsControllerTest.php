@@ -38,7 +38,7 @@ class AssetsControllerTest extends IntegrationTestCase
 
     /**
      * Test for `asset()` method, with a a no existing file
-     * @expectedException Assets\Network\Exception\AssetNotFoundException
+     * @expectedException Assets\Http\Exception\AssetNotFoundException
      * @expectedExceptionMessage File `/tmp/assets/noexistingfile.js` doesn't exist
      * @test
      */

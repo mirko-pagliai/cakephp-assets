@@ -12,7 +12,7 @@
  */
 namespace Assets\Controller;
 
-use Assets\Network\Exception\AssetNotFoundException;
+use Assets\Http\Exception\AssetNotFoundException;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 

@@ -1,6 +1,8 @@
 # 1.x branch
 ## 1.1 branch
 ### 1.1.8
+* `AssetNotFoundException` moved to `Assets\Http\Exception` namespace and now it
+    extends `Exception`;
 * replaced `InternalErrorException` with `InvalidArgumentException` and 
     `RuntimeException`. This allows compatibility with CakePHP 3.6 branch;
 * now it uses the `mirko-pagliai/php-tools` package. This also replaces
