@@ -35,7 +35,6 @@ class AssetHelper extends Helper
      * @param string $type `css` or `js`
      * @return string Asset path
      * @uses Assets\Utility\AssetsCreator::create()
-     * @uses Assets\Utility\AssetsCreator::filename()
      * @uses Assets\Utility\AssetsCreator::path()
      */
     protected function path($path, $type)
@@ -45,14 +44,12 @@ class AssetHelper extends Helper
         }
 
         $asset = new AssetsCreator($path, $type);
-        $asset->create();
-        $path = '/assets/' . $asset->filename();
+        $path = '/assets/' . $asset->create();
 
         //Appends the timestamp
         $stamp = Configure::read('Asset.timestamp');
-        $timestampEnabled = $stamp === 'force' || ($stamp === true && Configure::read('debug'));
-        if ($timestampEnabled) {
-            $path .= '.' . $type . '?' . filemtime($asset->path());
+        if ($stamp === 'force' || ($stamp === true && Configure::read('debug'))) {
+            $path = sprintf('%s.%s?%s', $path, $type, filemtime($asset->path()));
         }
 
         return $path;
@@ -67,9 +64,7 @@ class AssetHelper extends Helper
      */
     public function css($path, array $options = [])
     {
-        $path = $this->path($path, 'css');
-
-        return $this->Html->css($path, $options);
+        return $this->Html->css($this->path($path, 'css'), $options);
     }
 
     /**
@@ -82,8 +77,6 @@ class AssetHelper extends Helper
      */
     public function script($url, array $options = [])
     {
-        $url = $this->path($url, 'js');
-
-        return $this->Html->script($url, $options);
+        return $this->Html->script($this->path($url, 'js'), $options);
     }
 }

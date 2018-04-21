@@ -11,7 +11,7 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       1.1.3
  */
-namespace Assets\Network\Exception;
+namespace Assets\Http\Exception;
 
 use Cake\Network\Exception\NotFoundException;
 
@@ -20,5 +20,4 @@ use Cake\Network\Exception\NotFoundException;
  */
 class AssetNotFoundException extends NotFoundException
 {
-
 }

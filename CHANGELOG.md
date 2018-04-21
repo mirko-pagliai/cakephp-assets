@@ -1,5 +1,15 @@
 # 1.x branch
 ## 1.1 branch
+### 1.1.8
+* solved a serious bug that prevented correct paths resolution under Windows;
+* `AssetNotFoundException` moved to `Assets\Http\Exception` namespace;
+* replaced `InternalErrorException` with `InvalidArgumentException` and 
+    `RuntimeException`. This allows compatibility with CakePHP 3.6 branch;
+* added `IntegrationTestCase` and `TestCase` classes;
+* full support for Windows, added Appveyor tests;
+* now it uses the `mirko-pagliai/php-tools` package. This also replaces
+    `mirko-pagliai/reflection`.
+
 ### 1.1.7
 * the `Last-Modified` header is set up and sent to the client. It indicates the
     date and time at which the asset file was modified for the last time;

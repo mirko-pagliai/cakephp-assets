@@ -12,9 +12,9 @@
  */
 namespace Assets\Test\TestCase\View\Helper;
 
+use Assets\TestSuite\TestCase;
 use Assets\View\Helper\AssetHelper;
 use Cake\Core\Configure;
-use Cake\TestSuite\TestCase;
 use Cake\View\Helper\HtmlHelper;
 use Cake\View\View;
 
@@ -46,24 +46,11 @@ class AssetHelperTest extends TestCase
         Configure::write([
             'debug' => true,
             ASSETS . '.force' => true,
+            ASSETS . '.timestamp' => true,
         ]);
 
         $this->Asset = new AssetHelper(new View);
         $this->Html = new HtmlHelper(new View);
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        //Deletes all assets
-        foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
-            unlink($file);
-        }
     }
 
     /**
@@ -89,8 +76,6 @@ class AssetHelperTest extends TestCase
         //`force`  disabled, so it does not affect the test
         Configure::write(ASSETS . '.force', false);
 
-        Configure::write('debug', true);
-
         $result = $this->Asset->css('test');
         $this->assertEquals($this->Html->css('test'), $result);
 
@@ -107,8 +92,6 @@ class AssetHelperTest extends TestCase
     public function testCssWithForce()
     {
         //Debugging disabled, so it does not affect the test
-        Configure::write('debug', true);
-
         Configure::write(ASSETS . '.force', false);
 
         $result = $this->Asset->css('test');
@@ -126,22 +109,18 @@ class AssetHelperTest extends TestCase
      */
     public function testCssWithTimestamp()
     {
-        //Debugging disabled, so it does not affect the test
-        Configure::write('debug', true);
+        $expected = ['link' => [
+            'rel' => 'stylesheet',
+            'href' => 'preg:/\/assets\/[\w\d]+\.css\?\d{10}/',
+        ]];
+        $this->assertHtml($expected, $this->Asset->css('test'));
 
+        //Timestamp disabled, so it does not affect the test
         Configure::write('Asset.timestamp', false);
 
         $expected = ['link' => [
             'rel' => 'stylesheet',
             'href' => 'preg:/\/assets\/[\w\d]+\.css/',
-        ]];
-        $this->assertHtml($expected, $this->Asset->css('test'));
-
-        Configure::write('Asset.timestamp', true);
-
-        $expected = ['link' => [
-            'rel' => 'stylesheet',
-            'href' => 'preg:/\/assets\/[\w\d]+\.css\?\d{10}/',
         ]];
         $this->assertHtml($expected, $this->Asset->css('test'));
     }

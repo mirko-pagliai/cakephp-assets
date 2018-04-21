@@ -12,18 +12,18 @@
  */
 namespace Assets\Test\TestCase\Utility;
 
+use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
-use Cake\TestSuite\TestCase;
-use Reflection\ReflectionTrait;
+use Cake\TestSuite\StringCompareTrait;
 
 /**
  * AssetsCreatorTest class
  */
 class AssetsCreatorTest extends TestCase
 {
-    use ReflectionTrait;
+    use StringCompareTrait;
 
     /**
      * Setup the test case, backup the static object values so they can be
@@ -49,11 +49,6 @@ class AssetsCreatorTest extends TestCase
         parent::tearDown();
 
         Plugin::unload('TestPlugin');
-
-        //Deletes all assets
-        foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
-            unlink($file);
-        }
     }
 
     /**
@@ -64,12 +59,10 @@ class AssetsCreatorTest extends TestCase
     {
         $asset = new AssetsCreator('test', 'css');
 
-        $this->assertInstanceOf(ASSETS . '\Utility\AssetsCreator', $asset);
-
         $this->assertEquals('css', $this->getProperty($asset, 'type'));
 
         $paths = $this->getProperty($asset, 'paths');
-        $this->assertEquals(1, count($paths));
+        $this->assertCount(1, $paths);
         $this->assertEquals(WWW_ROOT . 'css', dirname($paths[0]));
         $this->assertEquals('test.css', basename($paths[0]));
 
@@ -80,8 +73,8 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `__construct()` method, passing a no existing file
-     * @expectedException Cake\Network\Exception\InternalErrorException
-     * @expectedExceptionMessage File `webroot/css/noExistingFile.css` doesn't exist
+     * @expectedException RuntimeException
+     * @expectedExceptionMessageRegExp /^File `[\w\/\\\.]+` doesn't exist$/
      * @test
      */
     public function testConstructNoExistingFile()
@@ -91,8 +84,8 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `__construct()` method, passing a no existing file from plugin
-     * @expectedException Cake\Network\Exception\InternalErrorException
-     * @expectedExceptionMessage File `Plugin/TestPlugin/webroot/css/noExistingFile.css` doesn't exist
+     * @expectedException RuntimeException
+     * @expectedExceptionMessageRegExp /^File `[\w\/\\\.]+` doesn't exist$/
      * @test
      */
     public function testConstructNoExistingFileFromPlugin()
@@ -102,7 +95,7 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `__construct()` method, passing unsupported type
-     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Asset type `html` not supported
      * @test
      */
@@ -117,22 +110,22 @@ class AssetsCreatorTest extends TestCase
      */
     public function testResolveAssetPath()
     {
-        $resolveAssetPathMethod = function (\Assets\Utility\AssetsCreator $assetCreatorInstance) {
+        $resolveAssetPathMethod = function (AssetsCreator $assetCreatorInstance) {
             return $this->invokeMethod($assetCreatorInstance, 'resolveAssetPath');
         };
 
-        $result = $resolveAssetPathMethod((new AssetsCreator('test', 'css')));
-        $this->assertEquals(Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([[
+        $expected = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([[
             $file = WWW_ROOT . 'css' . DS . 'test.css',
             filemtime($file),
-        ]])), 'css'), $result);
+        ]])), 'css');
+        $this->assertEquals($expected, $resolveAssetPathMethod((new AssetsCreator('test', 'css'))));
 
         //From plugin
-        $result = $resolveAssetPathMethod((new AssetsCreator('TestPlugin.test', 'css')));
-        $this->assertEquals(Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([[
+        $expected = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([[
             $file = Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
             filemtime($file),
-        ]])), 'css'), $result);
+        ]])), 'css');
+        $this->assertEquals($expected, $resolveAssetPathMethod((new AssetsCreator('TestPlugin.test', 'css'))));
     }
 
     /**
@@ -141,28 +134,33 @@ class AssetsCreatorTest extends TestCase
      */
     public function testResolveFilePaths()
     {
-        $pathsProperty = function (\Assets\Utility\AssetsCreator $assetCreatorInstance) {
+        $pathsProperty = function (AssetsCreator $assetCreatorInstance) {
             return $this->getProperty($assetCreatorInstance, 'paths');
         };
 
-        foreach (['test', 'test.css', '/css/test', '/css/test.css'] as $path) {
-            $result = $pathsProperty(new AssetsCreator($path, 'css'));
-            $this->assertEquals([WWW_ROOT . 'css' . DS . 'test.css'], $result);
+        $expected = [WWW_ROOT . 'css' . DS . 'test.css'];
+        foreach ([
+            'test',
+            'test.css',
+            '/css/test',
+            '/css/test.css',
+        ] as $path) {
+            $this->assertEquals($expected, $pathsProperty(new AssetsCreator($path, 'css')));
         }
 
-        $result = $pathsProperty(new AssetsCreator('subdir/test', 'css'));
-        $this->assertEquals([WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css'], $result);
-
-        $result = $pathsProperty(new AssetsCreator('/othercssdir/test', 'css'));
-        $this->assertEquals([WWW_ROOT . 'othercssdir' . DS . 'test.css'], $result);
+        foreach ([
+            'subdir/test' => [WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css'],
+            '/othercssdir/test' => [WWW_ROOT . 'othercssdir' . DS . 'test.css'],
+        ] as $path => $expected) {
+            $this->assertEquals($expected, $pathsProperty(new AssetsCreator($path, 'css')));
+        }
 
         //Tests array
-        $asset = new AssetsCreator([
+        $result = $pathsProperty(new AssetsCreator([
             'test',
             'subdir/test',
             '/othercssdir/test',
-        ], 'css');
-        $result = $pathsProperty($asset);
+        ], 'css'));
         $this->assertEquals([
             WWW_ROOT . 'css' . DS . 'test.css',
             WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css',
@@ -170,43 +168,34 @@ class AssetsCreatorTest extends TestCase
         ], $result);
 
         //Tests plugins
+        $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css'];
         foreach ([
             'TestPlugin.test',
             'TestPlugin.test.css',
             'TestPlugin./css/test',
             'TestPlugin./css/test.css',
         ] as $path) {
-            $result = $pathsProperty(new AssetsCreator($path, 'css'));
-            $this->assertEquals(
-                [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css'],
-                $result
-            );
+            $this->assertEquals($expected, $pathsProperty(new AssetsCreator($path, 'css')));
         }
 
-        $result = $pathsProperty(new AssetsCreator('TestPlugin.subdir/test', 'css'));
-        $this->assertEquals(
-            [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'subdir' . DS . 'test.css'],
-            $result
-        );
+        $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'subdir' . DS . 'test.css'];
+        $this->assertEquals($expected, $pathsProperty(new AssetsCreator('TestPlugin.subdir/test', 'css')));
 
-        $result = $pathsProperty(new AssetsCreator('TestPlugin./othercssdir/test', 'css'));
-        $this->assertEquals(
-            [Plugin::path('TestPlugin') . 'webroot' . DS . 'othercssdir' . DS . 'test.css'],
-            $result
-        );
+        $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'othercssdir' . DS . 'test.css'];
+        $this->assertEquals($expected, $pathsProperty(new AssetsCreator('TestPlugin./othercssdir/test', 'css')));
 
         //Tests array
-        $asset = new AssetsCreator([
-            'TestPlugin.test',
-            'TestPlugin.subdir/test',
-            'TestPlugin./othercssdir/test'
-        ], 'css');
-        $result = $pathsProperty($asset);
-        $this->assertEquals([
+        $expected = [
             Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
             Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'subdir' . DS . 'test.css',
             Plugin::path('TestPlugin') . 'webroot' . DS . 'othercssdir' . DS . 'test.css',
-        ], $result);
+        ];
+        $result = $pathsProperty(new AssetsCreator([
+            'TestPlugin.test',
+            'TestPlugin.subdir/test',
+            'TestPlugin./othercssdir/test'
+        ], 'css'));
+        $this->assertEquals($expected, $result);
     }
 
     /**
@@ -216,7 +205,7 @@ class AssetsCreatorTest extends TestCase
     public function testCreateWithCss()
     {
         $result = (new AssetsCreator('test', 'css'))->create();
-        $this->assertRegExp('/^[a-z0-9]+$/', $result);
+        $this->assertRegExp('/^[\w\d]+$/', $result);
 
         $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'css');
         $this->assertFileExists($file);
@@ -226,7 +215,7 @@ class AssetsCreatorTest extends TestCase
 
         //Tests array
         $result = (new AssetsCreator(['test', 'test2'], 'css'))->create();
-        $this->assertRegExp('/^[a-z0-9]+$/', $result);
+        $this->assertRegExp('/^[\w\d]+$/', $result);
 
         $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'css');
         $this->assertFileExists($file);
@@ -243,30 +232,24 @@ class AssetsCreatorTest extends TestCase
     public function testCreateWithJs()
     {
         $result = (new AssetsCreator('test', 'js'))->create();
-        $this->assertRegExp('/^[a-z0-9]+$/', $result);
+        $this->assertRegExp('/^[\w\d]+$/', $result);
 
-        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
-        $this->assertFileExists($file);
-
-        $expected = 'function other_alert()' . PHP_EOL .
-            '{alert(\'Another alert\')}' . PHP_EOL .
+        $expected = 'function other_alert(){alert(\'Another alert\')}' . PHP_EOL .
             '$(function(){var msg=\'Ehi!\';alert(msg)})';
-        $this->assertStringEqualsFile($file, $expected);
+        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
+        $this->assertSameAsFile($file, $expected);
 
         //Tests array
         $result = (new AssetsCreator(['test', 'test2'], 'js'))->create();
-        $this->assertRegExp('/^[a-z0-9]+$/', $result);
+        $this->assertRegExp('/^[\w\d]+$/', $result);
 
-        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
-        $this->assertFileExists($file);
-
-        $expected = 'function other_alert()' . PHP_EOL .
-            '{alert(\'Another alert\')}' . PHP_EOL .
+        $expected = 'function other_alert(){alert(\'Another alert\')}' . PHP_EOL .
             '$(function(){var msg=\'Ehi!\';alert(msg)});' .
             'var first=\'This is first\';' .
             'var second=\'This is second\';' .
             'alert(first+\' and \'+second)';
-        $this->assertStringEqualsFile($file, $expected);
+        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
+        $this->assertSameAsFile($file, $expected);
     }
 
     /**
@@ -298,8 +281,8 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `create()` method with no existing target directory
-     * @expectedException Cake\Network\Exception\InternalErrorException
-     * @expectedExceptionMessageRegExp /^Failed to create file noExistingDir\/[a-z0-9]+\.css$/
+     * @expectedException RuntimeException
+     * @expectedExceptionMessageRegExp /^Failed to create file noExistingDir[\w\d\/\\]+\.css$/
      * @test
      */
     public function testCreateNoExistingTarget()
@@ -315,8 +298,7 @@ class AssetsCreatorTest extends TestCase
      */
     public function testFilename()
     {
-        $asset = new AssetsCreator('test', 'css');
-        $this->assertRegExp('/^[a-z0-9]+$/', $asset->filename());
+        $this->assertRegExp('/^[\w\d]+$/', (new AssetsCreator('test', 'css'))->filename());
     }
 
     /**
