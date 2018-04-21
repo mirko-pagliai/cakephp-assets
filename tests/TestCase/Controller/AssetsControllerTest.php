@@ -69,7 +69,7 @@ class AssetsControllerTest extends IntegrationTestCase
         ], $this->_response->getFile()->info);
 
         //Gets the `Last-Modified` header
-        $lastModified = $this->_response->getHeader('Last-Modified')[0];
+        $lastModified = $this->_response->header()['Last-Modified'];
         $this->assertNotEmpty($lastModified);
 
         //It still requires the same asset file. It gets the 304 status code
@@ -86,7 +86,7 @@ class AssetsControllerTest extends IntegrationTestCase
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
-        $this->assertNotEquals($lastModified, $this->_response->getHeader('Last-Modified')[0]);
+        $this->assertNotEquals($lastModified, $this->_response->header()['Last-Modified']);
     }
 
     /**
