@@ -271,7 +271,7 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals($time, filemtime($file));
 
         //Deletes asset and wait 1 second
-        unlink($file);
+        safe_unlink($file);
         sleep(1);
 
         //Tries to create again the same asset. Now the creation time is different

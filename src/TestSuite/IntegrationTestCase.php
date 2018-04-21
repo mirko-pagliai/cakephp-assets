@@ -31,8 +31,7 @@ abstract class IntegrationTestCase extends CakeIntegrationTestCase
 
         //Deletes all assets
         foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
-            //@codingStandardsIgnoreLine
-            @unlink($file);
+            safe_unlink($file);
         }
     }
 }
