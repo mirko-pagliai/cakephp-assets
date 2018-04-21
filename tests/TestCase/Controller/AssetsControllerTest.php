@@ -79,8 +79,7 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->assertResponseCode(304);
 
         //Deletes the asset file. Now the `Last-Modified` header is different
-        //@codingStandardsIgnoreLine
-        @unlink(Configure::read(ASSETS . '.target') . DS . $filename);
+        safe_unlink(Configure::read(ASSETS . '.target') . DS . $filename);
 
         sleep(1);
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');

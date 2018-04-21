@@ -31,8 +31,7 @@ if (!Configure::check(ASSETS . '.target')) {
 $target = Configure::read(ASSETS . '.target');
 
 if (!file_exists($target)) {
-    //@codingStandardsIgnoreLine
-    @mkdir($target);
+    safe_mkdir($target);
 }
 
 if (!is_writeable($target)) {
