@@ -1,7 +1,7 @@
 {
-    "name": "mirko-pagliai/assets",
+    "name": "mirko-pagliai/cakephp-assets",
     "description": "Assets plugin for CakePHP",
-    "homepage": "https://github.com/mirko-pagliai/assets",
+    "homepage": "https://github.com/mirko-pagliai/cakephp-assets",
     "type": "cakephp-plugin",
     "license": "MIT",
     "authors": [{

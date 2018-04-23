@@ -7,7 +7,7 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @copyright   Copyright (c) Mirko Pagliai
- * @link        https://github.com/mirko-pagliai/assets
+ * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace Assets\View\Helper;
