@@ -1,11 +1,11 @@
-# Assets plugin
+# cakephp-assets plugin
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.txt)
-[![Build Status](https://travis-ci.org/mirko-pagliai/assets.svg?branch=master)](https://travis-ci.org/mirko-pagliai/assets)
-[![codecov](https://codecov.io/gh/mirko-pagliai/assets/branch/master/graph/badge.svg)](https://codecov.io/gh/mirko-pagliai/assets)
-[![Build status](https://ci.appveyor.com/api/projects/status/mms93v2ghjld6cj8?svg=true)](https://ci.appveyor.com/project/mirko-pagliai/assets)
+[![Build Status](https://travis-ci.org/mirko-pagliai/cakephp-assets.svg?branch=master)](https://travis-ci.org/mirko-pagliai/cakephp-assets)
+[![codecov](https://codecov.io/gh/mirko-pagliai/cakephp-assets/branch/master/graph/badge.svg)](https://codecov.io/gh/mirko-pagliai/cakephp-assets)
+[![Build status](https://ci.appveyor.com/api/projects/status/2ir3h63d1913cyhb?svg=true)](https://ci.appveyor.com/project/mirko-pagliai/cakephp-assets)
 
-*Assets* is a CakePHP plugin to allows you to handle and generate assets.
+*cakephp-assets* is a CakePHP plugin to allows you to handle and generate assets.
 
 It uses [matthiasmullie/minify](https://github.com/matthiasmullie/minify) and
 provides a convenient helper that allows you to combine multiple asset files
@@ -22,14 +22,14 @@ into one single compressed file.
 ## Installation
 You can install the plugin via composer:
 
-    $ composer require --prefer-dist mirko-pagliai/assets
+    $ composer require --prefer-dist mirko-pagliai/cakephp-assets
 
 **NOTE**: the package may require one of the latest versions version of CakePHP.  
-Instead, the [cakephp3.2](//github.com/mirko-pagliai/assets/tree/cakephp3.2) branch
+Instead, the [cakephp3.2](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp3.2) branch
 is compatible with CakePHP versions from 3.2 onwards.  
 In this case, you can install the package as well:
 
-    $ composer require --prefer-dist mirko-pagliai/assets:dev-cakephp3.2
+    $ composer require --prefer-dist mirko-pagliai/cakephp-assets:dev-cakephp3.2
     
 After installation, you have to edit `APP/config/bootstrap.php` to load the plugin:
 
@@ -82,5 +82,5 @@ The same also applies to the `AssetHelper::script()` method.
 
 ## Versioning
 For transparency and insight into our release cycle and to maintain backward 
-compatibility, *Assets* will be maintained under the 
+compatibility, *cakephp-assets* will be maintained under the 
 [Semantic Versioning guidelines](http://semver.org).

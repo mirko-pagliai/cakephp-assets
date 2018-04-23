@@ -1,5 +1,5 @@
 build: false
-clone_folder: C:\projects\assets
+clone_folder: C:\projects\cakephp-assets
 platform: x86
 
 environment:
@@ -21,10 +21,10 @@ install:
   - echo extension=php_intl.dll >> php.ini
   - echo extension=php_mbstring.dll >> php.ini
   - echo extension=php_fileinfo.dll >> php.ini
-  - cd C:\projects\assets
+  - cd C:\projects\cakephp-assets
   - appveyor DownloadFile https://getcomposer.org/composer.phar
   - php composer.phar install --prefer-dist --no-interaction --ansi --no-progress
 
 test_script:
-  - cd C:\projects\assets
+  - cd C:\projects\cakephp-assets
   - vendor\bin\phpunit.bat
