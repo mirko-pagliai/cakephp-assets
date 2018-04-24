@@ -1,4 +1,8 @@
 # 1.x branch
+## 1.2 branch
+### 1.2.0
+* updated for CakePHP 3.6.
+
 ## 1.1 branch
 ### 1.1.8
 * solved a serious bug that prevented correct paths resolution under Windows;

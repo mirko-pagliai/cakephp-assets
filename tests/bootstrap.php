@@ -13,7 +13,6 @@
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
-use Cake\Routing\DispatcherFactory;
 
 ini_set('intl.default_locale', 'en_US');
 
@@ -97,5 +96,4 @@ Plugin::load('Assets', [
     'routes' => true,
 ]);
 
-DispatcherFactory::add('Routing');
-DispatcherFactory::add('ControllerFactory');
+$_SERVER['PHP_SELF'] = '/';
