@@ -9,15 +9,15 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @since       1.1.3
+ * @since       1.2.0
  */
-namespace Assets\Http\Exception;
+namespace Assets;
 
-use Cake\Http\Exception\NotFoundException;
+use Cake\Core\BasePlugin;
 
 /**
- * AssetNotFoundException
+ * Plugin class
  */
-class AssetNotFoundException extends NotFoundException
+class Plugin extends BasePlugin
 {
 }
