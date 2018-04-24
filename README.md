@@ -24,9 +24,13 @@ You can install the plugin via composer:
 
     $ composer require --prefer-dist mirko-pagliai/cakephp-assets
 
-**NOTE**: the package may require one of the latest versions version of CakePHP.  
-Instead, the [cakephp3.2](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp3.2) branch
-is compatible with CakePHP versions from 3.2 onwards.  
+**NOTE: the latest version available requires at least CakePHP 3.6**.
+
+Instead, the [cakephp3.2](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp3.2)
+branch is compatible with all previous versions of CakePHP from version 3.2.  
+This branch coincides with the 1.1.8 version of *cakephp-assets* and in any
+case it will no longer receive new features but only bugfixes.
+ 
 In this case, you can install the package as well:
 
     $ composer require --prefer-dist mirko-pagliai/cakephp-assets:dev-cakephp3.2
