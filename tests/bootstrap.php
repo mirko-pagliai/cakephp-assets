@@ -90,10 +90,6 @@ Cache::setConfig([
 Configure::write('Assets.force', true);
 Configure::write('Assets.target', TMP . 'assets');
 
-Plugin::load('Assets', [
-    'bootstrap' => true,
-    'path' => ROOT,
-    'routes' => true,
-]);
+Plugin::load('Assets', ['bootstrap' => true, 'path' => ROOT]);
 
 $_SERVER['PHP_SELF'] = '/';
