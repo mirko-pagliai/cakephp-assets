@@ -9,35 +9,39 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
+ * @since       1.3.0
  */
-namespace Assets\Controller;
+namespace Assets\Routing\Middleware;
 
 use Assets\Http\Exception\AssetNotFoundException;
-use Cake\Controller\Controller;
 use Cake\Core\Configure;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Assets controller class
+ * Handles serving assets
  */
-class AssetsController extends Controller
+class AssetMiddleware
 {
     /**
-     * Renders an asset
-     * @param string $filename Asset filename
-     * @return Cake\Network\Response|null
+     * Serves assets if the request matches one
+     * @param ServerRequestInterface $request The request
+     * @param ResponseInterface $response The response
+     * @param callable $next Callback to invoke the next middleware
+     * @return ResponseInterface A response
      * @throws AssetNotFoundException
      */
-    public function asset($filename)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
     {
-        $file = Configure::read(ASSETS . '.target') . DS . $filename;
+        $file = Configure::read(ASSETS . '.target') . DS . $request->getParam('filename');
 
         if (!is_readable($file)) {
             throw new AssetNotFoundException(__d('assets', 'File `{0}` doesn\'t exist', $file));
         }
 
-        $response = $this->response->withModified(filemtime($file));
+        $response = $response->withModified(filemtime($file));
 
-        if ($response->checkNotModified($this->request)) {
+        if ($response->checkNotModified($request)) {
             return $response;
         }
 
