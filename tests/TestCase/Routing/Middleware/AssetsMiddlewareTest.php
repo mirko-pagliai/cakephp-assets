@@ -10,30 +10,18 @@
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Assets\Test\TestCase\Controller;
+namespace Assets\Test\TestCase\Routing\Middleware;
 
-use Assets\Controller\AssetsController;
 use Assets\TestSuite\IntegrationTestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Filesystem\File;
 
 /**
- * AssetControllerTest class
+ * AssetsMiddlewareTest class
  */
-class AssetsControllerTest extends IntegrationTestCase
+class AssetsMiddlewareTest extends IntegrationTestCase
 {
-    /**
-     * Test for `asset()` method, with a a no existing file
-     * @expectedException Assets\Http\Exception\AssetNotFoundException
-     * @expectedExceptionMessageRegExp /^File `[\w\d\/\\.:]+` doesn't exist$/
-     * @test
-     */
-    public function testAssetNoExistingFile()
-    {
-        (new AssetsController)->asset('noexistingfile.js');
-    }
-
     /**
      * Test the response for `asset()` method, with a a no existing file
      * @test
