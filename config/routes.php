@@ -22,10 +22,3 @@ Router::plugin(ASSETS, ['path' => '/assets'], function (RouteBuilder $routes) {
         ->setPass(['filename'])
         ->setMiddleware(['asset']);
 });
-
-//Router::plugin(ASSETS, ['path' => '/assets'], function (RouteBuilder $routes) {
-//    $routes->connect('/:filename', ['controller' => 'Assets', 'action' => 'asset'], [
-//        'filename' => '[a-z0-9]+\.(css|js)',
-//        'pass' => ['filename'],
-//    ]);
-//});
