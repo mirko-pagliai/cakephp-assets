@@ -2,7 +2,8 @@
 ## 1.3 branch
 ### 1.3.0
 * the plugin now uses the `AssetsMiddleware` instead of a controller to
-    "serve" assets. The `AssetsController` has therefore been deleted.
+    "serve" assets. The `AssetsController` has therefore been deleted;
+* fixed license headers.
 
 ## 1.2 branch
 ### 1.2.0
