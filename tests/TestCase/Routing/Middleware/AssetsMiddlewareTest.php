@@ -16,12 +16,29 @@ use Assets\TestSuite\IntegrationTestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Filesystem\File;
+use Cake\Http\BaseApplication;
 
 /**
  * AssetsMiddlewareTest class
  */
 class AssetsMiddlewareTest extends IntegrationTestCase
 {
+    /**
+     * Setup the test case, backup the static object values so they can be
+     * restored. Specifically backs up the contents of Configure and paths in
+     *  App if they have not already been backed up
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+        $app->addPlugin('Assets')->pluginBootstrap();
+
+        Configure::write(ASSETS . '.target', TMP . 'assets');
+    }
+
     /**
      * Test the response for `asset()` method, with a a no existing file
      * @test

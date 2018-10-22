@@ -16,6 +16,7 @@ use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
+use Cake\Http\BaseApplication;
 use Cake\TestSuite\StringCompareTrait;
 
 /**
@@ -35,20 +36,11 @@ class AssetsCreatorTest extends TestCase
     {
         parent::setUp();
 
-        Plugin::load('TestPlugin');
+        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+        $app->addPlugin('Assets')->pluginBootstrap();
+        $app->addPlugin('TestPlugin');
 
         Configure::write(ASSETS . '.target', TMP . 'assets');
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        Plugin::unload('TestPlugin');
     }
 
     /**
