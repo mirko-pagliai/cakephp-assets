@@ -300,7 +300,6 @@ class AssetsCreatorTest extends TestCase
     public function testPath()
     {
         $asset = new AssetsCreator('test', 'css');
-        $filename = $asset->create();
-        $this->assertEquals(Configure::read(ASSETS . '.target') . DS . $filename . '.css', $asset->path());
+        $this->assertEquals(Configure::read(ASSETS . '.target') . DS . $asset->create() . '.css', $asset->path());
     }
 }

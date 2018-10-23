@@ -29,9 +29,6 @@ abstract class IntegrationTestCase extends CakeIntegrationTestCase
     {
         parent::tearDown();
 
-        //Deletes all assets
-        foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
-            safe_unlink($file);
-        }
+        safe_unlink_recursive(Configure::read(ASSETS . '.target'));
     }
 }
