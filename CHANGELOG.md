@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.3 branch
+### 1.3.1
+* updated for CakePHP 3.7.
+
 ### 1.3.0
 * the plugin now uses the `AssetsMiddleware` instead of a controller to
     "serve" assets. The `AssetsController` has therefore been deleted;

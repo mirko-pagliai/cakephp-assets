@@ -12,7 +12,6 @@
  */
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
-use Cake\Core\Plugin;
 
 ini_set('intl.default_locale', 'en_US');
 
@@ -89,7 +88,5 @@ Cache::setConfig([
 
 Configure::write('Assets.force', true);
 Configure::write('Assets.target', TMP . 'assets');
-
-Plugin::load('Assets', ['bootstrap' => true, 'path' => ROOT]);
 
 $_SERVER['PHP_SELF'] = '/';
