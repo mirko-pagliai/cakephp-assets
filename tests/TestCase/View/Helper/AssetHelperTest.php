@@ -75,12 +75,10 @@ class AssetHelperTest extends TestCase
     {
         //`force`  disabled, so it does not affect the test
         Configure::write('Assets.force', false);
-
         $result = $this->Asset->css('test');
         $this->assertEquals($this->Html->css('test'), $result);
 
         Configure::write('debug', false);
-
         $result = $this->Asset->css('test');
         $this->assertNotEquals($this->Html->css('test'), $result);
     }
@@ -93,12 +91,10 @@ class AssetHelperTest extends TestCase
     {
         //Debugging disabled, so it does not affect the test
         Configure::write('Assets.force', false);
-
         $result = $this->Asset->css('test');
         $this->assertEquals($this->Html->css('test'), $result);
 
         Configure::write('Assets.force', true);
-
         $result = $this->Asset->css('test');
         $this->assertNotEquals($this->Html->css('test'), $result);
     }
@@ -117,7 +113,6 @@ class AssetHelperTest extends TestCase
 
         //Timestamp disabled, so it does not affect the test
         Configure::write('Asset.timestamp', false);
-
         $expected = ['link' => [
             'rel' => 'stylesheet',
             'href' => 'preg:/\/assets\/[\w\d]+\.css/',

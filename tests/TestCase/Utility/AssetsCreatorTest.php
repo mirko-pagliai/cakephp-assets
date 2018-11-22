@@ -64,28 +64,6 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `__construct()` method, passing a no existing file
-     * @expectedException RuntimeException
-     * @expectedExceptionMessageRegExp /^File `[\w\/\\\.]+` doesn't exist$/
-     * @test
-     */
-    public function testConstructNoExistingFile()
-    {
-        new AssetsCreator('noExistingFile', 'css');
-    }
-
-    /**
-     * Test for `__construct()` method, passing a no existing file from plugin
-     * @expectedException RuntimeException
-     * @expectedExceptionMessageRegExp /^File `[\w\/\\\.]+` doesn't exist$/
-     * @test
-     */
-    public function testConstructNoExistingFileFromPlugin()
-    {
-        new AssetsCreator('TestPlugin.noExistingFile', 'css');
-    }
-
-    /**
      * Test for `__construct()` method, passing unsupported type
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Asset type `html` not supported

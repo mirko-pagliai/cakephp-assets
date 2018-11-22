@@ -89,7 +89,6 @@ class AssetsCreator
      * Internal method to resolve partial file paths and return full paths
      * @param string|array $paths Partial file paths
      * @return array Full file paths
-     * @throws RuntimeException
      * @use $type
      */
     protected function resolveFilePaths($paths)
@@ -112,9 +111,7 @@ class AssetsCreator
             //Appends the file extension, if not already present
             $path = pathinfo($path, PATHINFO_EXTENSION) == $this->type ? $path : sprintf('%s.%s', $path, $this->type);
 
-            if (!is_readable($path)) {
-                throw new RuntimeException(__d('assets', 'File `{0}` doesn\'t exist', rtr($path)));
-            }
+            is_readable_or_fail($path);
 
             return $path;
         }, (array)$paths);
