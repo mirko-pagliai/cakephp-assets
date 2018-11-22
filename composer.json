@@ -10,7 +10,7 @@
     }],
     "require": {
         "php": ">=5.5.9",
-        "cakephp/cakephp": "^3.6",
+        "cakephp/cakephp": "^3.7",
         "matthiasmullie/minify": "^1.3",
         "mirko-pagliai/php-tools": "^1.0|^1.1"
     },
@@ -29,5 +29,6 @@
             "Assets\\Test\\": "tests",
             "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src"
         }
-    }
+    },
+    "minimum-stability": "RC"
 }

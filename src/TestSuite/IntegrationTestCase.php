@@ -29,6 +29,6 @@ abstract class IntegrationTestCase extends CakeIntegrationTestCase
     {
         parent::tearDown();
 
-        safe_unlink_recursive(Configure::read(ASSETS . '.target'));
+        safe_unlink_recursive(Configure::read('Assets.target'));
     }
 }

@@ -14,7 +14,7 @@ use Assets\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 
-Router::plugin(ASSETS, ['path' => '/assets'], function (RouteBuilder $routes) {
+Router::plugin('Assets', ['path' => '/assets'], function (RouteBuilder $routes) {
     $routes->registerMiddleware('asset', new AssetMiddleware);
 
     $routes->get('/:filename', [])

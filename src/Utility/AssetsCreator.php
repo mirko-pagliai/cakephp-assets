@@ -82,7 +82,7 @@ class AssetsCreator
             return [$path, filemtime($path)];
         }, $this->paths)));
 
-        return Configure::read(ASSETS . '.target') . DS . $basename . '.' . $this->type;
+        return Configure::read('Assets.target') . DS . $basename . '.' . $this->type;
     }
 
     /**

@@ -39,7 +39,7 @@ class AssetHelper extends Helper
      */
     protected function path($path, $type)
     {
-        if (Configure::read('debug') && !Configure::read(ASSETS . '.force')) {
+        if (Configure::read('debug') && !Configure::read('Assets.force')) {
             return $path;
         }
 

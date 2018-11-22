@@ -45,8 +45,8 @@ class AssetHelperTest extends TestCase
 
         Configure::write([
             'debug' => true,
-            ASSETS . '.force' => true,
-            ASSETS . '.timestamp' => true,
+            'Assets.force' => true,
+            'Assets.timestamp' => true,
         ]);
 
         $this->Asset = new AssetHelper(new View);
@@ -74,7 +74,7 @@ class AssetHelperTest extends TestCase
     public function testCssWithDebug()
     {
         //`force`  disabled, so it does not affect the test
-        Configure::write(ASSETS . '.force', false);
+        Configure::write('Assets.force', false);
 
         $result = $this->Asset->css('test');
         $this->assertEquals($this->Html->css('test'), $result);
@@ -92,12 +92,12 @@ class AssetHelperTest extends TestCase
     public function testCssWithForce()
     {
         //Debugging disabled, so it does not affect the test
-        Configure::write(ASSETS . '.force', false);
+        Configure::write('Assets.force', false);
 
         $result = $this->Asset->css('test');
         $this->assertEquals($this->Html->css('test'), $result);
 
-        Configure::write(ASSETS . '.force', true);
+        Configure::write('Assets.force', true);
 
         $result = $this->Asset->css('test');
         $this->assertNotEquals($this->Html->css('test'), $result);
