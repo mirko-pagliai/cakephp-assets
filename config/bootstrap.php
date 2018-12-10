@@ -12,6 +12,11 @@
  */
 use Cake\Core\Configure;
 
+//Sets the default Assets name
+if (!defined('ASSETS')) {
+    define('ASSETS', 'Assets');
+}
+
 //If `true`, assets will be used even if debugging is enabled
 if (!Configure::check('Assets.force')) {
     Configure::write('Assets.force', false);

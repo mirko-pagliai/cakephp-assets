@@ -1,7 +1,6 @@
 # 1.x branch
 ## 1.3 branch
 ### 1.3.1
-* removed `ASSETS` contants;
 * updated for CakePHP 3.7.
 
 ### 1.3.0
