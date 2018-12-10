@@ -16,7 +16,6 @@ use Assets\TestSuite\IntegrationTestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Filesystem\File;
-use Cake\Http\BaseApplication;
 
 /**
  * AssetsMiddlewareTest class
@@ -33,8 +32,7 @@ class AssetsMiddlewareTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-        $app->addPlugin('Assets')->pluginBootstrap();
+        $this->loadPlugins(['Assets']);
     }
 
     /**

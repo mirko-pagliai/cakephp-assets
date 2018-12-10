@@ -16,7 +16,6 @@ use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
-use Cake\Http\BaseApplication;
 use Cake\TestSuite\StringCompareTrait;
 
 /**
@@ -36,9 +35,7 @@ class AssetsCreatorTest extends TestCase
     {
         parent::setUp();
 
-        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-        $app->addPlugin('Assets')->pluginBootstrap();
-        $app->addPlugin('TestPlugin');
+        $this->loadPlugins(['Assets', 'TestPlugin']);
     }
 
     /**
