@@ -104,7 +104,7 @@ class AssetsCreator
                 list($plugin, $path) = $pluginSplit;
             }
 
-            $path = substr($path, 0, 1) === '/' ? substr($path, 1) : $this->type . DS . $path;
+            $path = starts_with($path, '/') ? substr($path, 1) : $this->type . DS . $path;
             $path = DS === '/' ? $path : $path = str_replace('/', DS, $path);
             $path = empty($plugin) ? WWW_ROOT . $path : Plugin::path($plugin) . 'webroot' . DS . $path;
 

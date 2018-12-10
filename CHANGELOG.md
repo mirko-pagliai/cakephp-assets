@@ -5,7 +5,8 @@
 
 ## 1.3 branch
 ### 1.3.1
-* updated for CakePHP 3.7.
+* updated for CakePHP 3.7;
+* updated for `php-tools` 1.1.6.
 
 ### 1.3.0
 * the plugin now uses the `AssetsMiddleware` instead of a controller to
