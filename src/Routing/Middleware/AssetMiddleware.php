@@ -33,7 +33,7 @@ class AssetMiddleware
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
     {
-        $file = Configure::read(ASSETS . '.target') . DS . $request->getParam('filename');
+        $file = Configure::read('Assets.target') . DS . $request->getParam('filename');
 
         if (!is_readable($file)) {
             throw new AssetNotFoundException(__d('assets', 'File `{0}` doesn\'t exist', $file));

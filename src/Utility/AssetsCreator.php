@@ -82,14 +82,13 @@ class AssetsCreator
             return [$path, filemtime($path)];
         }, $this->paths)));
 
-        return Configure::read(ASSETS . '.target') . DS . $basename . '.' . $this->type;
+        return Configure::read('Assets.target') . DS . $basename . '.' . $this->type;
     }
 
     /**
      * Internal method to resolve partial file paths and return full paths
      * @param string|array $paths Partial file paths
      * @return array Full file paths
-     * @throws RuntimeException
      * @use $type
      */
     protected function resolveFilePaths($paths)
@@ -105,16 +104,14 @@ class AssetsCreator
                 list($plugin, $path) = $pluginSplit;
             }
 
-            $path = substr($path, 0, 1) === '/' ? substr($path, 1) : $this->type . DS . $path;
+            $path = starts_with($path, '/') ? substr($path, 1) : $this->type . DS . $path;
             $path = DS === '/' ? $path : $path = str_replace('/', DS, $path);
             $path = empty($plugin) ? WWW_ROOT . $path : Plugin::path($plugin) . 'webroot' . DS . $path;
 
             //Appends the file extension, if not already present
             $path = pathinfo($path, PATHINFO_EXTENSION) == $this->type ? $path : sprintf('%s.%s', $path, $this->type);
 
-            if (!is_readable($path)) {
-                throw new RuntimeException(__d('assets', 'File `{0}` doesn\'t exist', rtr($path)));
-            }
+            is_readable_or_fail($path);
 
             return $path;
         }, (array)$paths);

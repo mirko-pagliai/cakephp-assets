@@ -24,9 +24,7 @@ use Cake\Http\BaseApplication;
 class AssetsMiddlewareTest extends IntegrationTestCase
 {
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
+     * Called before every test method
      * @return void
      */
     public function setUp()
@@ -35,8 +33,6 @@ class AssetsMiddlewareTest extends IntegrationTestCase
 
         $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
         $app->addPlugin('Assets')->pluginBootstrap();
-
-        Configure::write(ASSETS . '.target', TMP . 'assets');
     }
 
     /**
@@ -62,14 +58,14 @@ class AssetsMiddlewareTest extends IntegrationTestCase
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('text/css');
-        $this->assertFileResponse(Configure::read(ASSETS . '.target') . DS . $filename);
+        $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
         $this->assertInstanceOf(File::class, $this->_response->getFile());
         $this->assertEquals([
-            'dirname' => Configure::read(ASSETS . '.target'),
+            'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,
             'extension' => 'css',
             'filename' => pathinfo($filename, PATHINFO_FILENAME),
-            'filesize' => filesize(Configure::read(ASSETS . '.target') . DS . $filename),
+            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
             'mime' => 'text/plain',
         ], $this->_response->getFile()->info);
 
@@ -84,7 +80,7 @@ class AssetsMiddlewareTest extends IntegrationTestCase
         $this->assertResponseCode(304);
 
         //Deletes the asset file. Now the `Last-Modified` header is different
-        safe_unlink(Configure::read(ASSETS . '.target') . DS . $filename);
+        safe_unlink(Configure::read('Assets.target') . DS . $filename);
 
         sleep(1);
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
@@ -105,14 +101,14 @@ class AssetsMiddlewareTest extends IntegrationTestCase
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
-        $this->assertFileResponse(Configure::read(ASSETS . '.target') . DS . $filename);
+        $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
         $this->assertInstanceOf(File::class, $this->_response->getFile());
         $this->assertEquals([
-            'dirname' => Configure::read(ASSETS . '.target'),
+            'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,
             'extension' => 'js',
             'filename' => pathinfo($filename, PATHINFO_FILENAME),
-            'filesize' => filesize(Configure::read(ASSETS . '.target') . DS . $filename),
+            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
             'mime' => 'text/plain',
         ], $this->_response->getFile()->info);
     }

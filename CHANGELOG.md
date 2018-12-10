@@ -1,7 +1,8 @@
 # 1.x branch
 ## 1.3 branch
 ### 1.3.1
-* updated for CakePHP 3.7.
+* updated for CakePHP 3.7;
+* updated for `php-tools` 1.1.6.
 
 ### 1.3.0
 * the plugin now uses the `AssetsMiddleware` instead of a controller to
@@ -16,7 +17,7 @@
 ### 1.1.8
 * solved a serious bug that prevented correct paths resolution under Windows;
 * `AssetNotFoundException` moved to `Assets\Http\Exception` namespace;
-* replaced `InternalErrorException` with `InvalidArgumentException` and 
+* replaced `InternalErrorException` with `InvalidArgumentException` and
     `RuntimeException`. This allows compatibility with CakePHP 3.6 branch;
 * added `IntegrationTestCase` and `TestCase` classes;
 * full support for Windows, added Appveyor tests;
@@ -29,7 +30,7 @@
 * the timestamp is attached to the assets, if required by the application
     configuration (`Asset.timestamp`);
 * added `AssetCreator:filename()` and `AssetCreator::path()` methods;
-* `AssetCreator::getAssetPath()` method renamed as `resolveAssetPath()` and 
+* `AssetCreator::getAssetPath()` method renamed as `resolveAssetPath()` and
     `AssetCreator::resolvePath()` method renamed as `resolveFilePaths()`. This
     creates less confusion about the names and functions of class methods.
 

@@ -22,13 +22,13 @@ use Cake\TestSuite\IntegrationTestCase as CakeIntegrationTestCase;
 abstract class IntegrationTestCase extends CakeIntegrationTestCase
 {
     /**
-     * Teardown any static object changes and restore them
+     * Called after every test method
      * @return void
      */
     public function tearDown()
     {
         parent::tearDown();
 
-        safe_unlink_recursive(Configure::read(ASSETS . '.target'));
+        safe_unlink_recursive(Configure::read('Assets.target'));
     }
 }

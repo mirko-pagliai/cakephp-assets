@@ -1,11 +1,11 @@
-# LANGUAGE translation of CakePHP Application
-# Copyright YEAR NAME <EMAIL@ADDRESS>
+# LANGUAGE translation of cakephp-assets
+# Copyright 2018 Mirko Pagliai <mirko.pagliai@gmail.com>
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2017-03-17 14:10+0100\n"
+"POT-Creation-Date: 2018-12-10 12:33+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,16 +14,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /home/mirko/Libs/Plugins/Assets/src/Controller/AssetsController.php:45
-#: /home/mirko/Libs/Plugins/Assets/src/Utility/AssetsCreator.php:120
+#: Routing/Middleware/AssetMiddleware.php:39
 msgid "File `{0}` doesn't exist"
 msgstr ""
 
-#: /home/mirko/Libs/Plugins/Assets/src/Utility/AssetsCreator.php:70
+#: Utility/AssetsCreator.php:61
 msgid "Asset type `{0}` not supported"
 msgstr ""
 
-#: /home/mirko/Libs/Plugins/Assets/src/Utility/AssetsCreator.php:168
+#: Utility/AssetsCreator.php:145
 msgid "Failed to create file {0}"
 msgstr ""
 
