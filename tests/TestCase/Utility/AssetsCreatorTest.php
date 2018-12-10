@@ -39,8 +39,6 @@ class AssetsCreatorTest extends TestCase
         $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
         $app->addPlugin('Assets')->pluginBootstrap();
         $app->addPlugin('TestPlugin');
-
-        Configure::write('Assets.target', TMP . 'assets');
     }
 
     /**

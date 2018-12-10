@@ -35,8 +35,6 @@ class AssetsMiddlewareTest extends IntegrationTestCase
 
         $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
         $app->addPlugin('Assets')->pluginBootstrap();
-
-        Configure::write('Assets.target', TMP . 'assets');
     }
 
     /**
