@@ -35,8 +35,7 @@ class AssetsCreatorTest extends TestCase
         parent::setUp();
 
         $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-        $app->addPlugin('Assets')->pluginBootstrap();
-        $app->addPlugin('TestPlugin');
+        $app->addPlugin('Assets')->addPlugin('TestPlugin')->pluginBootstrap();
     }
 
     /**
