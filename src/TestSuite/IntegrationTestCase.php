@@ -13,22 +13,13 @@
  */
 namespace Assets\TestSuite;
 
-use Cake\Core\Configure;
-use Cake\TestSuite\IntegrationTestCase as CakeIntegrationTestCase;
+use Assets\TestSuite\TestCase;
+use Cake\TestSuite\IntegrationTestTrait;
 
 /**
  * IntegrationTestCaseTest class
  */
-abstract class IntegrationTestCase extends CakeIntegrationTestCase
+abstract class IntegrationTestCase extends TestCase
 {
-    /**
-     * Called after every test method
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        safe_unlink_recursive(Configure::read('Assets.target'));
-    }
+    use IntegrationTestTrait;
 }
