@@ -1,7 +1,9 @@
 # 1.x branch
 ## 1.4 branch
 ### 1.4.0
-* removed `ASSETS` contants.
+* removed `ASSETS` contants;
+* removed `IntegrationTestCase` class, use instead `IntegrationTestTrait`
+    provided by CakePHP.
 
 ## 1.3 branch
 ### 1.3.1

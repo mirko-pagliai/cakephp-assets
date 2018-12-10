@@ -12,26 +12,18 @@
  */
 namespace Assets\Test\TestCase\Routing\Middleware;
 
-use Assets\TestSuite\IntegrationTestCase;
+use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Filesystem\File;
+use Cake\TestSuite\IntegrationTestTrait;
 
 /**
  * AssetsMiddlewareTest class
  */
-class AssetsMiddlewareTest extends IntegrationTestCase
+class AssetsMiddlewareTest extends TestCase
 {
-    /**
-     * Called before every test method
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->loadPlugins(['Assets']);
-    }
+    use IntegrationTestTrait;
 
     /**
      * Test the response for `asset()` method, with a a no existing file
