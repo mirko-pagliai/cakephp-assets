@@ -12,7 +12,7 @@ provides a convenient helper that allows you to combine multiple asset files
 into one single compressed file.
 
 Did you like this plugin? Its development requires a lot of time for me.
-Please consider the possibility of making [a donation](//paypal.me/mirkopagliai):
+Please consider the possibility of making [a donation](//paypal.me/mirkopagliai):  
 even a coffee is enough! Thank you.
 
 [![Make a donation](https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_carte.jpg)](//paypal.me/mirkopagliai)
