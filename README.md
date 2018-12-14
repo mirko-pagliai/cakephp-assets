@@ -34,7 +34,7 @@ You can install the plugin via composer:
 
 Instead, the [cakephp3.2](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp3.2)
 branch is compatible with all previous versions of CakePHP from version 3.2.  
-This branch coincides with the 1.1.8 version of *cakephp-assets* and in any
+This branch coincides with the 1.4.0 version of *cakephp-assets* and in any
 case it will no longer receive new features but only bugfixes.
 
 In this case, you can install the package as well:
