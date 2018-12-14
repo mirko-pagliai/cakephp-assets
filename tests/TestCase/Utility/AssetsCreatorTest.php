@@ -26,17 +26,6 @@ class AssetsCreatorTest extends TestCase
     use StringCompareTrait;
 
     /**
-     * Called before every test method
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->loadPlugins(['Assets', 'TestPlugin']);
-    }
-
-    /**
      * Test for `__construct()` method
      * @test
      */
@@ -84,6 +73,7 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals($expected, $resolveAssetPathMethod((new AssetsCreator('test', 'css'))));
 
         //From plugin
+        $this->loadPlugins(['TestPlugin']);
         $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([[
             $file = Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
             filemtime($file),
@@ -131,6 +121,7 @@ class AssetsCreatorTest extends TestCase
         ], $result);
 
         //Tests plugins
+        $this->loadPlugins(['TestPlugin']);
         $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css'];
         foreach ([
             'TestPlugin.test',
