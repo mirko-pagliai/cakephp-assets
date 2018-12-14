@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Assets.
+ * This file is part of cakephp-assets.
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
@@ -16,6 +16,7 @@ use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
+use Cake\Http\BaseApplication;
 use Cake\TestSuite\StringCompareTrait;
 
 /**
@@ -26,29 +27,15 @@ class AssetsCreatorTest extends TestCase
     use StringCompareTrait;
 
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
+     * Called before every test method
      * @return void
      */
     public function setUp()
     {
         parent::setUp();
 
-        Plugin::load('TestPlugin');
-
-        Configure::write(ASSETS . '.target', TMP . 'assets');
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        Plugin::unload('TestPlugin');
+        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+        $app->addPlugin('Assets')->addPlugin('TestPlugin')->pluginBootstrap();
     }
 
     /**
@@ -67,30 +54,8 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals('test.css', basename($paths[0]));
 
         $asset = $this->getProperty($asset, 'asset');
-        $this->assertEquals(Configure::read(ASSETS . '.target'), dirname($asset));
+        $this->assertEquals(Configure::read('Assets.target'), dirname($asset));
         $this->assertRegExp('/^[0-9a-z]+\.css$/', basename($asset));
-    }
-
-    /**
-     * Test for `__construct()` method, passing a no existing file
-     * @expectedException RuntimeException
-     * @expectedExceptionMessageRegExp /^File `[\w\/\\\.]+` doesn't exist$/
-     * @test
-     */
-    public function testConstructNoExistingFile()
-    {
-        new AssetsCreator('noExistingFile', 'css');
-    }
-
-    /**
-     * Test for `__construct()` method, passing a no existing file from plugin
-     * @expectedException RuntimeException
-     * @expectedExceptionMessageRegExp /^File `[\w\/\\\.]+` doesn't exist$/
-     * @test
-     */
-    public function testConstructNoExistingFileFromPlugin()
-    {
-        new AssetsCreator('TestPlugin.noExistingFile', 'css');
     }
 
     /**
@@ -114,14 +79,14 @@ class AssetsCreatorTest extends TestCase
             return $this->invokeMethod($assetCreatorInstance, 'resolveAssetPath');
         };
 
-        $expected = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([[
+        $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([[
             $file = WWW_ROOT . 'css' . DS . 'test.css',
             filemtime($file),
         ]])), 'css');
         $this->assertEquals($expected, $resolveAssetPathMethod((new AssetsCreator('test', 'css'))));
 
         //From plugin
-        $expected = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', md5(serialize([[
+        $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([[
             $file = Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
             filemtime($file),
         ]])), 'css');
@@ -207,7 +172,7 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator('test', 'css'))->create();
         $this->assertRegExp('/^[\w\d]+$/', $result);
 
-        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'css');
+        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
         $this->assertFileExists($file);
 
         $expected = '#my-id{font-size:12px}.my-class{font-size:14px}';
@@ -217,7 +182,7 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator(['test', 'test2'], 'css'))->create();
         $this->assertRegExp('/^[\w\d]+$/', $result);
 
-        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'css');
+        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
         $this->assertFileExists($file);
 
         $expected = '#my-id{font-size:12px}.my-class{font-size:14px}' .
@@ -236,7 +201,7 @@ class AssetsCreatorTest extends TestCase
 
         $expected = 'function other_alert(){alert(\'Another alert\')}' . PHP_EOL .
             '$(function(){var msg=\'Ehi!\';alert(msg)})';
-        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
+        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
         $this->assertSameAsFile($file, $expected);
 
         //Tests array
@@ -248,7 +213,7 @@ class AssetsCreatorTest extends TestCase
             'var first=\'This is first\';' .
             'var second=\'This is second\';' .
             'alert(first+\' and \'+second)';
-        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'js');
+        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
         $this->assertSameAsFile($file, $expected);
     }
 
@@ -263,7 +228,7 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator('test', 'css'))->create();
 
         //Sets the file path and the creation time
-        $file = Configure::read(ASSETS . '.target') . DS . sprintf('%s.%s', $result, 'css');
+        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
         $time = filemtime($file);
 
         //Tries to create again the same asset. Now the creation time is the same
@@ -287,7 +252,7 @@ class AssetsCreatorTest extends TestCase
      */
     public function testCreateNoExistingTarget()
     {
-        Configure::write(ASSETS . '.target', 'noExistingDir');
+        Configure::write('Assets.target', 'noExistingDir');
 
         (new AssetsCreator('test', 'css'))->create();
     }
@@ -308,7 +273,6 @@ class AssetsCreatorTest extends TestCase
     public function testPath()
     {
         $asset = new AssetsCreator('test', 'css');
-        $filename = $asset->create();
-        $this->assertEquals(Configure::read(ASSETS . '.target') . DS . $filename . '.css', $asset->path());
+        $this->assertEquals(Configure::read('Assets.target') . DS . $asset->create() . '.css', $asset->path());
     }
 }

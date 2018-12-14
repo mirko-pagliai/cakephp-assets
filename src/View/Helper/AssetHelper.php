@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Assets.
+ * This file is part of cakephp-assets.
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
@@ -39,7 +39,7 @@ class AssetHelper extends Helper
      */
     protected function path($path, $type)
     {
-        if (Configure::read('debug') && !Configure::read(ASSETS . '.force')) {
+        if (Configure::read('debug') && !Configure::read('Assets.force')) {
             return $path;
         }
 

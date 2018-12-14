@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Assets.
+ * This file is part of cakephp-assets.
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
@@ -34,9 +34,7 @@ class AssetHelperTest extends TestCase
     protected $Html;
 
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
+     * Called before every test method
      * @return void
      */
     public function setUp()
@@ -45,8 +43,8 @@ class AssetHelperTest extends TestCase
 
         Configure::write([
             'debug' => true,
-            ASSETS . '.force' => true,
-            ASSETS . '.timestamp' => true,
+            'Assets.force' => true,
+            'Assets.timestamp' => true,
         ]);
 
         $this->Asset = new AssetHelper(new View);
@@ -74,13 +72,11 @@ class AssetHelperTest extends TestCase
     public function testCssWithDebug()
     {
         //`force`  disabled, so it does not affect the test
-        Configure::write(ASSETS . '.force', false);
-
+        Configure::write('Assets.force', false);
         $result = $this->Asset->css('test');
         $this->assertEquals($this->Html->css('test'), $result);
 
         Configure::write('debug', false);
-
         $result = $this->Asset->css('test');
         $this->assertNotEquals($this->Html->css('test'), $result);
     }
@@ -92,13 +88,11 @@ class AssetHelperTest extends TestCase
     public function testCssWithForce()
     {
         //Debugging disabled, so it does not affect the test
-        Configure::write(ASSETS . '.force', false);
-
+        Configure::write('Assets.force', false);
         $result = $this->Asset->css('test');
         $this->assertEquals($this->Html->css('test'), $result);
 
-        Configure::write(ASSETS . '.force', true);
-
+        Configure::write('Assets.force', true);
         $result = $this->Asset->css('test');
         $this->assertNotEquals($this->Html->css('test'), $result);
     }
@@ -117,7 +111,6 @@ class AssetHelperTest extends TestCase
 
         //Timestamp disabled, so it does not affect the test
         Configure::write('Asset.timestamp', false);
-
         $expected = ['link' => [
             'rel' => 'stylesheet',
             'href' => 'preg:/\/assets\/[\w\d]+\.css/',

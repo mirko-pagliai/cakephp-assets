@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Assets.
+ * This file is part of cakephp-assets.
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
@@ -47,7 +47,7 @@ safe_mkdir(CACHE . 'models');
 
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
-//Disables deprecation warnings for CakePHP 3.6
+//Disables deprecation warnings for CakePHP >= 3.6
 if (version_compare(Configure::version(), '3.6', '>=')) {
     error_reporting(E_ALL ^ E_USER_DEPRECATED);
 }

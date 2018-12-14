@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Assets.
+ * This file is part of cakephp-assets.
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
@@ -25,16 +25,13 @@ abstract class TestCase extends CakeTestCase
     use ReflectionTrait;
 
     /**
-     * Teardown any static object changes and restore them
+     * Called after every test method
      * @return void
      */
     public function tearDown()
     {
         parent::tearDown();
 
-        //Deletes all assets
-        foreach (glob(Configure::read(ASSETS . '.target') . DS . '*') as $file) {
-            safe_unlink($file);
-        }
+        safe_unlink_recursive(Configure::read('Assets.target'));
     }
 }
