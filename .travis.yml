@@ -27,6 +27,9 @@ matrix:
     - php: 7.0
       env: CAKEPHP_VERSION="3.5.*"
 
+    - php: 7.0
+      env: CAKEPHP_VERSION="3.6.*"
+
 install:
   - composer self-update
   - composer install --prefer-dist --no-interaction
@@ -38,7 +41,7 @@ script:
   - if [[ $PHPCS != '1' && $COVERAGE != '1' && $CAKEPHP_VERSION = '3.4.*' ]]; then vendor/bin/phpunit --testsuite cakephp3.4; fi
   - if [[ $PHPCS = 1 ]]; then vendor/bin/phpcs --standard=phpcs.xml.dist; fi
   - if [[ $COVERAGE = 1 ]]; then vendor/bin/phpunit --coverage-clover=clover.xml; fi
-  
+
 after_success:
   - if [[ $COVERAGE = 1 ]]; then bash <(curl -s https://codecov.io/bash); fi
 
