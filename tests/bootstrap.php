@@ -105,4 +105,8 @@ Plugin::load('Assets', [
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
 
-loadPHPUnitAliases();
+if (function_exists('loadPHPUnitAliases')) {
+    loadPHPUnitAliases();
+} elseif (!class_exists('PHPUnit\Runner\Version')) {
+    class_alias('PHPUnit_Framework_Constraint', 'PHPUnit\Framework\Constraint\Constraint');
+}
