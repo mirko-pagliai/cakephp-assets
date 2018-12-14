@@ -22,19 +22,6 @@ use Cake\TestSuite\IntegrationTestCase as CakeIntegrationTestCase;
 abstract class IntegrationTestCase extends CakeIntegrationTestCase
 {
     /**
-     * Called before every test method
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        if (method_exists($this, 'useHttpServer')) {
-            $this->useHttpServer(false);
-        }
-    }
-
-    /**
      * Called after every test method
      * @return void
      */

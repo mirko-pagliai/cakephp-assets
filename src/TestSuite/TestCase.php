@@ -18,7 +18,7 @@ use Cake\TestSuite\TestCase as CakeTestCase;
 use Tools\ReflectionTrait;
 
 /**
- * TestCase class
+ * Thumber TestCase class
  */
 abstract class TestCase extends CakeTestCase
 {

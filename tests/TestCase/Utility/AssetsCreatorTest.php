@@ -16,6 +16,7 @@ use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
+use Cake\Http\BaseApplication;
 use Cake\TestSuite\StringCompareTrait;
 
 /**
@@ -24,6 +25,18 @@ use Cake\TestSuite\StringCompareTrait;
 class AssetsCreatorTest extends TestCase
 {
     use StringCompareTrait;
+
+    /**
+     * Called before every test method
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+        $app->addPlugin('Assets')->addPlugin('TestPlugin')->pluginBootstrap();
+    }
 
     /**
      * Test for `__construct()` method
@@ -73,7 +86,6 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals($expected, $resolveAssetPathMethod((new AssetsCreator('test', 'css'))));
 
         //From plugin
-        Plugin::load('TestPlugin');
         $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([[
             $file = Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
             filemtime($file),
@@ -121,7 +133,6 @@ class AssetsCreatorTest extends TestCase
         ], $result);
 
         //Tests plugins
-        Plugin::load('TestPlugin');
         $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css'];
         foreach ([
             'TestPlugin.test',

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Assets.
+ * This file is part of cakephp-assets.
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
@@ -10,28 +10,29 @@
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Assets\Test\TestCase\Controller;
+namespace Assets\Test\TestCase\Routing\Middleware;
 
-use Assets\Controller\AssetsController;
 use Assets\TestSuite\IntegrationTestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Filesystem\File;
+use Cake\Http\BaseApplication;
 
 /**
- * AssetControllerTest class
+ * AssetsMiddlewareTest class
  */
-class AssetsControllerTest extends IntegrationTestCase
+class AssetsMiddlewareTest extends IntegrationTestCase
 {
     /**
-     * Test for `asset()` method, with a a no existing file
-     * @expectedException Assets\Http\Exception\AssetNotFoundException
-     * @expectedExceptionMessageRegExp /^File `[\w\d\/\\.:]+` doesn't exist$/
-     * @test
+     * Called before every test method
+     * @return void
      */
-    public function testAssetNoExistingFile()
+    public function setUp()
     {
-        (new AssetsController)->asset('noexistingfile.js');
+        parent::setUp();
+
+        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+        $app->addPlugin('Assets')->pluginBootstrap();
     }
 
     /**
@@ -57,19 +58,19 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('text/css');
-        $this->assertFileResponse(Configure::read(ASSETS . '.target') . DS . $filename);
+        $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
         $this->assertInstanceOf(File::class, $this->_response->getFile());
         $this->assertEquals([
-            'dirname' => Configure::read(ASSETS . '.target'),
+            'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,
             'extension' => 'css',
             'filename' => pathinfo($filename, PATHINFO_FILENAME),
-            'filesize' => filesize(Configure::read(ASSETS . '.target') . DS . $filename),
+            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
             'mime' => 'text/plain',
         ], $this->_response->getFile()->info);
 
         //Gets the `Last-Modified` header
-        $lastModified = $this->_response->header()['Last-Modified'];
+        $lastModified = $this->_response->getHeader('Last-Modified')[0];
         $this->assertNotEmpty($lastModified);
 
         //It still requires the same asset file. It gets the 304 status code
@@ -79,13 +80,13 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->assertResponseCode(304);
 
         //Deletes the asset file. Now the `Last-Modified` header is different
-        safe_unlink(Configure::read(ASSETS . '.target') . DS . $filename);
+        safe_unlink(Configure::read('Assets.target') . DS . $filename);
 
         sleep(1);
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
-        $this->assertNotEquals($lastModified, $this->_response->header()['Last-Modified']);
+        $this->assertNotEquals($lastModified, $this->_response->getHeader('Last-Modified')[0]);
     }
 
     /**
@@ -100,14 +101,14 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
-        $this->assertFileResponse(Configure::read(ASSETS . '.target') . DS . $filename);
+        $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
         $this->assertInstanceOf(File::class, $this->_response->getFile());
         $this->assertEquals([
-            'dirname' => Configure::read(ASSETS . '.target'),
+            'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,
             'extension' => 'js',
             'filename' => pathinfo($filename, PATHINFO_FILENAME),
-            'filesize' => filesize(Configure::read(ASSETS . '.target') . DS . $filename),
+            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
             'mime' => 'text/plain',
         ], $this->_response->getFile()->info);
     }

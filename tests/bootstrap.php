@@ -12,8 +12,6 @@
  */
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
-use Cake\Core\Plugin;
-use Cake\Routing\DispatcherFactory;
 
 ini_set('intl.default_locale', 'en_US');
 
@@ -47,11 +45,6 @@ safe_mkdir(CACHE . 'models');
 
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
-//Disables deprecation warnings for CakePHP >= 3.6
-if (version_compare(Configure::version(), '3.6', '>=')) {
-    error_reporting(E_ALL ^ E_USER_DEPRECATED);
-}
-
 date_default_timezone_set('UTC');
 mb_internal_encoding('UTF-8');
 
@@ -75,7 +68,7 @@ Configure::write('App', [
 ]);
 Configure::write('Asset.timestamp', true);
 
-Cache::config([
+Cache::setConfig([
     '_cake_core_' => [
         'engine' => 'File',
         'prefix' => 'cake_core_',
@@ -96,17 +89,6 @@ Cache::config([
 Configure::write('Assets.force', true);
 Configure::write('Assets.target', TMP . 'assets');
 
-Plugin::load('Assets', [
-    'bootstrap' => true,
-    'path' => ROOT,
-    'routes' => true,
-]);
+$_SERVER['PHP_SELF'] = '/';
 
-DispatcherFactory::add('Routing');
-DispatcherFactory::add('ControllerFactory');
-
-if (function_exists('loadPHPUnitAliases')) {
-    loadPHPUnitAliases();
-} elseif (!class_exists('PHPUnit\Runner\Version')) {
-    class_alias('PHPUnit_Framework_Constraint', 'PHPUnit\Framework\Constraint\Constraint');
-}
+loadPHPUnitAliases();
