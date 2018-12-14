@@ -15,7 +15,7 @@ use Cake\Routing\Router;
 
 Router::plugin(ASSETS, ['path' => '/assets'], function (RouteBuilder $routes) {
     $routes->connect('/:filename', ['controller' => 'Assets', 'action' => 'asset'], [
-        'filename' => '[a-z0-9]+\.(css|js)',
+        'filename' => '[\d\w]+\.(css|js)',
         'pass' => ['filename'],
     ]);
 });
