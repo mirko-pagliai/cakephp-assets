@@ -18,11 +18,22 @@ use Cake\TestSuite\TestCase as CakeTestCase;
 use Tools\ReflectionTrait;
 
 /**
- * Thumber TestCase class
+ * TestCase class
  */
 abstract class TestCase extends CakeTestCase
 {
     use ReflectionTrait;
+
+    /**
+     * Called before every test method
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->loadPlugins(['Assets']);
+    }
 
     /**
      * Called after every test method
