@@ -13,7 +13,7 @@
  */
 namespace Assets\Http\Exception;
 
-use Cake\Http\Exception\NotFoundException;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * AssetNotFoundException
