@@ -78,6 +78,10 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseCode(304);
 
+        if (is_win()) {
+            $this->markTestSkipped();
+        }
+
         //Deletes the asset file. Now the `Last-Modified` header is different
         safe_unlink(Configure::read('Assets.target') . DS . $filename);
 

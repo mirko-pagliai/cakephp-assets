@@ -224,6 +224,10 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator('test', 'css'))->create();
         $this->assertEquals($time, filemtime($file));
 
+        if (is_win()) {
+            $this->markTestSkipped();
+        }
+
         //Deletes asset and wait 1 second
         safe_unlink($file);
         sleep(1);
