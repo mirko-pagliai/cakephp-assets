@@ -27,13 +27,14 @@ class AssetsMiddlewareTest extends TestCase
 
     /**
      * Test the response for `asset()` method, with a a no existing file
+     * @expectedException Assets\Http\Exception\AssetNotFoundException
+     * @expectedExceptionMsg File `/tmp/assets/noexistingfile.js` doesn\'t exist'
      * @test
      */
     public function testAssetNoExistingFileResponse()
     {
+        $this->disableErrorHandlerMiddleware();
         $this->get('/assets/noexistingfile.js');
-        $this->assertResponseError();
-        $this->assertNull($this->_response->getFile());
     }
 
     /**
