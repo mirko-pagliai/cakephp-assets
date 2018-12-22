@@ -57,9 +57,7 @@ class AssetsCreator
      */
     public function __construct($paths, $type)
     {
-        if (!in_array($type, ['css', 'js'])) {
-            throw new InvalidArgumentException(__d('assets', 'Asset type `{0}` not supported', $type));
-        }
+        is_true_or_fail(in_array($type, ['css', 'js']), __d('assets', 'Asset type `{0}` not supported', $type), InvalidArgumentException::class);
 
         //Note: `resolveFilePaths()` method needs `$type` property;
         //  `resolveAssetPath()` method needs `$type` and `$paths` properties
@@ -141,9 +139,8 @@ class AssetsCreator
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            if (!(new File($this->path(), false, 0755))->write($minifier->minify())) {
-                throw new RuntimeException(__d('assets', 'Failed to create file {0}', rtr($this->path())));
-            }
+            $success = (new File($this->path(), false, 0755))->write($minifier->minify());
+            is_true_or_fail($success, __d('assets', 'Failed to create file {0}', rtr($this->path())));
         }
 
         return $this->filename();

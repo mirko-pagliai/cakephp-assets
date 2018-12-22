@@ -17,6 +17,8 @@ use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\StringCompareTrait;
+use ErrorException;
+use InvalidArgumentException;
 
 /**
  * AssetsCreatorTest class
@@ -32,7 +34,6 @@ class AssetsCreatorTest extends TestCase
     public function testConstruct()
     {
         $asset = new AssetsCreator('test', 'css');
-
         $this->assertEquals('css', $this->getProperty($asset, 'type'));
 
         $paths = $this->getProperty($asset, 'paths');
@@ -42,17 +43,11 @@ class AssetsCreatorTest extends TestCase
 
         $asset = $this->getProperty($asset, 'asset');
         $this->assertEquals(Configure::read('Assets.target'), dirname($asset));
-        $this->assertRegExp('/^[0-9a-z]+\.css$/', basename($asset));
-    }
+        $this->assertRegExp('/^[\d\w]+\.css$/', basename($asset));
 
-    /**
-     * Test for `__construct()` method, passing unsupported type
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Asset type `html` not supported
-     * @test
-     */
-    public function testConstructUnsupportedType()
-    {
+        //With unsupported type
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Asset type `html` not supported');
         new AssetsCreator(null, 'html');
     }
 
@@ -177,6 +172,12 @@ class AssetsCreatorTest extends TestCase
         $expected = '#my-id{font-size:12px}.my-class{font-size:14px}' .
             '#my-id2{font-size:16px}.my-class2{font-size:18px}';
         $this->assertStringEqualsFile($file, $expected);
+
+        //With no existing target directory
+        $this->expectException(ErrorException::class);
+        $this->expectExceptionMessageRegExp('/^Failed to create file noExistingDir[\w\d\/\\\\]+\.css$/');
+        Configure::write('Assets.target', 'noExistingDir');
+        (new AssetsCreator('test', 'css'))->create();
     }
 
     /**
@@ -231,19 +232,6 @@ class AssetsCreatorTest extends TestCase
         //Tries to create again the same asset. Now the creation time is different
         $result = (new AssetsCreator('test', 'css'))->create();
         $this->assertNotEquals($time, filemtime($file));
-    }
-
-    /**
-     * Test for `create()` method with no existing target directory
-     * @expectedException RuntimeException
-     * @expectedExceptionMessageRegExp /^Failed to create file noExistingDir[\w\d\/\\]+\.css$/
-     * @test
-     */
-    public function testCreateNoExistingTarget()
-    {
-        Configure::write('Assets.target', 'noExistingDir');
-
-        (new AssetsCreator('test', 'css'))->create();
     }
 
     /**
