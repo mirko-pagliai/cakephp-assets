@@ -37,7 +37,6 @@ class AssetMiddleware
         is_readable_or_fail($file, __d('assets', 'File `{0}` doesn\'t exist', $file), AssetNotFoundException::class);
 
         $response = $response->withModified(filemtime($file));
-
         if ($response->checkNotModified($request)) {
             return $response;
         }

@@ -18,7 +18,6 @@ use Cake\Core\Plugin;
 use Cake\Filesystem\File;
 use InvalidArgumentException;
 use MatthiasMullie\Minify;
-use RuntimeException;
 
 /**
  * An utility to create assets
@@ -29,7 +28,7 @@ class AssetsCreator
      * Asset full path
      * @var string
      */
-    protected $asset = null;
+    protected $asset;
 
     /**
      * File paths that will be transformed into a single asset
@@ -41,13 +40,12 @@ class AssetsCreator
      * Asset type (`css` or `js`)
      * @var string
      */
-    protected $type = null;
+    protected $type;
 
     /**
      * Construct. Sets the asset type and paths
      * @param string|array $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
-     * @return $this
      * @throws InvalidArgumentException
      * @uses resolveAssetPath()
      * @uses resolveFilePaths()
@@ -64,8 +62,6 @@ class AssetsCreator
         $this->type = $type;
         $this->paths = $this->resolveFilePaths($paths);
         $this->asset = $this->resolveAssetPath();
-
-        return $this;
     }
 
     /**
@@ -108,7 +104,6 @@ class AssetsCreator
 
             //Appends the file extension, if not already present
             $path = pathinfo($path, PATHINFO_EXTENSION) == $this->type ? $path : sprintf('%s.%s', $path, $this->type);
-
             is_readable_or_fail($path);
 
             return $path;

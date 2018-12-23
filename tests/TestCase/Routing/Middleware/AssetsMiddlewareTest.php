@@ -12,6 +12,7 @@
  */
 namespace Assets\Test\TestCase\Routing\Middleware;
 
+use Assets\Http\Exception\AssetNotFoundException;
 use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
@@ -26,18 +27,6 @@ class AssetsMiddlewareTest extends TestCase
     use IntegrationTestTrait;
 
     /**
-     * Test the response for `asset()` method, with a a no existing file
-     * @expectedException Assets\Http\Exception\AssetNotFoundException
-     * @expectedExceptionMsg File `/tmp/assets/noexistingfile.js` doesn\'t exist'
-     * @test
-     */
-    public function testAssetNoExistingFileResponse()
-    {
-        $this->disableErrorHandlerMiddleware();
-        $this->get('/assets/noexistingfile.js');
-    }
-
-    /**
      * Test for `asset()` method, with a css asset
      * @test
      */
@@ -45,7 +34,6 @@ class AssetsMiddlewareTest extends TestCase
     {
         //This is the filename
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
-
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('text/css');
@@ -78,6 +66,12 @@ class AssetsMiddlewareTest extends TestCase
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertNotEquals($lastModified, $this->_response->getHeader('Last-Modified')[0]);
+
+        //With a a no existing file
+        $this->expectException(AssetNotFoundException::class);
+        $this->expectExceptionMessage('File `' . Configure::read('Assets.target') . DS . 'noexistingfile.css` doesn\'t exist');
+        $this->disableErrorHandlerMiddleware();
+        $this->get('/assets/noexistingfile.css');
     }
 
     /**
@@ -88,7 +82,6 @@ class AssetsMiddlewareTest extends TestCase
     {
         //This is the filename
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'js'))->create(), 'js');
-
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');

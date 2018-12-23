@@ -95,7 +95,6 @@ class AssetsCreatorTest extends TestCase
         ] as $path) {
             $this->assertEquals($expected, $pathsProperty(new AssetsCreator($path, 'css')));
         }
-
         foreach ([
             'subdir/test' => [WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css'],
             '/othercssdir/test' => [WWW_ROOT . 'othercssdir' . DS . 'test.css'],
@@ -104,16 +103,17 @@ class AssetsCreatorTest extends TestCase
         }
 
         //Tests array
+        $expected = [
+            WWW_ROOT . 'css' . DS . 'test.css',
+            WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css',
+            WWW_ROOT . 'othercssdir' . DS . 'test.css',
+        ];
         $result = $pathsProperty(new AssetsCreator([
             'test',
             'subdir/test',
             '/othercssdir/test',
         ], 'css'));
-        $this->assertEquals([
-            WWW_ROOT . 'css' . DS . 'test.css',
-            WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css',
-            WWW_ROOT . 'othercssdir' . DS . 'test.css',
-        ], $result);
+        $this->assertEquals($expected, $result);
 
         //Tests plugins
         $this->loadPlugins(['TestPlugin']);
