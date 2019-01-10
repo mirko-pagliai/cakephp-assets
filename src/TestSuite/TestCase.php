@@ -43,6 +43,6 @@ abstract class TestCase extends CakeTestCase
     {
         parent::tearDown();
 
-        safe_unlink_recursive(Configure::read('Assets.target'));
+        unlink_recursive(Configure::read('Assets.target'));
     }
 }

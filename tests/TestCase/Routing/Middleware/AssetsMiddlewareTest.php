@@ -59,7 +59,7 @@ class AssetsMiddlewareTest extends TestCase
         $this->assertResponseCode(304);
 
         //Deletes the asset file. Now the `Last-Modified` header is different
-        safe_unlink(Configure::read('Assets.target') . DS . $filename);
+        unlink(Configure::read('Assets.target') . DS . $filename);
 
         sleep(1);
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
