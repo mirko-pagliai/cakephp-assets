@@ -1,7 +1,7 @@
 # 1.x branch
 ## 1.4 branch
 ### 1.4.1
-* updated for `php-tools` 1.1.9.
+* updated for `php-tools` 1.1.12.
 
 ### 1.4.0
 * removed `ASSETS` contants;
