@@ -224,12 +224,12 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator('test', 'css'))->create();
         $this->assertEquals($time, filemtime($file));
 
-        if (is_win()) {
+        if (IS_WIN) {
             $this->markTestSkipped();
         }
 
         //Deletes asset and wait 1 second
-        safe_unlink($file);
+        @unlink($file);
         sleep(1);
 
         //Tries to create again the same asset. Now the creation time is different
