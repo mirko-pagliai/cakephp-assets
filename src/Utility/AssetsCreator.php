@@ -121,20 +121,14 @@ class AssetsCreator
      */
     public function create()
     {
-        if (!is_readable($this->path())) {
-            switch ($this->type) {
-                case 'css':
-                    $minifier = new Minify\CSS();
-                    break;
-                case 'js':
-                    $minifier = new Minify\JS();
-                    break;
-            }
+        $File = new File($this->path());
 
+        if (!$File->readable()) {
+            $minifier = $this->type === 'css' ? new Minify\CSS() : new Minify\JS();
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            $success = (new File($this->path(), false, 0755))->write($minifier->minify());
+            $success = $File->write($minifier->minify());
             is_true_or_fail($success, __d('assets', 'Failed to create file {0}', rtr($this->path())));
         }
 
