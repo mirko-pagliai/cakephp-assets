@@ -18,7 +18,6 @@ use Cake\Core\Plugin;
 use Cake\Filesystem\File;
 use InvalidArgumentException;
 use MatthiasMullie\Minify;
-use RuntimeException;
 
 /**
  * An utility to create assets
@@ -29,7 +28,7 @@ class AssetsCreator
      * Asset full path
      * @var string
      */
-    protected $asset = null;
+    protected $asset;
 
     /**
      * File paths that will be transformed into a single asset
@@ -41,13 +40,12 @@ class AssetsCreator
      * Asset type (`css` or `js`)
      * @var string
      */
-    protected $type = null;
+    protected $type;
 
     /**
      * Construct. Sets the asset type and paths
      * @param string|array $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
-     * @return $this
      * @throws InvalidArgumentException
      * @uses resolveAssetPath()
      * @uses resolveFilePaths()
@@ -57,17 +55,13 @@ class AssetsCreator
      */
     public function __construct($paths, $type)
     {
-        if (!in_array($type, ['css', 'js'])) {
-            throw new InvalidArgumentException(__d('assets', 'Asset type `{0}` not supported', $type));
-        }
+        is_true_or_fail(in_array($type, ['css', 'js']), __d('assets', 'Asset type `{0}` not supported', $type), InvalidArgumentException::class);
 
         //Note: `resolveFilePaths()` method needs `$type` property;
         //  `resolveAssetPath()` method needs `$type` and `$paths` properties
         $this->type = $type;
         $this->paths = $this->resolveFilePaths($paths);
         $this->asset = $this->resolveAssetPath();
-
-        return $this;
     }
 
     /**
@@ -104,13 +98,12 @@ class AssetsCreator
                 list($plugin, $path) = $pluginSplit;
             }
 
-            $path = starts_with($path, '/') ? substr($path, 1) : $this->type . DS . $path;
+            $path = string_starts_with($path, '/') ? substr($path, 1) : $this->type . DS . $path;
             $path = DS === '/' ? $path : $path = str_replace('/', DS, $path);
             $path = empty($plugin) ? WWW_ROOT . $path : Plugin::path($plugin) . 'webroot' . DS . $path;
 
             //Appends the file extension, if not already present
             $path = pathinfo($path, PATHINFO_EXTENSION) == $this->type ? $path : sprintf('%s.%s', $path, $this->type);
-
             is_readable_or_fail($path);
 
             return $path;
@@ -128,22 +121,15 @@ class AssetsCreator
      */
     public function create()
     {
-        if (!is_readable($this->path())) {
-            switch ($this->type) {
-                case 'css':
-                    $minifier = new Minify\CSS();
-                    break;
-                case 'js':
-                    $minifier = new Minify\JS();
-                    break;
-            }
+        $File = new File($this->path());
 
+        if (!$File->readable()) {
+            $minifier = $this->type === 'css' ? new Minify\CSS() : new Minify\JS();
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            if (!(new File($this->path(), false, 0755))->write($minifier->minify())) {
-                throw new RuntimeException(__d('assets', 'Failed to create file {0}', rtr($this->path())));
-            }
+            $success = $File->write($minifier->minify());
+            is_true_or_fail($success, __d('assets', 'Failed to create file {0}', rtr($this->path())));
         }
 
         return $this->filename();
