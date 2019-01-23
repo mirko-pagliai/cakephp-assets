@@ -89,6 +89,8 @@ method provided by the `HtmlHelper`.
 
 The same also applies to the `AssetHelper::script()` method.
 
+Refer to our [API](//mirko-pagliai.github.io/cakephp-assets).
+
 ## Versioning
 For transparency and insight into our release cycle and to maintain backward
 compatibility, *cakephp-assets* will be maintained under the

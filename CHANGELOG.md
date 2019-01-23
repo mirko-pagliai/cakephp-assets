@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.4 branch
+### 1.4.2
+* added [API](//mirko-pagliai.github.io/cakephp-assets).
+
 ### 1.4.1
 * updated for `php-tools` 1.1.12.
 
