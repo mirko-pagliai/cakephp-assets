@@ -1,4 +1,8 @@
 # 1.x branch
+### 1.5.0
+* updated for `cakephp` 4;
+* removed useless `AssetsCreator::filename()` method.
+
 ## 1.4 branch
 ### 1.4.2
 * added [API](//mirko-pagliai.github.io/cakephp-assets).

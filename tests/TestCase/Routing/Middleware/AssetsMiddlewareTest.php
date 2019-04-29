@@ -16,7 +16,6 @@ use Assets\Http\Exception\AssetNotFoundException;
 use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
-use Cake\Filesystem\File;
 use Cake\TestSuite\IntegrationTestTrait;
 
 /**
@@ -38,15 +37,10 @@ class AssetsMiddlewareTest extends TestCase
         $this->assertResponseOk();
         $this->assertContentType('text/css');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertInstanceOf(File::class, $this->_response->getFile());
-        $this->assertEquals([
-            'dirname' => Configure::read('Assets.target'),
-            'basename' => $filename,
-            'extension' => 'css',
-            'filename' => pathinfo($filename, PATHINFO_FILENAME),
-            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
-            'mime' => 'text/plain',
-        ], $this->_response->getFile()->info);
+        $this->assertEquals('css', $this->_response->getFile()->getExtension());
+        $this->assertEquals($filename, $this->_response->getFile()->getFilename());
+        $this->assertEquals(Configure::read('Assets.target'), $this->_response->getFile()->getPath());
+        $this->assertEquals(filesize(Configure::read('Assets.target') . DS . $filename), $this->_response->getFile()->getSize());
 
         //Gets the `Last-Modified` header
         $lastModified = $this->_response->getHeader('Last-Modified')[0];
@@ -86,14 +80,9 @@ class AssetsMiddlewareTest extends TestCase
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertInstanceOf(File::class, $this->_response->getFile());
-        $this->assertEquals([
-            'dirname' => Configure::read('Assets.target'),
-            'basename' => $filename,
-            'extension' => 'js',
-            'filename' => pathinfo($filename, PATHINFO_FILENAME),
-            'filesize' => filesize(Configure::read('Assets.target') . DS . $filename),
-            'mime' => 'text/plain',
-        ], $this->_response->getFile()->info);
+        $this->assertEquals('js', $this->_response->getFile()->getExtension());
+        $this->assertEquals($filename, $this->_response->getFile()->getFilename());
+        $this->assertEquals(Configure::read('Assets.target'), $this->_response->getFile()->getPath());
+        $this->assertEquals(filesize(Configure::read('Assets.target') . DS . $filename), $this->_response->getFile()->getSize());
     }
 }

@@ -90,5 +90,3 @@ Configure::write('Assets.force', true);
 Configure::write('Assets.target', TMP . 'assets');
 
 $_SERVER['PHP_SELF'] = '/';
-
-loadPHPUnitAliases();

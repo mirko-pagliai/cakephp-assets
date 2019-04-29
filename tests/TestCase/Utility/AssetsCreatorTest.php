@@ -235,15 +235,6 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `filename()` method
-     * @test
-     */
-    public function testFilename()
-    {
-        $this->assertRegExp('/^[\w\d]+$/', (new AssetsCreator('test', 'css'))->filename());
-    }
-
-    /**
      * Test for `path()` method
      * @test
      */

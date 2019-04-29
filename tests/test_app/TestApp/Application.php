@@ -15,6 +15,7 @@ namespace App;
 
 use Assets\Plugin as Assets;
 use Cake\Http\BaseApplication;
+use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
 /**
@@ -28,20 +29,18 @@ class Application extends BaseApplication
     /**
      * Load all the application configuration and bootstrap logic
      */
-    public function bootstrap()
+    public function bootstrap(): void
     {
         $this->addPlugin(Assets::class);
     }
 
     /**
      * Define the HTTP middleware layers for an application
-     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to set in your App Class
-     * @return \Cake\Http\MiddlewareQueue
+     * @param MiddlewareQueue $middleware The middleware queue to set in your App Class
+     * @return MiddlewareQueue
      */
-    public function middleware($middlewareQueue)
+    public function middleware(MiddlewareQueue $middleware): MiddlewareQueue
     {
-        $middlewareQueue->add(new RoutingMiddleware($this));
-
-        return $middlewareQueue;
+        return $middleware->add(new RoutingMiddleware($this));
     }
 }

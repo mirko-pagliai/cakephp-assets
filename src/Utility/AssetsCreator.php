@@ -17,7 +17,8 @@ use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Filesystem\File;
 use InvalidArgumentException;
-use MatthiasMullie\Minify;
+use MatthiasMullie\Minify\CSS;
+use MatthiasMullie\Minify\JS;
 
 /**
  * An utility to create assets
@@ -114,7 +115,6 @@ class AssetsCreator
      * Creates the asset
      * @return string
      * @throws RuntimeException
-     * @uses filename()
      * @uses path()
      * @uses $paths
      * @uses $type
@@ -123,26 +123,16 @@ class AssetsCreator
     {
         $File = new File($this->path());
 
-        if (!$File->readable()) {
-            $minifier = $this->type === 'css' ? new Minify\CSS() : new Minify\JS();
+        if (!$File->exists() || !$File->readable()) {
+            $minifier = $this->type === 'css' ? new CSS : new JS;
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            $success = $File->write($minifier->minify());
+            $success = $File->Folder->pwd() && $File->write($minifier->minify());
             is_true_or_fail($success, __d('assets', 'Failed to create file {0}', rtr($this->path())));
         }
 
-        return $this->filename();
-    }
-
-    /**
-     * Returns the asset filename
-     * @return string Asset filename
-     * @uses path()
-     */
-    public function filename()
-    {
-        return pathinfo($this->path(), PATHINFO_FILENAME);
+        return $File->name();
     }
 
     /**
