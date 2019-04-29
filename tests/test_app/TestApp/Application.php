@@ -28,20 +28,18 @@ class Application extends BaseApplication
     /**
      * Load all the application configuration and bootstrap logic
      */
-    public function bootstrap()
+    public function bootstrap(): void
     {
         $this->addPlugin(Assets::class);
     }
 
     /**
      * Define the HTTP middleware layers for an application
-     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to set in your App Class
+     * @param \Cake\Http\MiddlewareQueue $middleware The middleware queue to set in your App Class
      * @return \Cake\Http\MiddlewareQueue
      */
-    public function middleware($middlewareQueue)
+    public function middleware($middleware)
     {
-        $middlewareQueue->add(new RoutingMiddleware($this));
-
-        return $middlewareQueue;
+        return $middleware->add(new RoutingMiddleware($this));
     }
 }
