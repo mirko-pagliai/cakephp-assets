@@ -1,4 +1,8 @@
 # 1.x branch
+## 1.5 branch
+### 1.5.0
+* updated for `cakephp` 4.
+
 ## 1.4 branch
 ### 1.4.3
 * removed useless `AssetsCreator::filename()` method.
