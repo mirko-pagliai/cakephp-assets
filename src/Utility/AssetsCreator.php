@@ -47,7 +47,7 @@ class AssetsCreator
      * Construct. Sets the asset type and paths
      * @param string|array $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @uses resolveAssetPath()
      * @uses resolveFilePaths()
      * @uses $asset
@@ -56,7 +56,11 @@ class AssetsCreator
      */
     public function __construct($paths, $type)
     {
-        is_true_or_fail(in_array($type, ['css', 'js']), __d('assets', 'Asset type `{0}` not supported', $type), InvalidArgumentException::class);
+        is_true_or_fail(
+            in_array($type, ['css', 'js']),
+            __d('assets', 'Asset type `{0}` not supported', $type),
+            InvalidArgumentException::class
+        );
 
         //Note: `resolveFilePaths()` method needs `$type` property;
         //  `resolveAssetPath()` method needs `$type` and `$paths` properties
@@ -114,7 +118,6 @@ class AssetsCreator
     /**
      * Creates the asset
      * @return string
-     * @throws RuntimeException
      * @uses path()
      * @uses $paths
      * @uses $type
@@ -124,7 +127,7 @@ class AssetsCreator
         $File = new File($this->path());
 
         if (!$File->exists() || !$File->readable()) {
-            $minifier = $this->type === 'css' ? new CSS : new JS;
+            $minifier = $this->type === 'css' ? new CSS() : new JS();
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file

@@ -10,6 +10,7 @@
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 
@@ -64,7 +65,7 @@ Configure::write('App', [
     'paths' => [
         'plugins' => [APP . 'Plugin' . DS],
         'templates' => [APP . 'TestApp' . DS . 'Template' . DS],
-    ]
+    ],
 ]);
 Configure::write('Asset.timestamp', true);
 

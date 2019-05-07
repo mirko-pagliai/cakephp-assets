@@ -142,7 +142,7 @@ class AssetsCreatorTest extends TestCase
         $result = $pathsProperty(new AssetsCreator([
             'TestPlugin.test',
             'TestPlugin.subdir/test',
-            'TestPlugin./othercssdir/test'
+            'TestPlugin./othercssdir/test',
         ], 'css'));
         $this->assertEquals($expected, $result);
     }

@@ -10,12 +10,13 @@
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Assets\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 
 Router::plugin('Assets', ['path' => '/assets'], function (RouteBuilder $routes) {
-    $routes->registerMiddleware('asset', new AssetMiddleware);
+    $routes->registerMiddleware('asset', new AssetMiddleware());
 
     $routes->get('/:filename', [])
         ->setPatterns(['filename' => '[\w\d]+\.(css|js)'])
