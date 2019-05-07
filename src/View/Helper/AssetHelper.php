@@ -34,11 +34,11 @@ class AssetHelper extends Helper
      * Gets the asset path
      * @param string|array $path String or array of css/js files
      * @param string $type `css` or `js`
-     * @return string Asset path
+     * @return string|array Asset path
      * @uses Assets\Utility\AssetsCreator::create()
      * @uses Assets\Utility\AssetsCreator::path()
      */
-    protected function path($path, string $type): string
+    protected function path($path, string $type)
     {
         if (Configure::read('debug') && !Configure::read('Assets.force')) {
             return $path;
