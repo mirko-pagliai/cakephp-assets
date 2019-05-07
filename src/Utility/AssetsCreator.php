@@ -55,7 +55,7 @@ class AssetsCreator
      * @uses $paths
      * @uses $type
      */
-    public function __construct($paths, $type)
+    public function __construct($paths, string $type)
     {
         is_true_or_fail(
             in_array($type, ['css', 'js']),
@@ -66,7 +66,7 @@ class AssetsCreator
         //Note: `resolveFilePaths()` method needs `$type` property;
         //  `resolveAssetPath()` method needs `$type` and `$paths` properties
         $this->type = $type;
-        $this->paths = $this->resolveFilePaths($paths);
+        $this->paths = $this->resolveFilePaths((array)$paths);
         $this->asset = $this->resolveAssetPath();
     }
 
@@ -76,7 +76,7 @@ class AssetsCreator
      * @use $paths
      * @use $type
      */
-    protected function resolveAssetPath()
+    protected function resolveAssetPath(): string
     {
         $basename = md5(serialize(array_map(function ($path) {
             return [$path, filemtime($path)];
@@ -87,11 +87,11 @@ class AssetsCreator
 
     /**
      * Internal method to resolve partial file paths and return full paths
-     * @param string|array $paths Partial file paths
+     * @param array $paths Partial file paths
      * @return array Full file paths
      * @use $type
      */
-    protected function resolveFilePaths($paths)
+    protected function resolveFilePaths(array $paths): array
     {
         $loadedPlugins = Plugin::loaded();
 
@@ -113,7 +113,7 @@ class AssetsCreator
             is_readable_or_fail($path);
 
             return $path;
-        }, (array)$paths);
+        }, $paths);
     }
 
     /**
@@ -123,7 +123,7 @@ class AssetsCreator
      * @uses $paths
      * @uses $type
      */
-    public function create()
+    public function create(): string
     {
         $File = new File($this->path());
 
@@ -143,7 +143,7 @@ class AssetsCreator
      * Returns the asset full path
      * @return string Asset full path
      */
-    public function path()
+    public function path(): string
     {
         return $this->asset;
     }

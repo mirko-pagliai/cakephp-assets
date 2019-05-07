@@ -38,7 +38,7 @@ class AssetHelper extends Helper
      * @uses Assets\Utility\AssetsCreator::create()
      * @uses Assets\Utility\AssetsCreator::path()
      */
-    protected function path($path, $type)
+    protected function path($path, string $type): string
     {
         if (Configure::read('debug') && !Configure::read('Assets.force')) {
             return $path;
@@ -63,7 +63,7 @@ class AssetHelper extends Helper
      * @return string Html, `<link>` or `<style>` tag
      * @uses path()
      */
-    public function css($path, array $options = [])
+    public function css($path, array $options = []): string
     {
         return $this->Html->css($this->path($path, 'css'), $options);
     }
@@ -72,11 +72,11 @@ class AssetHelper extends Helper
      * Compresses and adds js files to the layout
      * @param string|array $url String or array of js files
      * @param array $options Array of options and HTML attributes
-     * @return mixed String of `<script />` tags or null if `$inline` is
+     * @return string|null String of `<script />` tags or null if `$inline` is
      *  false or if `$once` is true
      * @uses path()
      */
-    public function script($url, array $options = [])
+    public function script($url, array $options = []): ?string
     {
         return $this->Html->script($this->path($url, 'js'), $options);
     }
