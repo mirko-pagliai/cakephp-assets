@@ -101,7 +101,7 @@ class AssetsCreator
             //Note that using `pluginSplit()` is not sufficient, because
             //  `$path` may still contain a dot
             if (!empty($pluginSplit[0]) && in_array($pluginSplit[0], $loadedPlugins)) {
-                list($plugin, $path) = $pluginSplit;
+                [$plugin, $path] = $pluginSplit;
             }
 
             $path = string_starts_with($path, '/') ? substr($path, 1) : $this->type . DS . $path;
