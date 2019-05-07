@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of cakephp-assets.
  *
@@ -31,7 +32,7 @@ class AssetMiddleware
      * @return ResponseInterface A response
      * @throws AssetNotFoundException
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next): ResponseInterface
     {
         $file = Configure::read('Assets.target') . DS . $request->getParam('filename');
         is_readable_or_fail($file, __d('assets', 'File `{0}` doesn\'t exist', $file), AssetNotFoundException::class);
