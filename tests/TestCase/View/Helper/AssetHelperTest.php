@@ -48,8 +48,8 @@ class AssetHelperTest extends TestCase
             'Assets.timestamp' => true,
         ]);
 
-        $this->Asset = new AssetHelper(new View);
-        $this->Html = new HtmlHelper(new View);
+        $this->Asset = new AssetHelper(new View());
+        $this->Html = new HtmlHelper(new View());
     }
 
     /**

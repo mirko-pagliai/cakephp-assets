@@ -30,7 +30,7 @@ class Application extends BaseApplication
     /**
      * Load all the application configuration and bootstrap logic
      */
-    public function bootstrap(): void
+    public function bootstrap()
     {
         $this->addPlugin(Assets::class);
     }

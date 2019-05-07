@@ -26,11 +26,11 @@ class AssetMiddleware
 {
     /**
      * Serves assets if the request matches one
-     * @param ServerRequestInterface $request The request
-     * @param ResponseInterface $response The response
+     * @param \Psr\Http\Message\ServerRequestInterface $request The request
+     * @param \Psr\Http\Message\SResponseInterface $response The response
      * @param callable $next Callback to invoke the next middleware
-     * @return ResponseInterface A response
-     * @throws AssetNotFoundException
+     * @return \Psr\Http\Message\SResponseInterface A response
+     * @throws \Assets\Http\Exception\AssetNotFoundException
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next): ResponseInterface
     {
