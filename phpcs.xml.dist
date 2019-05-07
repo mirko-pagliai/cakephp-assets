@@ -14,12 +14,6 @@
     <rule ref="Internal.NoCodeFound">
         <severity>0</severity>
     </rule>
-    <rule ref="SlevomatCodingStandard.PHP.ShortList.LongListUsed">
-        <severity>0</severity>
-    </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing">
-        <severity>0</severity>
-    </rule>
 
     <exclude-pattern>*.min.css</exclude-pattern>
     <exclude-pattern>*.min.js</exclude-pattern>
