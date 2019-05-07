@@ -60,10 +60,10 @@ class AssetHelper extends Helper
      * Compresses and adds a css file to the layout
      * @param string|array $path String or array of css files
      * @param array $options Array of options and HTML attributes
-     * @return string Html, `<link>` or `<style>` tag
+     * @return string|null Html, `<link>` or `<style>` tag
      * @uses path()
      */
-    public function css($path, array $options = []): string
+    public function css($path, array $options = []): ?string
     {
         return $this->Html->css($this->path($path, 'css'), $options);
     }
