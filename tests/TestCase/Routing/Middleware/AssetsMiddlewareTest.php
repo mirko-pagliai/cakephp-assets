@@ -16,7 +16,6 @@ use Assets\Http\Exception\AssetNotFoundException;
 use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
-use Cake\Filesystem\File;
 use Cake\TestSuite\IntegrationTestTrait;
 
 /**
@@ -38,7 +37,6 @@ class AssetsMiddlewareTest extends TestCase
         $this->assertResponseOk();
         $this->assertContentType('text/css');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertInstanceOf(File::class, $this->_response->getFile());
         $this->assertEquals([
             'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,
@@ -86,7 +84,6 @@ class AssetsMiddlewareTest extends TestCase
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertInstanceOf(File::class, $this->_response->getFile());
         $this->assertEquals([
             'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,

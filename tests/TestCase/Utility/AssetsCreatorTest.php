@@ -142,7 +142,7 @@ class AssetsCreatorTest extends TestCase
         $result = $pathsProperty(new AssetsCreator([
             'TestPlugin.test',
             'TestPlugin.subdir/test',
-            'TestPlugin./othercssdir/test'
+            'TestPlugin./othercssdir/test',
         ], 'css'));
         $this->assertEquals($expected, $result);
     }
@@ -232,15 +232,6 @@ class AssetsCreatorTest extends TestCase
         //Tries to create again the same asset. Now the creation time is different
         $result = (new AssetsCreator('test', 'css'))->create();
         $this->assertNotEquals($time, filemtime($file));
-    }
-
-    /**
-     * Test for `filename()` method
-     * @test
-     */
-    public function testFilename()
-    {
-        $this->assertRegExp('/^[\w\d]+$/', (new AssetsCreator('test', 'css'))->filename());
     }
 
     /**

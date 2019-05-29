@@ -10,6 +10,7 @@
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 
@@ -64,7 +65,7 @@ Configure::write('App', [
     'paths' => [
         'plugins' => [APP . 'Plugin' . DS],
         'templates' => [APP . 'TestApp' . DS . 'Template' . DS],
-    ]
+    ],
 ]);
 Configure::write('Asset.timestamp', true);
 
@@ -91,4 +92,8 @@ Configure::write('Assets.target', TMP . 'assets');
 
 $_SERVER['PHP_SELF'] = '/';
 
-loadPHPUnitAliases();
+if (function_exists('loadPHPUnitAliases')) {
+    loadPHPUnitAliases();
+} elseif (!class_exists('PHPUnit\Runner\Version')) {
+    class_alias('PHPUnit_Framework_Constraint', 'PHPUnit\Framework\Constraint\Constraint');
+}
