@@ -92,9 +92,3 @@ Configure::write('Assets.force', true);
 Configure::write('Assets.target', TMP . 'assets');
 
 $_SERVER['PHP_SELF'] = '/';
-
-if (function_exists('loadPHPUnitAliases')) {
-    loadPHPUnitAliases();
-} elseif (!class_exists('PHPUnit\Runner\Version')) {
-    class_alias('PHPUnit_Framework_Constraint', 'PHPUnit\Framework\Constraint\Constraint');
-}
