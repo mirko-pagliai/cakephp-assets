@@ -13,10 +13,10 @@
 namespace Assets\Test\TestCase\Controller;
 
 use Assets\Controller\AssetsController;
+use Assets\Http\Exception\AssetNotFoundException;
 use Assets\TestSuite\IntegrationTestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
-use Cake\Filesystem\File;
 
 /**
  * AssetControllerTest class
@@ -35,17 +35,6 @@ class AssetsControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test the response for `asset()` method, with a a no existing file
-     * @test
-     */
-    public function testAssetNoExistingFileResponse()
-    {
-        $this->get('/assets/noexistingfile.js');
-        $this->assertResponseError();
-        $this->assertNull($this->_response->getFile());
-    }
-
-    /**
      * Test for `asset()` method, with a css asset
      * @test
      */
@@ -53,12 +42,10 @@ class AssetsControllerTest extends IntegrationTestCase
     {
         //This is the filename
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
-
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('text/css');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertInstanceOf(File::class, $this->_response->getFile());
         $this->assertEquals([
             'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,
@@ -90,6 +77,12 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertNotEquals($lastModified, $this->_response->header()['Last-Modified']);
+
+        //With a a no existing file
+        $this->expectException(AssetNotFoundException::class);
+        $this->expectExceptionMessage('File `' . Configure::read('Assets.target') . DS . 'noexistingfile.css` doesn\'t exist');
+        $this->disableErrorHandlerMiddleware();
+        $this->get('/assets/noexistingfile.css');
     }
 
     /**
@@ -100,12 +93,10 @@ class AssetsControllerTest extends IntegrationTestCase
     {
         //This is the filename
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'js'))->create(), 'js');
-
         $this->get(sprintf('/assets/%s', $filename));
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertInstanceOf(File::class, $this->_response->getFile());
         $this->assertEquals([
             'dirname' => Configure::read('Assets.target'),
             'basename' => $filename,

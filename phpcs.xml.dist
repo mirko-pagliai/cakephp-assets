@@ -16,6 +16,7 @@
     </rule>
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>/webroot</exclude-pattern>
+        <severity>0</severity>
     </rule>
 
     <exclude-pattern>*.min.css</exclude-pattern>

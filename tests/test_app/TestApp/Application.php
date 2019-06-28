@@ -35,13 +35,11 @@ class Application extends BaseApplication
 
     /**
      * Define the HTTP middleware layers for an application
-     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to set in your App Class
+     * @param \Cake\Http\MiddlewareQueue $middleware The middleware queue to set in your App Class
      * @return \Cake\Http\MiddlewareQueue
      */
-    public function middleware($middlewareQueue)
+    public function middleware($middleware)
     {
-        $middlewareQueue->add(new RoutingMiddleware($this));
-
-        return $middlewareQueue;
+        return $middleware->add(new RoutingMiddleware($this));
     }
 }

@@ -10,6 +10,7 @@
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
@@ -36,7 +37,7 @@ define('WWW_ROOT', APP . 'webroot' . DS);
 define('TMP', sys_get_temp_dir() . DS);
 define('CONFIG', APP . 'config' . DS);
 define('CACHE', TMP);
-define('LOGS', TMP);
+define('LOGS', TMP . 'cakephp_log' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
 
 @mkdir(LOGS);
@@ -71,7 +72,7 @@ Configure::write('App', [
     'paths' => [
         'plugins' => [APP . 'Plugin' . DS],
         'templates' => [APP . 'TestApp' . DS . 'Template' . DS],
-    ]
+    ],
 ]);
 Configure::write('Asset.timestamp', true);
 
@@ -104,9 +105,3 @@ Plugin::load('Assets', [
 
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
-
-if (function_exists('loadPHPUnitAliases')) {
-    loadPHPUnitAliases();
-} elseif (!class_exists('PHPUnit\Runner\Version')) {
-    class_alias('PHPUnit_Framework_Constraint', 'PHPUnit\Framework\Constraint\Constraint');
-}

@@ -10,6 +10,7 @@
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Core\Configure;
 
 //If `true`, assets will be used even if debugging is enabled
