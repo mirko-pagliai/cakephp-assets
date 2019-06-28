@@ -4,10 +4,8 @@
 * updated for `cakephp` 4 and `phpunit` 8.
 
 ## 1.4 branch
-### 1.4.3
-* removed useless `AssetsCreator::filename()` method.
-
 ### 1.4.2
+* removed useless `AssetsCreator::filename()` method;
 * added [API](//mirko-pagliai.github.io/cakephp-assets).
 
 ### 1.4.1
