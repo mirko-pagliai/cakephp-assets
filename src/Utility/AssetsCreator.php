@@ -57,8 +57,9 @@ class AssetsCreator
      */
     public function __construct($paths, string $type)
     {
-        is_true_or_fail(
-            in_array($type, ['css', 'js']),
+        in_array_or_fail(
+            $type,
+            ['css', 'js'],
             __d('assets', 'Asset type `{0}` not supported', $type),
             InvalidArgumentException::class
         );
