@@ -79,7 +79,7 @@ class AssetsCreator
      */
     protected function resolveAssetPath(): string
     {
-        $basename = md5(serialize(array_map(function ($path) {
+        $basename = md5(serialize(array_map(function (string $path) {
             return [$path, filemtime($path)];
         }, $this->paths)));
 
@@ -96,7 +96,7 @@ class AssetsCreator
     {
         $loadedPlugins = Plugin::loaded();
 
-        return array_map(function ($path) use ($loadedPlugins) {
+        return array_map(function (string $path) use ($loadedPlugins) {
             $pluginSplit = pluginSplit($path);
 
             //Note that using `pluginSplit()` is not sufficient, because
