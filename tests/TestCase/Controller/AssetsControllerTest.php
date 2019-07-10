@@ -24,17 +24,6 @@ use Cake\Core\Configure;
 class AssetsControllerTest extends IntegrationTestCase
 {
     /**
-     * Test for `asset()` method, with a a no existing file
-     * @expectedException Assets\Http\Exception\AssetNotFoundException
-     * @expectedExceptionMessageRegExp /^File `[\w\d\/\\.:]+` doesn't exist$/
-     * @test
-     */
-    public function testAssetNoExistingFile()
-    {
-        (new AssetsController)->asset('noexistingfile.js');
-    }
-
-    /**
      * Test for `asset()` method, with a css asset
      * @test
      */
