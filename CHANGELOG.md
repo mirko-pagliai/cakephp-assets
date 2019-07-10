@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.4 branch
+### 1.4.3
+* updated for `php-tools` `1.2.6`.
+
 ### 1.4.2
 * removed useless `AssetsCreator::filename()` method;
 * added [API](//mirko-pagliai.github.io/cakephp-assets).
