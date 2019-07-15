@@ -12,7 +12,6 @@
  */
 namespace Assets\Test\TestCase\Controller;
 
-use Assets\Controller\AssetsController;
 use Assets\Http\Exception\AssetNotFoundException;
 use Assets\TestSuite\IntegrationTestCase;
 use Assets\Utility\AssetsCreator;
@@ -67,11 +66,8 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
         $this->assertNotEquals($lastModified, $this->_response->header()['Last-Modified']);
 
-        if (version_compare(Configure::version(), '3.3', '<')) {
-            return;
-        }
-
         //With a a no existing file
+        $this->skipIf(!method_exists($this, 'disableErrorHandlerMiddleware'));
         $this->expectException(AssetNotFoundException::class);
         $this->expectExceptionMessage('File `' . Configure::read('Assets.target') . DS . 'noexistingfile.css` doesn\'t exist');
         $this->disableErrorHandlerMiddleware();
