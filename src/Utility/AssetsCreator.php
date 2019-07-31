@@ -16,7 +16,6 @@ namespace Assets\Utility;
 
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
-use Cake\Filesystem\File;
 use InvalidArgumentException;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
@@ -126,18 +125,18 @@ class AssetsCreator
      */
     public function create(): string
     {
-        $File = new File($this->path());
+        $path = $this->path();
 
-        if (!$File->exists() || !$File->readable()) {
+        if (!file_exists($path) || !is_readable($path)) {
             $minifier = $this->type === 'css' ? new CSS() : new JS();
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            $success = $File->Folder->pwd() && $File->write($minifier->minify());
+            $success = create_file($path, $minifier->minify());
             is_true_or_fail($success, __d('assets', 'Failed to create file {0}', rtr($this->path())));
         }
 
-        return $File->name();
+        return pathinfo($path, PATHINFO_FILENAME);
     }
 
     /**
