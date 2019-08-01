@@ -15,6 +15,7 @@ namespace Assets\TestSuite;
 
 use Cake\Core\Configure;
 use Cake\TestSuite\IntegrationTestCase as CakeIntegrationTestCase;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * IntegrationTestCaseTest class
@@ -42,6 +43,9 @@ abstract class IntegrationTestCase extends CakeIntegrationTestCase
     {
         parent::tearDown();
 
-        @unlink_recursive(Configure::read('Assets.target'));
+        try {
+            unlink_recursive(Configure::read('Assets.target'));
+        } catch (IOException $e) {
+        }
     }
 }
