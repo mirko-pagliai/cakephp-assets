@@ -15,7 +15,7 @@ namespace Assets\TestSuite;
 
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase as CakeTestCase;
-use Symfony\Component\Filesystem\Exception\IOException;
+use Exception;
 use Tools\ReflectionTrait;
 
 /**
@@ -31,11 +31,11 @@ abstract class TestCase extends CakeTestCase
      */
     public function tearDown()
     {
-        parent::tearDown();
-
         try {
-            unlink_recursive(Configure::read('Assets.target'));
-        } catch (IOException $e) {
+            unlink_recursive(Configure::readOrFail('Assets.target'));
+        } catch (Exception $e) {
         }
+
+        parent::tearDown();
     }
 }
