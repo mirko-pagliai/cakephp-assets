@@ -16,6 +16,7 @@ namespace Assets\TestSuite;
 
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase as CakeTestCase;
+use Exception;
 use Tools\ReflectionTrait;
 
 /**
@@ -42,8 +43,11 @@ abstract class TestCase extends CakeTestCase
      */
     public function tearDown(): void
     {
-        parent::tearDown();
+        try {
+            unlink_recursive(Configure::readOrFail('Assets.target'));
+        } catch (Exception $e) {
+        }
 
-        @unlink_recursive(Configure::read('Assets.target'));
+        parent::tearDown();
     }
 }
