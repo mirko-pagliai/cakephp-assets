@@ -28,6 +28,6 @@ class TestCaseTest extends TestCase
     public function testTearDown()
     {
         Configure::delete('Assets.target');
-        $this->assertEmpty(parent::tearDown());
+        $this->assertNull(parent::tearDown());
     }
 }
