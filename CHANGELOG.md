@@ -4,11 +4,9 @@
 * updated for `cakephp` 4 and `phpunit` 8.
 
 ## 1.4 branch
-### 1.4.4
-* added tests for lower dependencies.
-
 ### 1.4.3
-* updated for `php-tools` `1.2.8`.
+* updated for `php-tools` `1.2.8`;
+* added tests for lower dependencies.
 
 ### 1.4.2
 * removed useless `AssetsCreator::filename()` method;
