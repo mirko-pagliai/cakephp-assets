@@ -20,7 +20,7 @@ even a coffee is enough! Thank you.
 
 *   [Installation](#installation)
 *   [Configuration](#configuration)
-	* [Configuration values](#configuration-values)
+   * [Configuration values](#configuration-values)
 *   [How to use](#how-to-use)
 *   [Versioning](#versioning)
 
