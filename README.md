@@ -17,11 +17,11 @@ even a coffee is enough! Thank you.
 
 [![Make a donation](https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_carte.jpg)](//paypal.me/mirkopagliai)
 
-   * [Installation](#installation)
-   * [Configuration](#configuration)
-      * [Configuration values](#configuration-values)
-   * [How to use](#how-to-use)
-   * [Versioning](#versioning)
+*   [Installation](#installation)
+*   [Configuration](#configuration)
+	* [Configuration values](#configuration-values)
+*   [How to use](#how-to-use)
+*   [Versioning](#versioning)
 
 ***
 

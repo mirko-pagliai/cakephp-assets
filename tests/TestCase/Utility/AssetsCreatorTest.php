@@ -191,8 +191,8 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator('test', 'js'))->create();
         $this->assertRegExp('/^[\w\d]+$/', $result);
 
-        $expected = 'function other_alert(){alert(\'Another alert\')}' . PHP_EOL .
-            '$(function(){var msg=\'Ehi!\';alert(msg)})';
+        $expected = 'function otherAlert(){alert("Another alert")}' . PHP_EOL .
+            '$(function(){var msg="Ehi!";alert(msg)})';
         $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
         $this->assertSameAsFile($file, $expected);
 
@@ -200,11 +200,11 @@ class AssetsCreatorTest extends TestCase
         $result = (new AssetsCreator(['test', 'test2'], 'js'))->create();
         $this->assertRegExp('/^[\w\d]+$/', $result);
 
-        $expected = 'function other_alert(){alert(\'Another alert\')}' . PHP_EOL .
-            '$(function(){var msg=\'Ehi!\';alert(msg)});' .
-            'var first=\'This is first\';' .
-            'var second=\'This is second\';' .
-            'alert(first+\' and \'+second)';
+        $expected = 'function otherAlert(){alert("Another alert")}' . PHP_EOL .
+            '$(function(){var msg="Ehi!";alert(msg)});' .
+            'var first="This is first";' .
+            'var second="This is second";' .
+            'alert(first+" and "+second)';
         $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
         $this->assertSameAsFile($file, $expected);
     }
