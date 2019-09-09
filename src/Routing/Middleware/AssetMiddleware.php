@@ -28,11 +28,10 @@ class AssetMiddleware
      * Serves assets if the request matches one
      * @param \Psr\Http\Message\ServerRequestInterface $request The request
      * @param \Psr\Http\Message\SResponseInterface $response The response
-     * @param callable $next Callback to invoke the next middleware
      * @return \Psr\Http\Message\SResponseInterface A response
      * @throws \Assets\Http\Exception\AssetNotFoundException
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $file = Configure::read('Assets.target') . DS . $request->getParam('filename');
         is_readable_or_fail($file, __d('assets', 'File `{0}` doesn\'t exist', $file), AssetNotFoundException::class);
