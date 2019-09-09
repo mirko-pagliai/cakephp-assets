@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/mirko-pagliai/cakephp-assets.svg?branch=master)](https://travis-ci.org/mirko-pagliai/cakephp-assets)
 [![codecov](https://codecov.io/gh/mirko-pagliai/cakephp-assets/branch/master/graph/badge.svg)](https://codecov.io/gh/mirko-pagliai/cakephp-assets)
 [![Build status](https://ci.appveyor.com/api/projects/status/2ir3h63d1913cyhb?svg=true)](https://ci.appveyor.com/project/mirko-pagliai/cakephp-assets)
+[![CodeFactor](https://www.codefactor.io/repository/github/mirko-pagliai/cakephp-assets/badge/develop)](https://www.codefactor.io/repository/github/mirko-pagliai/cakephp-assets/overview/develop)
 
 *cakephp-assets* is a CakePHP plugin to allows you to handle and generate assets.
 
