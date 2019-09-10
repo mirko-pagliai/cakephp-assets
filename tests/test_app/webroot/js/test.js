@@ -1,9 +1,9 @@
-function other_alert()
+function otherAlert()
 {
-    alert('Another alert');
+    alert("Another alert");
 }
 
 $(function () {
-    var msg = 'Ehi!';
+    var msg = "Ehi!";
     alert(msg);
 });
