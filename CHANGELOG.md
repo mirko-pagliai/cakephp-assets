@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.4 branch
+### 1.4.4
+* little fixes and removed some useless parameters.
+
 ### 1.4.3
 * updated for `php-tools` `1.2.8`;
 * added tests for lower dependencies.
