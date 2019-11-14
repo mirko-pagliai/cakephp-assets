@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project title="cakephp-assets" version="2.9.1">
+  <partials/>
+  <file path="Routing/Middleware/AssetMiddleware.php" generated-path="Routing.Middleware.AssetMiddleware.html" hash="5cd5ea8901a489e227b2db04137a4e0a" package="Default">
+    <docblock line="0">
+      <description>This file is part of cakephp-assets.</description>
+      <long-description>Licensed under The MIT License
+For full copyright and license information, please see the LICENSE.txt
+Redistributions of files must retain the above copyright notice.</long-description>
+      <tag name="copyright" line="0" description="Copyright (c) Mirko Pagliai"/>
+      <tag name="link" line="0" description="https://github.com/mirko-pagliai/cakephp-assets" link="https://github.com/mirko-pagliai/cakephp-assets"/>
+      <tag name="license" line="0" description="MIT License" link="https://opensource.org/licenses/mit-license.php"/>
+      <tag name="since" line="0" description="1.3.0"/>
+      <tag name="package" line="0" description="Default"/>
+    </docblock>
+    <namespace-alias name="AssetNotFoundException">\Assets\Http\Exception\AssetNotFoundException</namespace-alias>
+    <namespace-alias name="Configure">\Cake\Core\Configure</namespace-alias>
+    <namespace-alias name="ResponseInterface">\Psr\Http\Message\ResponseInterface</namespace-alias>
+    <namespace-alias name="ServerRequestInterface">\Psr\Http\Message\ServerRequestInterface</namespace-alias>
+    <class final="false" abstract="false" namespace="Assets\Routing\Middleware" line="24" package="Default">
+      <extends/>
+      <name>AssetMiddleware</name>
+      <full_name>\Assets\Routing\Middleware\AssetMiddleware</full_name>
+      <docblock line="24">
+        <description>Handles serving assets</description>
+        <long-description></long-description>
+        <tag name="package" line="24" description="Default"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Assets\Routing\Middleware" line="33" package="Default">
+        <name>__invoke</name>
+        <full_name>\Assets\Routing\Middleware\AssetMiddleware::__invoke()</full_name>
+        <docblock line="33">
+          <description>Serves assets if the request matches one</description>
+          <long-description></long-description>
+          <tag name="param" line="33" description="&lt;p&gt;The request&lt;/p&gt;" type="\Psr\Http\Message\ServerRequestInterface" variable="$request">
+            <type>\Psr\Http\Message\ServerRequestInterface</type>
+          </tag>
+          <tag name="param" line="33" description="&lt;p&gt;The response&lt;/p&gt;" type="\Psr\Http\Message\SResponseInterface" variable="$response">
+            <type>\Psr\Http\Message\SResponseInterface</type>
+          </tag>
+          <tag name="return" line="33" description="A response" type="\Psr\Http\Message\SResponseInterface">
+            <type>\Psr\Http\Message\SResponseInterface</type>
+          </tag>
+          <tag name="throws" line="33" description="" type="\Assets\Http\Exception\AssetNotFoundException">
+            <type>\Assets\Http\Exception\AssetNotFoundException</type>
+          </tag>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$request</name>
+          <default></default>
+          <type>\Psr\Http\Message\ServerRequestInterface</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$response</name>
+          <default></default>
+          <type>\Psr\Http\Message\SResponseInterface</type>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="TestSuite/TestCase.php" generated-path="TestSuite.TestCase.html" hash="c0ba2c6a01f79ca93cb246a388a49f36" package="Default">
+    <docblock line="0">
+      <description>This file is part of cakephp-assets.</description>
+      <long-description>Licensed under The MIT License
+For full copyright and license information, please see the LICENSE.txt
+Redistributions of files must retain the above copyright notice.</long-description>
+      <tag name="copyright" line="0" description="Copyright (c) Mirko Pagliai"/>
+      <tag name="link" line="0" description="https://github.com/mirko-pagliai/cakephp-assets" link="https://github.com/mirko-pagliai/cakephp-assets"/>
+      <tag name="license" line="0" description="MIT License" link="https://opensource.org/licenses/mit-license.php"/>
+      <tag name="since" line="0" description="1.1.8"/>
+      <tag name="package" line="0" description="Default"/>
+    </docblock>
+    <namespace-alias name="Configure">\Cake\Core\Configure</namespace-alias>
+    <namespace-alias name="CakeTestCase">\Cake\TestSuite\TestCase</namespace-alias>
+    <namespace-alias name="Exception">\Exception</namespace-alias>
+    <namespace-alias name="ReflectionTrait">\Tools\ReflectionTrait</namespace-alias>
+    <class final="false" abstract="true" namespace="Assets\TestSuite" line="24" package="Default">
+      <extends>\Cake\TestSuite\TestCase</extends>
+      <name>TestCase</name>
+      <full_name>\Assets\TestSuite\TestCase</full_name>
+      <docblock line="24">
+        <description>TestCase class</description>
+        <long-description></long-description>
+        <tag name="package" line="24" description="Default"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Assets\TestSuite" line="32" package="Default">
+        <name>setUp</name>
+        <full_name>\Assets\TestSuite\TestCase::setUp()</full_name>
+        <docblock line="32">
+          <description>Called before every test method</description>
+          <long-description></long-description>
+          <tag name="return" line="32" description="" type="void">
+            <type>void</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Assets\TestSuite" line="43" package="Default">
+        <name>tearDown</name>
+        <full_name>\Assets\TestSuite\TestCase::tearDown()</full_name>
+        <docblock line="43">
+          <description>Called after every test method</description>
+          <long-description></long-description>
+          <tag name="return" line="43" description="" type="void">
+            <type>void</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="Utility/AssetsCreator.php" generated-path="Utility.AssetsCreator.html" hash="87ead40417bc2175d9ee8817460ed0dc" package="Default">
+    <docblock line="0">
+      <description>This file is part of cakephp-assets.</description>
+      <long-description>Licensed under The MIT License
+For full copyright and license information, please see the LICENSE.txt
+Redistributions of files must retain the above copyright notice.</long-description>
+      <tag name="copyright" line="0" description="Copyright (c) Mirko Pagliai"/>
+      <tag name="link" line="0" description="https://github.com/mirko-pagliai/cakephp-assets" link="https://github.com/mirko-pagliai/cakephp-assets"/>
+      <tag name="license" line="0" description="MIT License" link="https://opensource.org/licenses/mit-license.php"/>
+      <tag name="see" line="0" description="" link="https://github.com/matthiasmullie/minify"/>
+      <tag name="package" line="0" description="Default"/>
+    </docblock>
+    <namespace-alias name="Configure">\Cake\Core\Configure</namespace-alias>
+    <namespace-alias name="Plugin">\Cake\Core\Plugin</namespace-alias>
+    <namespace-alias name="InvalidArgumentException">\InvalidArgumentException</namespace-alias>
+    <namespace-alias name="CSS">\MatthiasMullie\Minify\CSS</namespace-alias>
+    <namespace-alias name="JS">\MatthiasMullie\Minify\JS</namespace-alias>
+    <class final="false" abstract="false" namespace="Assets\Utility" line="25" package="Default">
+      <extends/>
+      <name>AssetsCreator</name>
+      <full_name>\Assets\Utility\AssetsCreator</full_name>
+      <docblock line="25">
+        <description>An utility to create assets</description>
+        <long-description></long-description>
+        <tag name="package" line="25" description="Default"/>
+      </docblock>
+      <property static="false" visibility="protected" namespace="Assets\Utility" line="31" package="Default">
+        <name>$asset</name>
+        <full_name>\Assets\Utility\AssetsCreator::$asset</full_name>
+        <default></default>
+        <docblock line="31">
+          <description>Asset full path</description>
+          <long-description></long-description>
+          <tag name="var" line="31" description="" type="string" variable="">
+            <type>string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="Assets\Utility" line="37" package="Default">
+        <name>$paths</name>
+        <full_name>\Assets\Utility\AssetsCreator::$paths</full_name>
+        <default>array()</default>
+        <docblock line="37">
+          <description>File paths that will be transformed into a single asset</description>
+          <long-description></long-description>
+          <tag name="var" line="37" description="" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property static="false" visibility="protected" namespace="Assets\Utility" line="43" package="Default">
+        <name>$type</name>
+        <full_name>\Assets\Utility\AssetsCreator::$type</full_name>
+        <default></default>
+        <docblock line="43">
+          <description>Asset type (`css` or `js`)</description>
+          <long-description></long-description>
+          <tag name="var" line="43" description="" type="string" variable="">
+            <type>string</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Assets\Utility" line="56" package="Default">
+        <name>__construct</name>
+        <full_name>\Assets\Utility\AssetsCreator::__construct()</full_name>
+        <docblock line="56">
+          <description>Construct. Sets the asset type and paths</description>
+          <long-description></long-description>
+          <tag name="param" line="56" description="&lt;p&gt;String or array of css files&lt;/p&gt;" type="string|array" variable="$paths">
+            <type>string</type>
+            <type>array</type>
+          </tag>
+          <tag name="param" line="56" description="&lt;p&gt;Extension (&lt;code&gt;css&lt;/code&gt; or &lt;code&gt;js&lt;/code&gt;)&lt;/p&gt;" type="string" variable="$type">
+            <type>string</type>
+          </tag>
+          <tag name="throws" line="56" description="" type="\InvalidArgumentException">
+            <type>\InvalidArgumentException</type>
+          </tag>
+          <tag name="uses" line="56" description="" link="\Assets\Utility\AssetsCreator::resolveAssetPath()"/>
+          <tag name="uses" line="56" description="" link="\Assets\Utility\AssetsCreator::resolveFilePaths()"/>
+          <tag name="uses" line="56" description="" link="\Assets\Utility\AssetsCreator::$asset"/>
+          <tag name="uses" line="56" description="" link="\Assets\Utility\AssetsCreator::$paths"/>
+          <tag name="uses" line="56" description="" link="\Assets\Utility\AssetsCreator::$type"/>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$paths</name>
+          <default></default>
+          <type>string|array</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$type</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Assets\Utility" line="78" package="Default">
+        <name>resolveAssetPath</name>
+        <full_name>\Assets\Utility\AssetsCreator::resolveAssetPath()</full_name>
+        <docblock line="78">
+          <description>Internal method to resolve the asset path</description>
+          <long-description></long-description>
+          <tag name="return" line="78" description="Asset full path" type="string">
+            <type>string</type>
+          </tag>
+          <tag name="use" line="78" description="$paths"/>
+          <tag name="use" line="78" description="$type"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Assets\Utility" line="93" package="Default">
+        <name>resolveFilePaths</name>
+        <full_name>\Assets\Utility\AssetsCreator::resolveFilePaths()</full_name>
+        <docblock line="93">
+          <description>Internal method to resolve partial file paths and return full paths</description>
+          <long-description></long-description>
+          <tag name="param" line="93" description="&lt;p&gt;Partial file paths&lt;/p&gt;" type="string|array" variable="$paths">
+            <type>string</type>
+            <type>array</type>
+          </tag>
+          <tag name="return" line="93" description="Full file paths" type="array">
+            <type>array</type>
+          </tag>
+          <tag name="use" line="93" description="$type"/>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$paths</name>
+          <default></default>
+          <type>string|array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Assets\Utility" line="125" package="Default">
+        <name>create</name>
+        <full_name>\Assets\Utility\AssetsCreator::create()</full_name>
+        <docblock line="125">
+          <description>Creates the asset</description>
+          <long-description></long-description>
+          <tag name="return" line="125" description="" type="string">
+            <type>string</type>
+          </tag>
+          <tag name="uses" line="125" description="" link="\Assets\Utility\AssetsCreator::path()"/>
+          <tag name="uses" line="125" description="" link="\Assets\Utility\AssetsCreator::$paths"/>
+          <tag name="uses" line="125" description="" link="\Assets\Utility\AssetsCreator::$type"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Assets\Utility" line="145" package="Default">
+        <name>path</name>
+        <full_name>\Assets\Utility\AssetsCreator::path()</full_name>
+        <docblock line="145">
+          <description>Returns the asset full path</description>
+          <long-description></long-description>
+          <tag name="return" line="145" description="Asset full path" type="string">
+            <type>string</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="Http/Exception/AssetNotFoundException.php" generated-path="Http.Exception.AssetNotFoundException.html" hash="88cd4ffc367e0a646dd2c2ba88e89d67" package="Default">
+    <docblock line="0">
+      <description>This file is part of cakephp-assets.</description>
+      <long-description>Licensed under The MIT License
+For full copyright and license information, please see the LICENSE.txt
+Redistributions of files must retain the above copyright notice.</long-description>
+      <tag name="copyright" line="0" description="Copyright (c) Mirko Pagliai"/>
+      <tag name="link" line="0" description="https://github.com/mirko-pagliai/cakephp-assets" link="https://github.com/mirko-pagliai/cakephp-assets"/>
+      <tag name="license" line="0" description="MIT License" link="https://opensource.org/licenses/mit-license.php"/>
+      <tag name="since" line="0" description="1.1.3"/>
+      <tag name="package" line="0" description="Default"/>
+    </docblock>
+    <namespace-alias name="NotFoundException">\Cake\Http\Exception\NotFoundException</namespace-alias>
+    <class final="false" abstract="false" namespace="Assets\Http\Exception" line="21" package="Default">
+      <extends>\Cake\Http\Exception\NotFoundException</extends>
+      <name>AssetNotFoundException</name>
+      <full_name>\Assets\Http\Exception\AssetNotFoundException</full_name>
+      <docblock line="21">
+        <description>AssetNotFoundException</description>
+        <long-description></long-description>
+        <tag name="package" line="21" description="Default"/>
+      </docblock>
+    </class>
+  </file>
+  <file path="Plugin.php" generated-path="Plugin.html" hash="ca2dbb93faaad5ceb1fa5c09d78c10b7" package="Default">
+    <docblock line="0">
+      <description>This file is part of cakephp-assets.</description>
+      <long-description>Licensed under The MIT License
+For full copyright and license information, please see the LICENSE.txt
+Redistributions of files must retain the above copyright notice.</long-description>
+      <tag name="copyright" line="0" description="Copyright (c) Mirko Pagliai"/>
+      <tag name="link" line="0" description="https://github.com/mirko-pagliai/cakephp-assets" link="https://github.com/mirko-pagliai/cakephp-assets"/>
+      <tag name="license" line="0" description="MIT License" link="https://opensource.org/licenses/mit-license.php"/>
+      <tag name="since" line="0" description="1.2.0"/>
+      <tag name="package" line="0" description="Default"/>
+    </docblock>
+    <namespace-alias name="BasePlugin">\Cake\Core\BasePlugin</namespace-alias>
+    <class final="false" abstract="false" namespace="Assets" line="21" package="Default">
+      <extends>\Cake\Core\BasePlugin</extends>
+      <name>Plugin</name>
+      <full_name>\Assets\Plugin</full_name>
+      <docblock line="21">
+        <description>Plugin class</description>
+        <long-description></long-description>
+        <tag name="package" line="21" description="Default"/>
+      </docblock>
+    </class>
+  </file>
+  <file path="View/Helper/AssetHelper.php" generated-path="View.Helper.AssetHelper.html" hash="7e6873ee6cc4409d0c170e6d10f1d17d" package="Default">
+    <docblock line="0">
+      <description>This file is part of cakephp-assets.</description>
+      <long-description>Licensed under The MIT License
+For full copyright and license information, please see the LICENSE.txt
+Redistributions of files must retain the above copyright notice.</long-description>
+      <tag name="copyright" line="0" description="Copyright (c) Mirko Pagliai"/>
+      <tag name="link" line="0" description="https://github.com/mirko-pagliai/cakephp-assets" link="https://github.com/mirko-pagliai/cakephp-assets"/>
+      <tag name="license" line="0" description="MIT License" link="https://opensource.org/licenses/mit-license.php"/>
+      <tag name="package" line="0" description="Default"/>
+    </docblock>
+    <namespace-alias name="AssetsCreator">\Assets\Utility\AssetsCreator</namespace-alias>
+    <namespace-alias name="Configure">\Cake\Core\Configure</namespace-alias>
+    <namespace-alias name="Helper">\Cake\View\Helper</namespace-alias>
+    <class final="false" abstract="false" namespace="Assets\View\Helper" line="24" package="Default">
+      <extends>\Cake\View\Helper</extends>
+      <name>AssetHelper</name>
+      <full_name>\Assets\View\Helper\AssetHelper</full_name>
+      <docblock line="24">
+        <description>Asset Helper.</description>
+        <long-description>This helper allows you to generate assets.</long-description>
+        <tag name="package" line="24" description="Default"/>
+      </docblock>
+      <property static="false" visibility="public" namespace="Assets\View\Helper" line="30" package="Default">
+        <name>$helpers</name>
+        <full_name>\Assets\View\Helper\AssetHelper::$helpers</full_name>
+        <default>array('Html')</default>
+        <docblock line="30">
+          <description>Helpers</description>
+          <long-description></long-description>
+          <tag name="var" line="30" description="" type="array" variable="">
+            <type>array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="Assets\View\Helper" line="40" package="Default">
+        <name>path</name>
+        <full_name>\Assets\View\Helper\AssetHelper::path()</full_name>
+        <docblock line="40">
+          <description>Gets the asset path</description>
+          <long-description></long-description>
+          <tag name="param" line="40" description="&lt;p&gt;String or array of css/js files&lt;/p&gt;" type="string|array" variable="$path">
+            <type>string</type>
+            <type>array</type>
+          </tag>
+          <tag name="param" line="40" description="&lt;p&gt;&lt;code&gt;css&lt;/code&gt; or &lt;code&gt;js&lt;/code&gt;&lt;/p&gt;" type="string" variable="$type">
+            <type>string</type>
+          </tag>
+          <tag name="return" line="40" description="Asset path" type="string">
+            <type>string</type>
+          </tag>
+          <tag name="uses" line="40" description="" link="\Assets\View\Helper\Assets\Utility\AssetsCreator::create()"/>
+          <tag name="uses" line="40" description="" link="\Assets\View\Helper\Assets\Utility\AssetsCreator::path()"/>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$path</name>
+          <default></default>
+          <type>string|array</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$type</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Assets\View\Helper" line="65" package="Default">
+        <name>css</name>
+        <full_name>\Assets\View\Helper\AssetHelper::css()</full_name>
+        <docblock line="65">
+          <description>Compresses and adds a css file to the layout</description>
+          <long-description></long-description>
+          <tag name="param" line="65" description="&lt;p&gt;String or array of css files&lt;/p&gt;" type="string|array" variable="$path">
+            <type>string</type>
+            <type>array</type>
+          </tag>
+          <tag name="param" line="65" description="&lt;p&gt;Array of options and HTML attributes&lt;/p&gt;" type="array" variable="$options">
+            <type>array</type>
+          </tag>
+          <tag name="return" line="65" description="Html, `&lt;link&gt;` or `&lt;style&gt;` tag" type="string">
+            <type>string</type>
+          </tag>
+          <tag name="uses" line="65" description="" link="\Assets\View\Helper\AssetHelper::path()"/>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$path</name>
+          <default></default>
+          <type>string|array</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$options</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Assets\View\Helper" line="78" package="Default">
+        <name>script</name>
+        <full_name>\Assets\View\Helper\AssetHelper::script()</full_name>
+        <docblock line="78">
+          <description>Compresses and adds js files to the layout</description>
+          <long-description></long-description>
+          <tag name="param" line="78" description="&lt;p&gt;String or array of js files&lt;/p&gt;" type="string|array" variable="$url">
+            <type>string</type>
+            <type>array</type>
+          </tag>
+          <tag name="param" line="78" description="&lt;p&gt;Array of options and HTML attributes&lt;/p&gt;" type="array" variable="$options">
+            <type>array</type>
+          </tag>
+          <tag name="return" line="78" description="String of `&lt;script /&gt;` tags or null if `$inline` is&#10; false or if `$once` is true" type="mixed">
+            <type>mixed</type>
+          </tag>
+          <tag name="uses" line="78" description="" link="\Assets\View\Helper\AssetHelper::path()"/>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>$url</name>
+          <default></default>
+          <type>string|array</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>$options</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <package name="global" full_name="global"/>
+  <namespace name="Assets" full_name="Assets">
+    <namespace name="Http" full_name="Assets\Http">
+      <namespace name="Exception" full_name="Assets\Http\Exception"/>
+    </namespace>
+    <namespace name="Routing" full_name="Assets\Routing">
+      <namespace name="Middleware" full_name="Assets\Routing\Middleware"/>
+    </namespace>
+    <namespace name="TestSuite" full_name="Assets\TestSuite"/>
+    <namespace name="Utility" full_name="Assets\Utility"/>
+    <namespace name="View" full_name="Assets\View">
+      <namespace name="Helper" full_name="Assets\View\Helper"/>
+    </namespace>
+  </namespace>
+  <deprecated count="0"/>
+</project>
