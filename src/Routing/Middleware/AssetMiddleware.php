@@ -27,8 +27,8 @@ class AssetMiddleware
     /**
      * Serves assets if the request matches one
      * @param \Psr\Http\Message\ServerRequestInterface $request The request
-     * @param \Psr\Http\Message\SResponseInterface $response The response
-     * @return \Psr\Http\Message\SResponseInterface A response
+     * @param \Psr\Http\Message\ResponseInterface $response The response
+     * @return \Psr\Http\Message\ResponseInterface A response
      * @throws \Assets\Http\Exception\AssetNotFoundException
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
