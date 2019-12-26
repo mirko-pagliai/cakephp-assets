@@ -2,6 +2,7 @@
 .phpunit.result.cache
 *_old
 *.old.*
+.phpunit.result.cache
 composer.lock
 coverage/
 vendor/
