@@ -65,7 +65,7 @@ class AssetsCreator
         //Note: `resolveFilePaths()` method needs `$type` property;
         //  `resolveAssetPath()` method needs `$type` and `$paths` properties
         $this->type = $type;
-        $this->paths = $this->resolveFilePaths($paths);
+        $this->paths = $this->resolveFilePaths((array)$paths);
         $this->asset = $this->resolveAssetPath();
     }
 
@@ -86,7 +86,7 @@ class AssetsCreator
 
     /**
      * Internal method to resolve partial file paths and return full paths
-     * @param string|array $paths Partial file paths
+     * @param array $paths Partial file paths
      * @return array Full file paths
      * @use $type
      */
@@ -112,7 +112,7 @@ class AssetsCreator
             is_readable_or_fail($path);
 
             return $path;
-        }, (array)$paths);
+        }, $paths);
     }
 
     /**

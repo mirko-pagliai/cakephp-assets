@@ -111,3 +111,5 @@ if (function_exists('loadPHPUnitAliases')) {
 } elseif (!class_exists('PHPUnit\Runner\Version')) {
     class_alias('PHPUnit_Framework_Constraint', 'PHPUnit\Framework\Constraint\Constraint');
 }
+
+$_SERVER['PHP_SELF'] = '/';
