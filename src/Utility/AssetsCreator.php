@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of cakephp-assets.
  *
@@ -53,7 +54,7 @@ class AssetsCreator
      * @uses $paths
      * @uses $type
      */
-    public function __construct($paths, $type)
+    public function __construct($paths, string $type)
     {
         in_array_or_fail(
             $type,
@@ -65,7 +66,7 @@ class AssetsCreator
         //Note: `resolveFilePaths()` method needs `$type` property;
         //  `resolveAssetPath()` method needs `$type` and `$paths` properties
         $this->type = $type;
-        $this->paths = $this->resolveFilePaths($paths);
+        $this->paths = $this->resolveFilePaths((array)$paths);
         $this->asset = $this->resolveAssetPath();
     }
 
@@ -75,9 +76,9 @@ class AssetsCreator
      * @use $paths
      * @use $type
      */
-    protected function resolveAssetPath()
+    protected function resolveAssetPath(): string
     {
-        $basename = md5(serialize(array_map(function ($path) {
+        $basename = md5(serialize(array_map(function (string $path) {
             return [$path, filemtime($path)];
         }, $this->paths)));
 
@@ -86,21 +87,21 @@ class AssetsCreator
 
     /**
      * Internal method to resolve partial file paths and return full paths
-     * @param string|array $paths Partial file paths
+     * @param array $paths Partial file paths
      * @return array Full file paths
      * @use $type
      */
-    protected function resolveFilePaths($paths)
+    protected function resolveFilePaths(array $paths): array
     {
         $loadedPlugins = Plugin::loaded();
 
-        return array_map(function ($path) use ($loadedPlugins) {
+        return array_map(function (string $path) use ($loadedPlugins) {
             $pluginSplit = pluginSplit($path);
 
             //Note that using `pluginSplit()` is not sufficient, because
             //  `$path` may still contain a dot
             if (!empty($pluginSplit[0]) && in_array($pluginSplit[0], $loadedPlugins)) {
-                list($plugin, $path) = $pluginSplit;
+                [$plugin, $path] = $pluginSplit;
             }
 
             $path = string_starts_with($path, '/') ? substr($path, 1) : $this->type . DS . $path;
@@ -112,7 +113,7 @@ class AssetsCreator
             is_readable_or_fail($path);
 
             return $path;
-        }, (array)$paths);
+        }, $paths);
     }
 
     /**
@@ -122,7 +123,7 @@ class AssetsCreator
      * @uses $paths
      * @uses $type
      */
-    public function create()
+    public function create(): string
     {
         $path = $this->path();
 
@@ -142,7 +143,7 @@ class AssetsCreator
      * Returns the asset full path
      * @return string Asset full path
      */
-    public function path()
+    public function path(): string
     {
         return $this->asset;
     }

@@ -13,7 +13,7 @@ provides a convenient helper that allows you to combine multiple asset files
 into one single compressed file.
 
 Did you like this plugin? Its development requires a lot of time for me.
-Please consider the possibility of making [a donation](//paypal.me/mirkopagliai):  
+Please consider the possibility of making [a donation](//paypal.me/mirkopagliai):
 even a coffee is enough! Thank you.
 
 [![Make a donation](https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_carte.jpg)](//paypal.me/mirkopagliai)
@@ -33,27 +33,26 @@ You can install the plugin via composer:
 $ composer require --prefer-dist mirko-pagliai/cakephp-assets
 ```
 
-**NOTE: the latest version available requires at least CakePHP 3.7**.
+**NOTE: the latest version available requires at least CakePHP 4**.
 
-Instead, the [cakephp3.2](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp3.2)
-branch is compatible with all previous versions of CakePHP from version 3.2.4.  
-This branch coincides with the 1.4 version of *cakephp-assets* and in any
-case it will no longer receive new features but only bugfixes.
+Instead, the [cakephp3](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp3)
+branch is compatible with all previous versions of CakePHP from version 3.6.13.
+This branch coincides with the current version of *cakephp-assets*.
 
 In this case, you can install the package as well:
 
 ```bash
-$ composer require --prefer-dist mirko-pagliai/cakephp-assets:dev-cakephp3.2
+$ composer require --prefer-dist mirko-pagliai/cakephp-assets:dev-cakephp3
 ```
 
-After installation, you have to edit `APP/config/bootstrap.php` to load the plugin:
+Then you have to load the plugin. For more information on how to load the plugin,
+please refer to the [Cookbook](//book.cakephp.org/4.0/en/plugins.html#loading-a-plugin).
 
-```php
-Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
+Simply, you can execute the shell command to enable the plugin:
+```bash
+bin/cake plugin load Assets
 ```
-
-For more information on how to load the plugin, please refer to the
-[Cookbook](http://book.cakephp.org/3.0/en/plugins.html#loading-a-plugin).
+This would update your application's bootstrap method.
 
 By default the plugin uses the `APP/tmp/assets` directory to save the
 asset files. So you have to create the directory and make it writable:
