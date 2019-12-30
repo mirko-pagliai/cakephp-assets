@@ -24,8 +24,8 @@ class AssetsController extends Controller
     /**
      * Renders an asset
      * @param string $filename Asset filename
-     * @return Cake\Network\Response|null
-     * @throws AssetNotFoundException
+     * @return \Cake\Network\Response|null
+     * @throws \Assets\Http\Exception\AssetNotFoundException
      */
     public function asset($filename)
     {

@@ -15,7 +15,6 @@ namespace App;
 
 use Assets\Plugin as Assets;
 use Cake\Http\BaseApplication;
-use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
 /**

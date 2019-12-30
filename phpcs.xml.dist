@@ -4,4 +4,11 @@
     <file>.</file>
 
     <rule ref="./vendor/mirko-pagliai/php-tools/sniffer-ruleset.xml"/>
+
+    <rule ref="SlevomatCodingStandard.PHP.ShortList.LongListUsed">
+        <severity>0</severity>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing">
+        <severity>0</severity>
+    </rule>
 </ruleset>
