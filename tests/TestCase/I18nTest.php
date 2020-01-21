@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-cms.
  *
@@ -11,7 +12,6 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-cms
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-
 namespace Assets\Test\TestCase;
 
 use Assets\TestSuite\TestCase;
