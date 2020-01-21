@@ -1,5 +1,5 @@
 # LANGUAGE translation of cakephp-assets
-# Copyright 2018 Mirko Pagliai <mirko.pagliai@gmail.com>
+# Copyright Mirko Pagliai <mirko.pagliai@gmail.com>
 #
 msgid ""
 msgstr ""
@@ -12,7 +12,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: it\n"
-"X-Generator: Lokalize 2.0\n"
 
 #: Routing/Middleware/AssetMiddleware.php:39
 msgid "File `{0}` doesn't exist"
