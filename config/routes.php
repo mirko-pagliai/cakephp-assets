@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This file is part of cakephp-assets.
  *
@@ -17,7 +19,6 @@ use Cake\Routing\Router;
 
 Router::plugin('Assets', ['path' => '/assets'], function (RouteBuilder $routes) {
     $routes->registerMiddleware('asset', new AssetMiddleware());
-
     $routes->get('/:filename', [])
         ->setPatterns(['filename' => '[\w\d]+\.(css|js)'])
         ->setPass(['filename'])

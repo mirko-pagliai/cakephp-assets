@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.1
+* fixed locales and added tests.
+
 ### 1.5.0
 * updated for `cakephp` 4 and `phpunit` 8.
 
