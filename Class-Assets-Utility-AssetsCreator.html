@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>cakephp-assets-                 Class
+     Assets\Utility\AssetsCreator
+</title>
+        <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/highlight/default.css">
+        <script src="assets/highlight/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+        <nav class="navbar sticky-top navbar-dark bg-dark">
+            <a class="navbar-brand mb-0 h1" href="index.html">cakephp-assets</a>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-lg-4 p-3">
+                    <ul class="list-unstyled m-0">
+    <li class="text-truncate">
+        <a href="Class-Assets-Http-Exception-AssetNotFoundException.html" title="Assets\Http\Exception\AssetNotFoundException">Assets\Http\Exception\AssetNotFoundException</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-Plugin.html" title="Assets\Plugin">Assets\Plugin</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-Routing-Middleware-AssetMiddleware.html" title="Assets\Routing\Middleware\AssetMiddleware">Assets\Routing\Middleware\AssetMiddleware</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-TestSuite-TestCase.html" title="Assets\TestSuite\TestCase">Assets\TestSuite\TestCase</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-Utility-AssetsCreator.html" title="Assets\Utility\AssetsCreator">Assets\Utility\AssetsCreator</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-View-Helper-AssetHelper.html" title="Assets\View\Helper\AssetHelper">Assets\View\Helper\AssetHelper</a>
+    </li>
+</ul>
+                </div>
+                <div class="col p-3">
+                        <h2>            Class
+     <em>AssetsCreator</em></h2>
+
+    <p>An utility to create assets</p>
+
+    
+    
+    
+    <div class="p-3 mb-2 bg-light text-dark">
+        <div><strong>Namespace:</strong> Assets\Utility</div>
+        <div><strong>Location:</strong> /home/mirko/Libs/Plugins/cakephp-assets/src/Utility/AssetsCreator.php</div>
+    </div>
+
+    
+            <h4>Properties summary</h4>
+        <ul>
+                            <li>
+                    <div>
+    <code>$asset</code> <span class="badge badge-light">protected</span>
+</div>
+<div><span class="badge badge-light">string</span></div>
+<div><p>Asset full path</p></div>
+                </li>
+                            <li>
+                    <div>
+    <code>$paths</code> <span class="badge badge-light">protected</span>
+</div>
+<div><span class="badge badge-light">array</span></div>
+<div><p>File paths that will be transformed into a single asset</p></div>
+                </li>
+                            <li>
+                    <div>
+    <code>$type</code> <span class="badge badge-light">protected</span>
+</div>
+<div><span class="badge badge-light">string</span></div>
+<div><p>Asset type (<code>css</code> or <code>js</code>)</p></div>
+                </li>
+                    </ul>
+    
+            <h4>Methods summary</h4>
+        <ul>
+                            <li>
+                    <div>
+    <code>
+        <a href="#__construct">__construct()</a>
+    </code> <span class="badge badge-light">public</span>
+    <div><p>Construct. Sets the asset type and paths</p></div>
+</div>                </li>
+                            <li>
+                    <div>
+    <code>
+        <a href="#resolveAssetPath">resolveAssetPath()</a>
+    </code> <span class="badge badge-light">protected</span>
+    <div><p>Internal method to resolve the asset path</p></div>
+</div>                </li>
+                            <li>
+                    <div>
+    <code>
+        <a href="#resolveFilePaths">resolveFilePaths()</a>
+    </code> <span class="badge badge-light">protected</span>
+    <div><p>Internal method to resolve partial file paths and return full paths</p></div>
+</div>                </li>
+                            <li>
+                    <div>
+    <code>
+        <a href="#create">create()</a>
+    </code> <span class="badge badge-light">public</span>
+    <div><p>Creates the asset</p></div>
+</div>                </li>
+                            <li>
+                    <div>
+    <code>
+        <a href="#path">path()</a>
+    </code> <span class="badge badge-light">public</span>
+    <div><p>Returns the asset full path</p></div>
+</div>                </li>
+                    </ul>
+    
+            <h4>Methods detail</h4>
+                    <div class="mb-4">
+                <a name="__construct"></a>
+<div class="pb-1 pt-2 px-2 mb-3 bg-info text-white"><h5>__construct()</h5></div>
+<div class="ml-3">
+    <pre><code class="language-php">__construct(string|array $paths, string $type)</code></pre>
+    <blockquote class="blockquote">
+        <small class="font-weight-light"><p>Construct. Sets the asset type and paths</p></small>
+    </blockquote>
+
+    <h6>Parameters</h6>
+    <div class="mb-3">
+        <code class="language-php">string|array $paths</code> <p>String or array of css files</p>
+    </div>
+    <div class="mb-3">
+        <code class="language-php">string $type</code> <p>Extension (<code>css</code> or <code>js</code>)</p>
+    </div>
+
+    <h6>Throws</h6>
+    <div class="mb-3">
+        <div><code>InvalidArgumentException</code></div>
+    </div>
+</div>            </div>
+                    <div class="mb-4">
+                <a name="resolveAssetPath"></a>
+<div class="pb-1 pt-2 px-2 mb-3 bg-info text-white"><h5>resolveAssetPath()</h5></div>
+<div class="ml-3">
+    <pre><code class="language-php">resolveAssetPath()</code></pre>
+    <blockquote class="blockquote">
+        <small class="font-weight-light"><p>Internal method to resolve the asset path</p></small>
+    </blockquote>
+
+    <h6>Return</h6>
+    <div class="mb-3">
+        <div><code>string</code></div>
+        <div><p>Asset full path</p></div>
+    </div></div>            </div>
+                    <div class="mb-4">
+                <a name="resolveFilePaths"></a>
+<div class="pb-1 pt-2 px-2 mb-3 bg-info text-white"><h5>resolveFilePaths()</h5></div>
+<div class="ml-3">
+    <pre><code class="language-php">resolveFilePaths(array $paths)</code></pre>
+    <blockquote class="blockquote">
+        <small class="font-weight-light"><p>Internal method to resolve partial file paths and return full paths</p></small>
+    </blockquote>
+
+    <h6>Parameters</h6>
+    <div class="mb-3">
+        <code class="language-php">array $paths</code> <p>Partial file paths</p>
+    </div>
+
+    <h6>Return</h6>
+    <div class="mb-3">
+        <div><code>array</code></div>
+        <div><p>Full file paths</p></div>
+    </div></div>            </div>
+                    <div class="mb-4">
+                <a name="create"></a>
+<div class="pb-1 pt-2 px-2 mb-3 bg-info text-white"><h5>create()</h5></div>
+<div class="ml-3">
+    <pre><code class="language-php">create()</code></pre>
+    <blockquote class="blockquote">
+        <small class="font-weight-light"><p>Creates the asset</p></small>
+    </blockquote>
+
+    <h6>Return</h6>
+    <div class="mb-3">
+        <div><code>string</code></div>
+    </div></div>            </div>
+                    <div class="mb-4">
+                <a name="path"></a>
+<div class="pb-1 pt-2 px-2 mb-3 bg-info text-white"><h5>path()</h5></div>
+<div class="ml-3">
+    <pre><code class="language-php">path()</code></pre>
+    <blockquote class="blockquote">
+        <small class="font-weight-light"><p>Returns the asset full path</p></small>
+    </blockquote>
+
+    <h6>Return</h6>
+    <div class="mb-3">
+        <div><code>string</code></div>
+        <div><p>Asset full path</p></div>
+    </div></div>            </div>
+            
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+    <p class="bg-light m-0 p-3 small text-center">
+        This documentation was built automatically thanks to <a href="https://github.com/mirko-pagliai/php-doc-maker" target="_blank">php-doc-maker</a>
+    </p>
+</div>
+    </body>
+</html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>cakephp-assets-                 Class
+     Assets\View\Helper\AssetHelper
+</title>
+        <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/highlight/default.css">
+        <script src="assets/highlight/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+        <nav class="navbar sticky-top navbar-dark bg-dark">
+            <a class="navbar-brand mb-0 h1" href="index.html">cakephp-assets</a>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-lg-4 p-3">
+                    <ul class="list-unstyled m-0">
+    <li class="text-truncate">
+        <a href="Class-Assets-Http-Exception-AssetNotFoundException.html" title="Assets\Http\Exception\AssetNotFoundException">Assets\Http\Exception\AssetNotFoundException</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-Plugin.html" title="Assets\Plugin">Assets\Plugin</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-Routing-Middleware-AssetMiddleware.html" title="Assets\Routing\Middleware\AssetMiddleware">Assets\Routing\Middleware\AssetMiddleware</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-TestSuite-TestCase.html" title="Assets\TestSuite\TestCase">Assets\TestSuite\TestCase</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-Utility-AssetsCreator.html" title="Assets\Utility\AssetsCreator">Assets\Utility\AssetsCreator</a>
+    </li>
+    <li class="text-truncate">
+        <a href="Class-Assets-View-Helper-AssetHelper.html" title="Assets\View\Helper\AssetHelper">Assets\View\Helper\AssetHelper</a>
+    </li>
+</ul>
+                </div>
+                <div class="col p-3">
+                        <h2>            Class
+     <em>AssetHelper</em></h2>
+
+    <p>Asset Helper.
+This helper allows you to generate assets.</p>
+
+            <p>
+            Extends <code>Cake\View\Helper</code>.
+        </p>
+    
+    
+    
+    <div class="p-3 mb-2 bg-light text-dark">
+        <div><strong>Namespace:</strong> Assets\View\Helper</div>
+        <div><strong>Location:</strong> /home/mirko/Libs/Plugins/cakephp-assets/src/View/Helper/AssetHelper.php</div>
+    </div>
+
+    
+            <h4>Properties summary</h4>
+        <ul>
+                            <li>
+                    <div>
+    <code>$helpers</code> <span class="badge badge-light">public</span>
+</div>
+<div><span class="badge badge-light">array</span></div>
+<div><p>Helpers</p></div>
+                </li>
+                    </ul>
+    
+            <h4>Methods summary</h4>
+        <ul>
+                            <li>
+                    <div>
+    <code>
+        <a href="#path">path()</a>
+    </code> <span class="badge badge-light">protected</span>
+    <div><p>Gets the asset path</p></div>
+</div>                </li>
+                            <li>
+                    <div>
+    <code>
+        <a href="#css">css()</a>
+    </code> <span class="badge badge-light">public</span>
+    <div><p>Compresses and adds a css file to the layout</p></div>
+</div>                </li>
+                            <li>
+                    <div>
+    <code>
+        <a href="#script">script()</a>
+    </code> <span class="badge badge-light">public</span>
+    <div><p>Compresses and adds js files to the layout</p></div>
+</div>                </li>
+                    </ul>
+    
+            <h4>Methods detail</h4>
+                    <div class="mb-4">
+                <a name="path"></a>
+<div class="pb-1 pt-2 px-2 mb-3 bg-info text-white"><h5>path()</h5></div>
+<div class="ml-3">
+    <pre><code class="language-php">path(string|array $path, string $type)</code></pre>
+    <blockquote class="blockquote">
+        <small class="font-weight-light"><p>Gets the asset path</p></small>
+    </blockquote>
+
+    <h6>Parameters</h6>
+    <div class="mb-3">
+        <code class="language-php">string|array $path</code> <p>String or array of css/js files</p>
+    </div>
+    <div class="mb-3">
+        <code class="language-php">string $type</code> <p><code>css</code> or <code>js</code></p>
+    </div>
+
+    <h6>Return</h6>
+    <div class="mb-3">
+        <div><code>string|array</code></div>
+        <div><p>Asset path</p></div>
+    </div></div>            </div>
+                    <div class="mb-4">
+                <a name="css"></a>
+<div class="pb-1 pt-2 px-2 mb-3 bg-info text-white"><h5>css()</h5></div>
+<div class="ml-3">
+    <pre><code class="language-php">css(string|array $path, array $options = [])</code></pre>
+    <blockquote class="blockquote">
+        <small class="font-weight-light"><p>Compresses and adds a css file to the layout</p></small>
+    </blockquote>
+
+    <h6>Parameters</h6>
+    <div class="mb-3">
+        <code class="language-php">string|array $path</code> <p>String or array of css files</p>
+    </div>
+    <div class="mb-3">
+        <code class="language-php">array $options = []</code> <p>Array of options and HTML attributes</p>
+    </div>
+
+    <h6>Return</h6>
+    <div class="mb-3">
+        <div><code>string|null</code></div>
+        <div><p>Html, <code>&lt;link&gt;</code> or <code>&lt;style&gt;</code> tag</p></div>
+    </div></div>            </div>
+                    <div class="mb-4">
+                <a name="script"></a>
+<div class="pb-1 pt-2 px-2 mb-3 bg-info text-white"><h5>script()</h5></div>
+<div class="ml-3">
+    <pre><code class="language-php">script(string|array $url, array $options = [])</code></pre>
+    <blockquote class="blockquote">
+        <small class="font-weight-light"><p>Compresses and adds js files to the layout</p></small>
+    </blockquote>
+
+    <h6>Parameters</h6>
+    <div class="mb-3">
+        <code class="language-php">string|array $url</code> <p>String or array of js files</p>
+    </div>
+    <div class="mb-3">
+        <code class="language-php">array $options = []</code> <p>Array of options and HTML attributes</p>
+    </div>
+
+    <h6>Return</h6>
+    <div class="mb-3">
+        <div><code>string|null</code></div>
+        <div><p>String of <code>&lt;script /&gt;</code> tags or null if <code>$inline</code> is
+false or if <code>$once</code> is true</p></div>
+    </div></div>            </div>
+            
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+    <p class="bg-light m-0 p-3 small text-center">
+        This documentation was built automatically thanks to <a href="https://github.com/mirko-pagliai/php-doc-maker" target="_blank">php-doc-maker</a>
+    </p>
+</div>
+    </body>
+</html>
