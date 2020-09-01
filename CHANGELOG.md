@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.2
+* updated for `php-tools` 1.4.1.
+
 ### 1.5.1
 * fixed locales and added tests.
 

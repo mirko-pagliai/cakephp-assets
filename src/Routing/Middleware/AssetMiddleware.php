@@ -19,6 +19,7 @@ use Assets\Http\Exception\AssetNotFoundException;
 use Cake\Core\Configure;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Tools\Exceptionist;
 
 /**
  * Handles serving assets
@@ -35,7 +36,7 @@ class AssetMiddleware
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $file = Configure::read('Assets.target') . DS . $request->getParam('filename');
-        is_readable_or_fail($file, __d('assets', 'File `{0}` doesn\'t exist', $file), AssetNotFoundException::class);
+        Exceptionist::isReadable($file, __d('assets', 'File `{0}` doesn\'t exist', $file), AssetNotFoundException::class);
 
         $response = $response->withModified(filemtime($file));
         if ($response->checkNotModified($request)) {
