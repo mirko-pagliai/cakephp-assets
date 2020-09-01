@@ -19,6 +19,7 @@ use Cake\Core\Plugin;
 use InvalidArgumentException;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
+use Tools\Exceptionist;
 
 /**
  * An utility to create assets
@@ -56,12 +57,7 @@ class AssetsCreator
      */
     public function __construct($paths, $type)
     {
-        in_array_or_fail(
-            $type,
-            ['css', 'js'],
-            __d('assets', 'Asset type `{0}` not supported', $type),
-            InvalidArgumentException::class
-        );
+        Exceptionist::inArray([$type, ['css', 'js']], __d('assets', 'Asset type `{0}` not supported', $type), InvalidArgumentException::class);
 
         //Note: `resolveFilePaths()` method needs `$type` property;
         //  `resolveAssetPath()` method needs `$type` and `$paths` properties
@@ -110,7 +106,7 @@ class AssetsCreator
 
             //Appends the file extension, if not already present
             $path = pathinfo($path, PATHINFO_EXTENSION) == $this->type ? $path : sprintf('%s.%s', $path, $this->type);
-            is_readable_or_fail($path);
+            Exceptionist::isReadable($path);
 
             return $path;
         }, $paths);
@@ -132,8 +128,8 @@ class AssetsCreator
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            $success = create_file($path, $minifier->minify());
-            is_true_or_fail($success, __d('assets', 'Failed to create file {0}', rtr($this->path())));
+            $success = create_file($path, $minifier->minify(), 0777, true);
+            Exceptionist::isTrue($success, __d('assets', 'Failed to create file {0}', rtr($this->path())));
         }
 
         return pathinfo($path, PATHINFO_FILENAME);

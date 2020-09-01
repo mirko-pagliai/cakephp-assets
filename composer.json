@@ -4,15 +4,17 @@
     "homepage": "https://github.com/mirko-pagliai/cakephp-assets",
     "type": "cakephp-plugin",
     "license": "MIT",
-    "authors": [{
+    "authors": [
+        {
             "name": "Mirko Pagliai",
             "email": "mirko.pagliai@gmail.com"
-        }],
+        }
+    ],
     "require": {
         "php": ">=5.5.9 <7.3",
         "cakephp/cakephp": "^3.4.13",
         "matthiasmullie/minify": "^1.3",
-        "mirko-pagliai/php-tools": "^1.2.8|^1.3"
+        "mirko-pagliai/php-tools": "dev-php5.6"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^3.0|^4.0",
