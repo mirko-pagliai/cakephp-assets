@@ -27,7 +27,7 @@ if (!Configure::check('Assets.target')) {
 
 //Checks for target directory
 $target = Configure::read('Assets.target');
-@mkdir($target);
+@mkdir($target, 0777, true);
 
 if (!is_writeable($target)) {
     trigger_error(sprintf('Directory %s not writeable', $target), E_USER_ERROR);
