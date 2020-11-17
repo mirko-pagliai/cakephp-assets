@@ -177,7 +177,7 @@ class AssetsCreatorTest extends TestCase
         //With no existing target directory
         $this->skipIf(IS_WIN);
         $this->expectException(ErrorException::class);
-        $this->expectExceptionMessageRegExp('/^Failed to create file [\w\d\/\\\\]+\.css$/');
+        $this->expectExceptionMessageMatches('/^Failed to create file [\w\d\/\\\\]+\.css$/');
         Configure::write('Assets.target', DS . 'noExistingDir');
         (new AssetsCreator('test', 'css'))->create();
     }

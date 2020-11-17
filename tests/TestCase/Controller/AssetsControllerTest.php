@@ -35,9 +35,6 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
         $this->assertContentType('text/css');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertSame($filename, $this->_response->getFile()->info['basename']);
-        $this->assertSame('css', $this->_response->getFile()->info['extension']);
-        $this->assertSame(filesize(Configure::read('Assets.target') . DS . $filename), $this->_response->getFile()->info['filesize']);
 
         //Gets the `Last-Modified` header
         $lastModified = $this->_response->header()['Last-Modified'];
@@ -82,8 +79,5 @@ class AssetsControllerTest extends IntegrationTestCase
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertSame($filename, $this->_response->getFile()->info['basename']);
-        $this->assertSame('js', $this->_response->getFile()->info['extension']);
-        $this->assertSame(filesize(Configure::read('Assets.target') . DS . $filename), $this->_response->getFile()->info['filesize']);
     }
 }
