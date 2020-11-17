@@ -39,9 +39,6 @@ class AssetsMiddlewareTest extends TestCase
         $this->assertResponseOk();
         $this->assertContentType('text/css');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertSame($filename, $this->_response->getFile()->getBasename());
-        $this->assertSame('css', $this->_response->getFile()->getExtension());
-        $this->assertSame(filesize(Configure::read('Assets.target') . DS . $filename), $this->_response->getFile()->getSize());
 
         //Gets the `Last-Modified` header
         $lastModified = $this->_response->getHeader('Last-Modified')[0];
@@ -81,8 +78,5 @@ class AssetsMiddlewareTest extends TestCase
         $this->assertResponseOk();
         $this->assertContentType('application/javascript');
         $this->assertFileResponse(Configure::read('Assets.target') . DS . $filename);
-        $this->assertSame($filename, $this->_response->getFile()->getBasename());
-        $this->assertSame('js', $this->_response->getFile()->getExtension());
-        $this->assertSame(filesize(Configure::read('Assets.target') . DS . $filename), $this->_response->getFile()->getSize());
     }
 }
