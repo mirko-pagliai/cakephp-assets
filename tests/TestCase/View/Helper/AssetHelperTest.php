@@ -49,8 +49,8 @@ class AssetHelperTest extends TestCase
             'Assets.timestamp' => true,
         ]);
 
-        $this->Asset = new AssetHelper(new View());
-        $this->Html = new HtmlHelper(new View());
+        $this->Asset = $this->Asset ?: new AssetHelper(new View());
+        $this->Html = $this->Html ? : new HtmlHelper(new View());
     }
 
     /**
@@ -75,12 +75,10 @@ class AssetHelperTest extends TestCase
     {
         //`force`  disabled, so it does not affect the test
         Configure::write('Assets.force', false);
-        $result = $this->Asset->css('test');
-        $this->assertEquals($this->Html->css('test'), $result);
+        $this->assertEquals($this->Html->css('test'), $this->Asset->css('test'));
 
         Configure::write('debug', false);
-        $result = $this->Asset->css('test');
-        $this->assertNotEquals($this->Html->css('test'), $result);
+        $this->assertNotEquals($this->Html->css('test'), $this->Asset->css('test'));
     }
 
     /**
@@ -91,12 +89,10 @@ class AssetHelperTest extends TestCase
     {
         //Debugging disabled, so it does not affect the test
         Configure::write('Assets.force', false);
-        $result = $this->Asset->css('test');
-        $this->assertEquals($this->Html->css('test'), $result);
+        $this->assertEquals($this->Html->css('test'), $this->Asset->css('test'));
 
         Configure::write('Assets.force', true);
-        $result = $this->Asset->css('test');
-        $this->assertNotEquals($this->Html->css('test'), $result);
+        $this->assertNotEquals($this->Html->css('test'), $this->Asset->css('test'));
     }
 
     /**

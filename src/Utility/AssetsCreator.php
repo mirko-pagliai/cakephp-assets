@@ -21,6 +21,7 @@ use InvalidArgumentException;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
 use Tools\Exceptionist;
+use Tools\Filesystem;
 
 /**
  * An utility to create assets
@@ -107,9 +108,8 @@ class AssetsCreator
 
             //Appends the file extension, if not already present
             $path = pathinfo($path, PATHINFO_EXTENSION) == $this->type ? $path : sprintf('%s.%s', $path, $this->type);
-            Exceptionist::isReadable($path);
 
-            return $path;
+            return Exceptionist::isReadable($path);
         }, $paths);
     }
 
@@ -129,8 +129,9 @@ class AssetsCreator
             array_map([$minifier, 'add'], $this->paths);
 
             //Writes the file
-            $success = create_file($path, $minifier->minify(), 0777, true);
-            Exceptionist::isTrue($success, __d('assets', 'Failed to create file {0}', rtr($this->path())));
+            $Filesystem = new Filesystem();
+            $success = $Filesystem->createFile($path, $minifier->minify(), 0777, true);
+            Exceptionist::isTrue($success, __d('assets', 'Failed to create file {0}', $Filesystem->rtr($this->path())));
         }
 
         return pathinfo($path, PATHINFO_FILENAME);
