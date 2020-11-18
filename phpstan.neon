@@ -17,7 +17,7 @@ parameters:
         -  tests/test_app/
 
     ignoreErrors:
-        - '#^Parameter \#2 \$middleware of method Cake\\Routing\\RouteBuilder::registerMiddleware\(\) expects Closure\|Psr\\Http\\Server\\MiddlewareInterface\|string#'
+        - '#^If condition is always false\.$#'
         - '#^Call to an undefined method Psr\\Http\\Message\\ServerRequestInterface::#'
         - '#^Call to an undefined method Psr\\Http\\Message\\ResponseInterface::#'
         - '#^Call to an undefined static method#'
