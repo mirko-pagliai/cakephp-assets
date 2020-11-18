@@ -70,8 +70,6 @@ class AssetsCreator
     /**
      * Internal method to resolve the asset path
      * @return string Asset full path
-     * @use $paths
-     * @use $type
      */
     protected function resolveAssetPath()
     {
@@ -86,7 +84,6 @@ class AssetsCreator
      * Internal method to resolve partial file paths and return full paths
      * @param array $paths Partial file paths
      * @return array Full file paths
-     * @use $type
      */
     protected function resolveFilePaths($paths)
     {

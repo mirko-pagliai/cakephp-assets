@@ -49,7 +49,7 @@ class AssetsCreatorTest extends TestCase
         //With unsupported type
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Asset type `html` not supported');
-        new AssetsCreator(null, 'html');
+        new AssetsCreator('', 'html');
     }
 
     /**
