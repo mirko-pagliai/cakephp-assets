@@ -48,14 +48,11 @@ class AssetsCreator
 
     /**
      * Construct. Sets the asset type and paths
-     * @param string|array $paths String or array of css files
+     * @param string|array<string> $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
      * @throws \InvalidArgumentException
      * @uses resolveAssetPath()
      * @uses resolveFilePaths()
-     * @uses $asset
-     * @uses $paths
-     * @uses $type
      */
     public function __construct($paths, string $type)
     {
@@ -74,23 +71,23 @@ class AssetsCreator
      */
     protected function resolveAssetPath(): string
     {
-        $basename = md5(serialize(array_map(function (string $path) {
+        $basename = md5(serialize(array_map(function (string $path): array {
             return [$path, filemtime($path)];
         }, $this->paths)));
 
-        return Configure::read('Assets.target') . DS . $basename . '.' . $this->type;
+        return Filesystem::instance()->concatenate(Configure::read('Assets.target'), $basename . '.' . $this->type);
     }
 
     /**
      * Internal method to resolve partial file paths and return full paths
-     * @param array $paths Partial file paths
-     * @return array Full file paths
+     * @param array<string> $paths Partial file paths
+     * @return array<string> Full file paths
      */
     protected function resolveFilePaths(array $paths): array
     {
         $loadedPlugins = Plugin::loaded();
 
-        return array_map(function (string $path) use ($loadedPlugins) {
+        return array_map(function (string $path) use ($loadedPlugins): string {
             $pluginSplit = pluginSplit($path);
 
             //Note that using `pluginSplit()` is not sufficient, because
@@ -113,9 +110,6 @@ class AssetsCreator
     /**
      * Creates the asset
      * @return string
-     * @uses path()
-     * @uses $paths
-     * @uses $type
      */
     public function create(): string
     {

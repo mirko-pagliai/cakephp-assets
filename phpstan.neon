@@ -1,5 +1,5 @@
 parameters:
-    level: 6
+    level: 7
 
     paths:
         - config
@@ -18,8 +18,7 @@ parameters:
 
     ignoreErrors:
         - '#^Parameter \#2 \$middleware of method Cake\\Routing\\RouteBuilder::registerMiddleware\(\) expects Closure\|Psr\\Http\\Server\\MiddlewareInterface\|string#'
-        - '#^Call to an undefined method Psr\\Http\\Message\\ServerRequestInterface::#'
-        - '#^Call to an undefined method Psr\\Http\\Message\\ResponseInterface::#'
+        - '#^Call to an undefined method Psr\\Http\\Message\\(ResponseInterface|ServerRequestInterface)::#'
         - '#^Call to an undefined static method#'
         - '#^Access to an undefined property Assets\\View\\Helper\\AssetHelper::\$Html\.$#'
         -
