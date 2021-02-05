@@ -45,7 +45,7 @@ class AssetsCreatorTest extends TestCase
 
         $asset = $this->getProperty($asset, 'asset');
         $this->assertEquals(Configure::read('Assets.target'), dirname($asset));
-        $this->assertRegExp('/^[\d\w]+\.css$/', basename($asset));
+        $this->assertMatchesRegularExpression('/^[\d\w]+\.css$/', basename($asset));
 
         //With unsupported type
         $this->expectException(InvalidArgumentException::class);
@@ -156,7 +156,7 @@ class AssetsCreatorTest extends TestCase
     public function testCreateWithCss()
     {
         $result = (new AssetsCreator('test', 'css'))->create();
-        $this->assertRegExp('/^[\w\d]+$/', $result);
+        $this->assertMatchesRegularExpression('/^[\w\d]+$/', $result);
 
         $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
         $this->assertFileExists($file);
@@ -166,7 +166,7 @@ class AssetsCreatorTest extends TestCase
 
         //Tests array
         $result = (new AssetsCreator(['test', 'test2'], 'css'))->create();
-        $this->assertRegExp('/^[\w\d]+$/', $result);
+        $this->assertMatchesRegularExpression('/^[\w\d]+$/', $result);
 
         $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'css');
         $this->assertFileExists($file);
@@ -190,7 +190,7 @@ class AssetsCreatorTest extends TestCase
     public function testCreateWithJs()
     {
         $result = (new AssetsCreator('test', 'js'))->create();
-        $this->assertRegExp('/^[\w\d]+$/', $result);
+        $this->assertMatchesRegularExpression('/^[\w\d]+$/', $result);
 
         $expected = 'function otherAlert(){alert("Another alert")}' . PHP_EOL .
             '$(function(){var msg="Ehi!";alert(msg)})';
@@ -199,7 +199,7 @@ class AssetsCreatorTest extends TestCase
 
         //Tests array
         $result = (new AssetsCreator(['test', 'test2'], 'js'))->create();
-        $this->assertRegExp('/^[\w\d]+$/', $result);
+        $this->assertMatchesRegularExpression('/^[\w\d]+$/', $result);
 
         $expected = 'function otherAlert(){alert("Another alert")}' . PHP_EOL .
             '$(function(){var msg="Ehi!";alert(msg)});' .
