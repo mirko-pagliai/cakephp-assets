@@ -36,7 +36,7 @@ class AssetMiddleware
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $file = (new Filesystem())->concatenate(Configure::read('Assets.target'), $request->getParam('filename'));
+        $file = Filesystem::instance()->concatenate(Configure::read('Assets.target'), $request->getParam('filename'));
         Exceptionist::isReadable($file, __d('assets', 'File `{0}` doesn\'t exist', $file), AssetNotFoundException::class);
 
         $response = $response->withModified(filemtime($file));

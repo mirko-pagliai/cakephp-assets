@@ -48,7 +48,7 @@ abstract class TestCase extends CakeTestCase
     public function tearDown(): void
     {
         try {
-            (new Filesystem())->unlinkRecursive(Configure::readOrFail('Assets.target'));
+            Filesystem::instance()->unlinkRecursive(Configure::readOrFail('Assets.target'));
         } catch (Exception $e) {
         }
 
