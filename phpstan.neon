@@ -1,0 +1,34 @@
+parameters:
+    level: 7
+
+    paths:
+        - config
+        - src
+        - tests
+
+    bootstrapFiles:
+        - tests/bootstrap.php
+
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+    treatPhpDocTypesAsCertain: false
+
+    excludes_analyse:
+        -  tests/test_app/
+
+    ignoreErrors:
+        - '#^Parameter \#2 \$middleware of method Cake\\Routing\\RouteBuilder::registerMiddleware\(\) expects Closure\|Psr\\Http\\Server\\MiddlewareInterface\|string#'
+        - '#^Call to an undefined method Psr\\Http\\Message\\(ResponseInterface|ServerRequestInterface)::#'
+        - '#^Call to an undefined static method#'
+        - '#^Access to an undefined property Assets\\View\\Helper\\AssetHelper::\$Html\.$#'
+        -
+            message: '#^Else branch is unreachable because ternary operator condition is always true\.$#'
+            path: src/Utility/AssetsCreator.php
+            count: 1
+        -
+            message: '#^Method [\w\\]+Test::test\w+\(\) has no return typehint specified\.$#'
+            path: tests/TestCase
+        -
+            message: '#^Ternary operator condition is always true\.$#'
+            path: tests/TestCase/View/Helper/AssetHelperTest.php
+            count: 2

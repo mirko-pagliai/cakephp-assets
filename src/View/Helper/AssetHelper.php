@@ -33,9 +33,9 @@ class AssetHelper extends Helper
 
     /**
      * Gets the asset path
-     * @param string|array $path String or array of css/js files
+     * @param string|array<string> $path String or array of css/js files
      * @param string $type `css` or `js`
-     * @return string|array Asset path
+     * @return string|array<string> Asset path
      * @uses Assets\Utility\AssetsCreator::create()
      * @uses Assets\Utility\AssetsCreator::path()
      */
@@ -59,7 +59,7 @@ class AssetHelper extends Helper
 
     /**
      * Compresses and adds a css file to the layout
-     * @param string|array $path String or array of css files
+     * @param string|array<string> $path String or array of css files
      * @param array $options Array of options and HTML attributes
      * @return string|null Html, `<link>` or `<style>` tag
      * @uses path()
@@ -71,7 +71,7 @@ class AssetHelper extends Helper
 
     /**
      * Compresses and adds js files to the layout
-     * @param string|array $url String or array of js files
+     * @param string|array<string> $url String or array of js files
      * @param array $options Array of options and HTML attributes
      * @return string|null String of `<script />` tags or null if `$inline` is
      *  false or if `$once` is true
