@@ -1,5 +1,5 @@
 parameters:
-    level: 6
+    level: 7
 
     paths:
         - config
@@ -18,12 +18,14 @@ parameters:
 
     ignoreErrors:
         - '#^If condition is always false\.$#'
-        - '#^Call to an undefined method Psr\\Http\\Message\\ServerRequestInterface::#'
-        - '#^Call to an undefined method Psr\\Http\\Message\\ResponseInterface::#'
         - '#^Call to an undefined static method#'
         - '#^Access to an undefined property Assets\\View\\Helper\\AssetHelper::\$Html\.$#'
         -
             message: '#^Else branch is unreachable because ternary operator condition is always true\.$#'
+            path: src/Utility/AssetsCreator.php
+            count: 1
+        -
+            message: '#^Parameter \#2 \$haystack of function in_array expects array, array\|bool given\.$#'
             path: src/Utility/AssetsCreator.php
             count: 1
         -

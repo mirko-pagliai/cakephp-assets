@@ -13,12 +13,4 @@
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
-
-    <issueHandlers>
-        <UndefinedInterfaceMethod>
-            <errorLevel type="suppress">
-                <file name="src/Routing/Middleware/AssetMiddleware.php" />
-            </errorLevel>
-        </UndefinedInterfaceMethod>
-    </issueHandlers>
 </psalm>
