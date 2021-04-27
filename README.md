@@ -18,11 +18,12 @@ even a coffee is enough! Thank you.
 
 [![Make a donation](https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_carte.jpg)](//paypal.me/mirkopagliai)
 
-*   [Installation](#installation)
-*   [Configuration](#configuration)
-    * [Configuration values](#configuration-values)
-*   [How to use](#how-to-use)
-*   [Versioning](#versioning)
+* [Installation](#installation)
+  + [Installation on older CakePHP and PHP versions](#installation-on-older-cakephp-and-php-versions)
+* [Configuration](#configuration)
+  + [Configuration values](#configuration-values)
+* [How to use](#how-to-use)
+* [Versioning](#versioning)
 
 ***
 
@@ -31,16 +32,6 @@ You can install the plugin via composer:
 
 ```bash
 $ composer require --prefer-dist mirko-pagliai/cakephp-assets
-```
-
-The current release requires at least CakePHP 4.0, PHP 7.2 and `phpunit` 8.0.
-
-Instead, the [cakephp3](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp3)
-branch requires at least CakePHP 3.4.13, PHP 5.6 and `phpunit` 5.7.14.
-In this case, you can install the package as well:
-
-```bash
-$ composer require --prefer-dist mirko-pagliai/cakephp-assets:dev-cakephp3
 ```
 
 Then you have to load the plugin. For more information on how to load the plugin,
@@ -59,7 +50,21 @@ asset files. So you have to create the directory and make it writable:
 $ mkdir tmp/assets && chmod 775 tmp/assets
 ```
 
-If you want to use a different directory, read below.
+If you want to use a different directory, read the [Configuration](#configuration) section.
+
+### Installation on older CakePHP and PHP versions
+Recent packages and the master branch require at least CakePHP 4.0 and PHP 7.2.
+Instead, the [cakephp3](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp3) branch
+requires at least PHP 5.6.
+
+In this case, you can install the package as well:
+```bash
+$ composer require --prefer-dist mirko-pagliai/cakephp-assets:dev-cakephp3
+```
+
+Note that the `cakephp3` branch will no longer be updated as of April 27, 2021,
+except for security patches, and it matches the
+[1.5.4](//github.com/mirko-pagliai/cakephp-assets/releases/tag/1.5.4) version.
 
 ## Configuration
 The plugin uses some configuration parameters and you can set them using the
