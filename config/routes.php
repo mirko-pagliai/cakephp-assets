@@ -18,7 +18,7 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 
 Router::plugin('Assets', function (RouteBuilder $routes) {
-    $routes->registerMiddleware('asset', new AssetMiddleware());
+    $routes->registerMiddleware('asset', AssetMiddleware::class);
     $routes->get('/:filename', [])
         ->setPatterns(['filename' => '[\w\d]+\.(css|js)'])
         ->setPass(['filename'])
