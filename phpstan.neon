@@ -17,9 +17,8 @@ parameters:
         -  tests/test_app/
 
     ignoreErrors:
-        - '#^Parameter \#2 \$middleware of method Cake\\Routing\\RouteBuilder::registerMiddleware\(\) expects Closure\|Psr\\Http\\Server\\MiddlewareInterface\|string#'
         - '#^Call to an undefined method Psr\\Http\\Message\\(ResponseInterface|ServerRequestInterface)::#'
-        - '#^Call to an undefined static method#'
+        - '#^Call to an undefined static method Tools\\Exceptionist::inArray\(\)\.$#'
         - '#^Access to an undefined property Assets\\View\\Helper\\AssetHelper::\$Html\.$#'
         -
             message: '#^Else branch is unreachable because ternary operator condition is always true\.$#'
