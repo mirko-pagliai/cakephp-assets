@@ -18,7 +18,7 @@ parameters:
 
     ignoreErrors:
         - '#^If condition is always false\.$#'
-        - '#^Call to an undefined static method#'
+        - '#^Call to an undefined static method Tools\\Exceptionist::inArray\(\)\.$#'
         - '#^Access to an undefined property Assets\\View\\Helper\\AssetHelper::\$Html\.$#'
         -
             message: '#^Else branch is unreachable because ternary operator condition is always true\.$#'

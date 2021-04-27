@@ -38,7 +38,7 @@ abstract class TestCase extends CakeTestCase
         parent::setUp();
 
         if (method_exists($this, 'loadPlugins')) {
-            $this->loadPlugins(['Assets']);
+            @$this->loadPlugins(['Assets']);
         }
     }
 
