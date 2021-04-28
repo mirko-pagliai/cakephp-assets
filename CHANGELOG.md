@@ -1,8 +1,8 @@
 # 1.x branch
 ## 1.5 branch
 ### 1.5.4
-* updated for `php-tools` 1.4.7;
-* ready for `php 8 and `phpunit` 9.
+* updated for `php-tools` 1.4.7 and 1.5;
+* ready for `php` 8 and `phpunit` 9.
 
 ### 1.5.3
 * updated for `php-tools` 1.4.5;
