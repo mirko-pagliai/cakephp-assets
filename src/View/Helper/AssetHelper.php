@@ -22,6 +22,7 @@ use Cake\View\Helper;
  * Asset Helper.
  *
  * This helper allows you to generate assets.
+ * @property \Cake\View\Helper\HtmlHelper $Html
  */
 class AssetHelper extends Helper
 {

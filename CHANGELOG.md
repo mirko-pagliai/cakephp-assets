@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.5
+* improvement of function descriptions and tags.
+
 ### 1.5.4
 * updated for `php-tools` 1.4.7 and 1.5;
 * ready for `php` 8 and `phpunit` 9.
