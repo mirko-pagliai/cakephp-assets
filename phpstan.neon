@@ -18,8 +18,3 @@ parameters:
 
     excludes_analyse:
         -  tests/test_app/
-
-    ignoreErrors:
-        -
-            message: '#^Method [\w\\]+Test::test\w+\(\) has no return typehint specified\.$#'
-            path: tests/TestCase

@@ -27,7 +27,7 @@ class I18nTest extends TestCase
      *  translated correctly
      * @test
      */
-    public function testI18nConstant()
+    public function testI18nConstant(): void
     {
         $translator = I18n::getTranslator('assets', 'it');
         $this->assertEquals('Il file `{0}` non esiste', $translator->translate('File `{0}` doesn\'t exist'));

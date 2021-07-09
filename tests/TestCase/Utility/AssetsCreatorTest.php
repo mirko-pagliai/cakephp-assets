@@ -33,7 +33,7 @@ class AssetsCreatorTest extends TestCase
      * Test for `__construct()` method
      * @test
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $asset = new AssetsCreator('test', 'css');
         $this->assertEquals('css', $this->getProperty($asset, 'type'));
@@ -57,7 +57,7 @@ class AssetsCreatorTest extends TestCase
      * Test for `resolveAssetPath()` method
      * @test
      */
-    public function testResolveAssetPath()
+    public function testResolveAssetPath(): void
     {
         $resolveAssetPathMethod = function (AssetsCreator $assetCreatorInstance) {
             return $this->invokeMethod($assetCreatorInstance, 'resolveAssetPath');
@@ -82,7 +82,7 @@ class AssetsCreatorTest extends TestCase
      * Test for `resolveFilePaths()` method
      * @ŧest
      */
-    public function testResolveFilePaths()
+    public function testResolveFilePaths(): void
     {
         $pathsProperty = function (AssetsCreator $assetCreatorInstance) {
             return $this->getProperty($assetCreatorInstance, 'paths');
@@ -153,7 +153,7 @@ class AssetsCreatorTest extends TestCase
      * Test for `create()` method, using a css file
      * @test
      */
-    public function testCreateWithCss()
+    public function testCreateWithCss(): void
     {
         $result = (new AssetsCreator('test', 'css'))->create();
         $this->assertMatchesRegularExpression('/^[\w\d]+$/', $result);
@@ -187,7 +187,7 @@ class AssetsCreatorTest extends TestCase
      * Test for `create()` method, using a js file
      * @test
      */
-    public function testCreateWithJs()
+    public function testCreateWithJs(): void
     {
         $result = (new AssetsCreator('test', 'js'))->create();
         $this->assertMatchesRegularExpression('/^[\w\d]+$/', $result);
@@ -215,7 +215,7 @@ class AssetsCreatorTest extends TestCase
      *  does not exist
      * @test
      */
-    public function testCreateReturnsExistingAsset()
+    public function testCreateReturnsExistingAsset(): void
     {
         //Creates the asset
         $result = (new AssetsCreator('test', 'css'))->create();
@@ -241,7 +241,7 @@ class AssetsCreatorTest extends TestCase
      * Test for `path()` method
      * @test
      */
-    public function testPath()
+    public function testPath(): void
     {
         $asset = new AssetsCreator('test', 'css');
         $this->assertEquals(Configure::read('Assets.target') . DS . $asset->create() . '.css', $asset->path());

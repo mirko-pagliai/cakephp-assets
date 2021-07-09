@@ -31,7 +31,7 @@ class AssetsMiddlewareTest extends TestCase
      * Test for `asset()` method, with a css asset
      * @test
      */
-    public function testAssetWithCss()
+    public function testAssetWithCss(): void
     {
         //This is the filename
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'css'))->create(), 'css');
@@ -70,7 +70,7 @@ class AssetsMiddlewareTest extends TestCase
      * Test for `asset()` method, with a js asset
      * @test
      */
-    public function testAssetWithJs()
+    public function testAssetWithJs(): void
     {
         //This is the filename
         $filename = sprintf('%s.%s', (new AssetsCreator('test', 'js'))->create(), 'js');
