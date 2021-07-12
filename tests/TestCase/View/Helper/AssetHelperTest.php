@@ -57,21 +57,21 @@ class AssetHelperTest extends TestCase
      * Test for `css()` method
      * @test
      */
-    public function testCss()
+    public function testCss(): void
     {
         $expected = ['link' => [
             'rel' => 'stylesheet',
             'href' => 'preg:/\/assets\/[\w\d]+\.css\?\d{10}/',
         ]];
-        $this->assertHtml($expected, $this->Asset->css('test'));
-        $this->assertHtml($expected, $this->Asset->css(['test', 'test2']));
+        $this->assertHtml($expected, $this->Asset->css('test') ?: '');
+        $this->assertHtml($expected, $this->Asset->css(['test', 'test2']) ?: '');
     }
 
     /**
      * Test for `css()` method with `debug` enabled/disabled
      * @test
      */
-    public function testCssWithDebug()
+    public function testCssWithDebug(): void
     {
         //`force`  disabled, so it does not affect the test
         Configure::write('Assets.force', false);
@@ -85,7 +85,7 @@ class AssetHelperTest extends TestCase
      * Test for `css()` method with `force` enabled/disabled
      * @test
      */
-    public function testCssWithForce()
+    public function testCssWithForce(): void
     {
         //Debugging disabled, so it does not affect the test
         Configure::write('Assets.force', false);
@@ -99,13 +99,13 @@ class AssetHelperTest extends TestCase
      * Test for `css()` method with `timestamp` enabled/disabled
      * @test
      */
-    public function testCssWithTimestamp()
+    public function testCssWithTimestamp(): void
     {
         $expected = ['link' => [
             'rel' => 'stylesheet',
             'href' => 'preg:/\/assets\/[\w\d]+\.css\?\d{10}/',
         ]];
-        $this->assertHtml($expected, $this->Asset->css('test'));
+        $this->assertHtml($expected, $this->Asset->css('test') ?: '');
 
         //Timestamp disabled, so it does not affect the test
         Configure::write('Asset.timestamp', false);
@@ -113,17 +113,17 @@ class AssetHelperTest extends TestCase
             'rel' => 'stylesheet',
             'href' => 'preg:/\/assets\/[\w\d]+\.css/',
         ]];
-        $this->assertHtml($expected, $this->Asset->css('test'));
+        $this->assertHtml($expected, $this->Asset->css('test') ?: '');
     }
 
     /**
      * Test for `script()` method
      * @test
      */
-    public function testScript()
+    public function testScript(): void
     {
         $expected = ['script' => ['src' => 'preg:/\/assets\/[\w\d]+\.js\?\d{10}/']];
-        $this->assertHtml($expected, $this->Asset->script('test'));
-        $this->assertHtml($expected, $this->Asset->script(['test', 'test2']));
+        $this->assertHtml($expected, $this->Asset->script('test') ?: '');
+        $this->assertHtml($expected, $this->Asset->script(['test', 'test2']) ?: '');
     }
 }

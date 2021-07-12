@@ -1,5 +1,8 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
-    level: 7
+    level: 8
 
     paths:
         - config
@@ -15,19 +18,3 @@ parameters:
 
     excludes_analyse:
         -  tests/test_app/
-
-    ignoreErrors:
-        - '#^Call to an undefined method Psr\\Http\\Message\\(ResponseInterface|ServerRequestInterface)::#'
-        - '#^Call to an undefined static method Tools\\Exceptionist::inArray\(\)\.$#'
-        - '#^Access to an undefined property Assets\\View\\Helper\\AssetHelper::\$Html\.$#'
-        -
-            message: '#^Else branch is unreachable because ternary operator condition is always true\.$#'
-            path: src/Utility/AssetsCreator.php
-            count: 1
-        -
-            message: '#^Method [\w\\]+Test::test\w+\(\) has no return typehint specified\.$#'
-            path: tests/TestCase
-        -
-            message: '#^Ternary operator condition is always true\.$#'
-            path: tests/TestCase/View/Helper/AssetHelperTest.php
-            count: 2

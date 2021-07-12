@@ -36,7 +36,7 @@ class AssetsCreator
 
     /**
      * File paths that will be transformed into a single asset
-     * @var array
+     * @var array<string>
      */
     protected $paths = [];
 
@@ -51,8 +51,6 @@ class AssetsCreator
      * @param string|array<string> $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
      * @throws \InvalidArgumentException
-     * @uses resolveAssetPath()
-     * @uses resolveFilePaths()
      */
     public function __construct($paths, string $type)
     {

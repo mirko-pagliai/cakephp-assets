@@ -1,5 +1,9 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.5
+* fixed bootstrap, mkdir errors are no longer suppressed;
+* improvement of function descriptions and tags, increased the level of `phpstan`.
+
 ### 1.5.4
 * updated for `php-tools` 1.4.7 and 1.5;
 * ready for `php` 8 and `phpunit` 9.
