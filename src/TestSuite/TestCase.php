@@ -17,7 +17,6 @@ namespace Assets\TestSuite;
 
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase as CakeTestCase;
-use Exception;
 use Tools\Filesystem;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\BackwardCompatibilityTrait;
@@ -47,10 +46,7 @@ abstract class TestCase extends CakeTestCase
      */
     public function tearDown(): void
     {
-        try {
-            Filesystem::instance()->unlinkRecursive(Configure::readOrFail('Assets.target'));
-        } catch (Exception $e) {
-        }
+        Filesystem::instance()->unlinkRecursive(Configure::readOrFail('Assets.target'), false, true);
 
         parent::tearDown();
     }
