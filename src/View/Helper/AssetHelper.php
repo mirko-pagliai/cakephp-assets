@@ -37,8 +37,6 @@ class AssetHelper extends Helper
      * @param string|array<string> $path String or array of css/js files
      * @param string $type `css` or `js`
      * @return string|array<string> Asset path
-     * @uses Assets\Utility\AssetsCreator::create()
-     * @uses Assets\Utility\AssetsCreator::path()
      */
     protected function path($path, string $type)
     {
@@ -63,7 +61,6 @@ class AssetHelper extends Helper
      * @param string|array<string> $path String or array of css files
      * @param array $options Array of options and HTML attributes
      * @return string|null Html, `<link>` or `<style>` tag
-     * @uses path()
      */
     public function css($path, array $options = []): ?string
     {
@@ -76,7 +73,6 @@ class AssetHelper extends Helper
      * @param array $options Array of options and HTML attributes
      * @return string|null String of `<script />` tags or null if `$inline` is
      *  false or if `$once` is true
-     * @uses path()
      */
     public function script($url, array $options = []): ?string
     {
