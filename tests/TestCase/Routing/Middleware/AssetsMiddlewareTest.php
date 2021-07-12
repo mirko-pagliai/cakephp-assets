@@ -22,6 +22,7 @@ use Cake\TestSuite\IntegrationTestTrait;
 
 /**
  * AssetsMiddlewareTest class
+ * @property \Psr\Http\Message\ResponseInterface $_response
  */
 class AssetsMiddlewareTest extends TestCase
 {

@@ -63,8 +63,8 @@ class AssetHelperTest extends TestCase
             'rel' => 'stylesheet',
             'href' => 'preg:/\/assets\/[\w\d]+\.css\?\d{10}/',
         ]];
-        $this->assertHtml($expected, $this->Asset->css('test'));
-        $this->assertHtml($expected, $this->Asset->css(['test', 'test2']));
+        $this->assertHtml($expected, $this->Asset->css('test') ?: '');
+        $this->assertHtml($expected, $this->Asset->css(['test', 'test2']) ?: '');
     }
 
     /**
@@ -105,7 +105,7 @@ class AssetHelperTest extends TestCase
             'rel' => 'stylesheet',
             'href' => 'preg:/\/assets\/[\w\d]+\.css\?\d{10}/',
         ]];
-        $this->assertHtml($expected, $this->Asset->css('test'));
+        $this->assertHtml($expected, $this->Asset->css('test') ?: '');
 
         //Timestamp disabled, so it does not affect the test
         Configure::write('Asset.timestamp', false);
@@ -113,7 +113,7 @@ class AssetHelperTest extends TestCase
             'rel' => 'stylesheet',
             'href' => 'preg:/\/assets\/[\w\d]+\.css/',
         ]];
-        $this->assertHtml($expected, $this->Asset->css('test'));
+        $this->assertHtml($expected, $this->Asset->css('test') ?: '');
     }
 
     /**
@@ -123,7 +123,7 @@ class AssetHelperTest extends TestCase
     public function testScript(): void
     {
         $expected = ['script' => ['src' => 'preg:/\/assets\/[\w\d]+\.js\?\d{10}/']];
-        $this->assertHtml($expected, $this->Asset->script('test'));
-        $this->assertHtml($expected, $this->Asset->script(['test', 'test2']));
+        $this->assertHtml($expected, $this->Asset->script('test') ?: '');
+        $this->assertHtml($expected, $this->Asset->script(['test', 'test2']) ?: '');
     }
 }
