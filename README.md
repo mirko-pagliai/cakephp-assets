@@ -1,9 +1,9 @@
 # cakephp-assets plugin
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.txt)
-[![Build Status](https://travis-ci.org/mirko-pagliai/cakephp-assets.svg?branch=master)](https://travis-ci.org/mirko-pagliai/cakephp-assets)
+[![CI](https://github.com/mirko-pagliai/cakephp-assets/actions/workflows/ci.yml/badge.svg)](https://github.com/mirko-pagliai/cakephp-assets/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/mirko-pagliai/cakephp-assets/branch/master/graph/badge.svg)](https://codecov.io/gh/mirko-pagliai/cakephp-assets)
-[![Build status](https://ci.appveyor.com/api/projects/status/2ir3h63d1913cyhb?svg=true)](https://ci.appveyor.com/project/mirko-pagliai/cakephp-assets)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/aff2a01112854ae6bd8d57e27f37213d)](https://www.codacy.com/gh/mirko-pagliai/cakephp-assets/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mirko-pagliai/cakephp-assets&amp;utm_campaign=Badge_Grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/mirko-pagliai/cakephp-assets/badge)](https://www.codefactor.io/repository/github/mirko-pagliai/cakephp-assets)
 
 *cakephp-assets* is a CakePHP plugin to allows you to handle and generate assets.
