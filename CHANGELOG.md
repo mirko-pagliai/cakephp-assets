@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.6
+* migration to github actions.
+
 ### 1.5.5
 * fixed bootstrap, mkdir errors are no longer suppressed;
 * improvement of function descriptions and tags, increased the level of `phpstan`.
