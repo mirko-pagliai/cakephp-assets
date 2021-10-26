@@ -70,7 +70,7 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals($expected, $resolveAssetPathMethod((new AssetsCreator('test', 'css'))));
 
         //From plugin
-        $this->loadPlugins(['TestPlugin']);
+        $this->loadPlugins(['TestPlugin' => []]);
         $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([[
             $file = Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
             filemtime($file),
@@ -118,7 +118,7 @@ class AssetsCreatorTest extends TestCase
         $this->assertEquals($expected, $result);
 
         //Tests plugins
-        $this->loadPlugins(['TestPlugin']);
+        $this->loadPlugins(['TestPlugin' => []]);
         $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css'];
         foreach ([
             'TestPlugin.test',

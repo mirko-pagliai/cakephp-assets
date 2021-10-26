@@ -36,10 +36,12 @@ class AssetMiddleware
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        /** @var \Cake\Http\ServerRequest $request */
+        /** @var \Cake\Http\Response $response */
         $file = Filesystem::instance()->concatenate(Configure::read('Assets.target'), $request->getParam('filename'));
         Exceptionist::isReadable($file, __d('assets', 'File `{0}` doesn\'t exist', $file), AssetNotFoundException::class);
 
-        $response = $response->withModified(filemtime($file));
+        $response = $response->withModified(filemtime($file) ?: 0);
         if ($response->checkNotModified($request)) {
             return $response;
         }
