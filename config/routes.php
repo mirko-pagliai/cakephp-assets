@@ -13,13 +13,13 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
-use Assets\Routing\Middleware\AssetMiddleware;
+use Assets\Middleware\AssetMiddleware;
 use Cake\Routing\RouteBuilder;
-use Cake\Routing\Router;
 
-Router::plugin('Assets', function (RouteBuilder $routes) {
+/** @var \Cake\Routing\RouteBuilder $routes */
+$routes->plugin('Assets', function (RouteBuilder $routes) {
     $routes->registerMiddleware('asset', AssetMiddleware::class);
-    $routes->get('/:filename', [])
+    $routes->get('/{filename}', [])
         ->setPatterns(['filename' => '[\w\d]+\.(css|js)'])
         ->setPass(['filename'])
         ->setMiddleware(['asset']);

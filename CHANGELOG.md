@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.7
+* some fixes to get it ready for CakePHP 4.3.
+
 ### 1.5.6
 * migration to github actions.
 

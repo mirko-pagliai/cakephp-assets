@@ -72,6 +72,10 @@ Configure::write('Asset.timestamp', true);
 Configure::write('Assets.force', true);
 Configure::write('Assets.target', TMP . 'assets');
 
+if (version_compare(Configure::version(), '4.3', '>=')) {
+    error_reporting(E_ALL & ~E_USER_DEPRECATED);
+}
+
 Cache::setConfig([
     '_cake_core_' => [
         'engine' => 'File',

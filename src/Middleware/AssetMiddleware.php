@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       1.3.0
  */
-namespace Assets\Routing\Middleware;
+namespace Assets\Middleware;
 
 use Assets\Http\Exception\AssetNotFoundException;
 use Cake\Core\Configure;
