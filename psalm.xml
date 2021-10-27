@@ -17,7 +17,7 @@
     <issueHandlers>
         <UndefinedInterfaceMethod>
             <errorLevel type="suppress">
-                <file name="src/Routing/Middleware/AssetMiddleware.php" />
+                <file name="src/Middleware/AssetMiddleware.php" />
             </errorLevel>
         </UndefinedInterfaceMethod>
     </issueHandlers>

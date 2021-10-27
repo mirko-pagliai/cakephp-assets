@@ -24,8 +24,9 @@ define('ROOT', dirname(__DIR__) . DS);
 define('CAKE_CORE_INCLUDE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp');
 define('CORE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp' . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
-define('TESTS', ROOT . 'tests');
-define('APP', ROOT . 'tests' . DS . 'test_app' . DS);
+define('TESTS', ROOT . 'tests' . DS);
+define('TEST_APP', TESTS . 'test_app' . DS);
+define('APP', TEST_APP . 'TestApp' . DS);
 define('APP_DIR', 'test_app');
 define('WEBROOT_DIR', 'webroot');
 define('WWW_ROOT', APP . 'webroot' . DS);
@@ -34,11 +35,17 @@ define('CONFIG', APP . 'config' . DS);
 define('CACHE', TMP);
 define('LOGS', TMP . 'cakephp_log' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
-@mkdir(LOGS);
-@mkdir(SESSIONS);
-@mkdir(CACHE);
-@mkdir(CACHE . 'views');
-@mkdir(CACHE . 'models');
+
+foreach ([
+    TMP,
+    LOGS,
+    SESSIONS,
+    CACHE . 'models',
+    CACHE . 'persistent',
+    CACHE . 'views',
+] as $dir) {
+    @mkdir($dir, 0777, true);
+}
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
@@ -56,7 +63,10 @@ Configure::write('App', [
     'imageBaseUrl' => 'img/',
     'jsBaseUrl' => 'js/',
     'cssBaseUrl' => 'css/',
-    'paths' => ['plugins' => [APP . 'Plugin' . DS]],
+    'paths' => [
+        'plugins' => [APP . 'Plugin' . DS],
+        'templates' => [APP . 'templates' . DS],
+    ],
 ]);
 Configure::write('Asset.timestamp', true);
 Configure::write('Assets.force', true);

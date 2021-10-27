@@ -1,5 +1,9 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.7
+* ready for CakePHP 4.3. The `AssetMiddleware` was moved from
+    `Assets\Routing\Middleware` to `Assets\Middleware`.
+
 ### 1.5.6
 * migration to github actions.
 

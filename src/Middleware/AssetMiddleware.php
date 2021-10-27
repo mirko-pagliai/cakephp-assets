@@ -13,33 +13,38 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       1.3.0
  */
-namespace Assets\Routing\Middleware;
+namespace Assets\Middleware;
 
 use Assets\Http\Exception\AssetNotFoundException;
 use Cake\Core\Configure;
+use Cake\Http\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 
 /**
  * Handles serving assets
  */
-class AssetMiddleware
+class AssetMiddleware implements MiddlewareInterface
 {
     /**
      * Serves assets if the request matches one
      * @param \Psr\Http\Message\ServerRequestInterface $request The request
-     * @param \Psr\Http\Message\ResponseInterface $response The response
+     * @param \Psr\Http\Server\RequestHandlerInterface $handler Request handler
      * @return \Psr\Http\Message\ResponseInterface A response
      * @throws \Assets\Http\Exception\AssetNotFoundException
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        /** @var \Cake\Http\ServerRequest $request */
         $file = Filesystem::instance()->concatenate(Configure::read('Assets.target'), $request->getParam('filename'));
         Exceptionist::isReadable($file, __d('assets', 'File `{0}` doesn\'t exist', $file), AssetNotFoundException::class);
 
-        $response = $response->withModified(filemtime($file));
+        $response = new Response();
+        $response = $response->withModified(filemtime($file) ?: 0);
         if ($response->checkNotModified($request)) {
             return $response;
         }
