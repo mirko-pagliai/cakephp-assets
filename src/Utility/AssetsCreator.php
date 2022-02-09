@@ -54,7 +54,7 @@ class AssetsCreator
      */
     public function __construct($paths, string $type)
     {
-        Exceptionist::inArray([$type, ['css', 'js']], __d('assets', 'Asset type `{0}` not supported', $type), InvalidArgumentException::class);
+        Exceptionist::inArray($type, ['css', 'js'], __d('assets', 'Asset type `{0}` not supported', $type), InvalidArgumentException::class);
 
         //Note: `resolveFilePaths()` method needs `$type` property;
         //  `resolveAssetPath()` method needs `$type` and `$paths` properties
