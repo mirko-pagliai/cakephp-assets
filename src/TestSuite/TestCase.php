@@ -19,14 +19,12 @@ use Cake\Core\Configure;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Tools\Filesystem;
 use Tools\ReflectionTrait;
-use Tools\TestSuite\BackwardCompatibilityTrait;
 
 /**
  * TestCase class
  */
 abstract class TestCase extends CakeTestCase
 {
-    use BackwardCompatibilityTrait;
     use ReflectionTrait;
 
     /**

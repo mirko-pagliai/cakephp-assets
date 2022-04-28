@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.2', '7.3', '7.4', '8.0']
+        php-version: ['7.2', '7.3', '7.4', '8.0', '8.1']
         prefer-lowest: ['']
         include:
           - php-version: '7.2'
@@ -22,6 +22,8 @@ jobs:
           - php-version: '7.4'
             prefer-lowest: 'prefer-lowest'
           - php-version: '8.0'
+            prefer-lowest: 'prefer-lowest'
+          - php-version: '8.1'
             prefer-lowest: 'prefer-lowest'
 
     steps:
@@ -53,14 +55,14 @@ jobs:
         - name: Run PHPUnit
           run: |
             if [[ ${{ matrix.php-version }} == '8.0' ]]; then
-              export CODECOVERAGE=1 && vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
+             export XDEBUG_MODE=coverage && vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
             else
               vendor/bin/phpunit
             fi
 
         - name: Submit code coverage
           if: matrix.php-version == '8.0'
-          uses: codecov/codecov-action@v1
+          uses: codecov/codecov-action@v2
 
   cs-stan:
     name: Coding Standard & Static Analysis
@@ -72,7 +74,7 @@ jobs:
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
           with:
-            php-version: '7.4'
+            php-version: '8.0'
             coverage: none
             tools: cs2pr
 
