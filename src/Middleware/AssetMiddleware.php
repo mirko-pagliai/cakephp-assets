@@ -45,8 +45,12 @@ class AssetMiddleware implements MiddlewareInterface
 
         $response = new Response();
         $response = $response->withModified(filemtime($file) ?: 0);
-        if ($response->checkNotModified($request)) {
-            return $response;
+        /**
+         * @todo to be removed in a later version
+         */
+        $method = version_compare(Configure::version(), '4.4', '>=') ? 'isNotModified' : 'checkNotModified';
+        if ($response->$method($request)) {
+            return $response->withNotModified();
         }
 
         return $response->withFile($file)->withType(pathinfo($file, PATHINFO_EXTENSION));
