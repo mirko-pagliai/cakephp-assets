@@ -1,7 +1,8 @@
 # 1.x branch
 ## 1.5 branch
 ### 1.5.10
-* updated for CakePHP 4.4.
+* updated for CakePHP 4.4;
+* little fixes.
 
 ### 1.5.9
 * added tests for PHP 8.1;
