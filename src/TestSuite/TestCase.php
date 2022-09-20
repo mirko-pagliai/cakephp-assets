@@ -18,7 +18,7 @@ namespace Assets\TestSuite;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Tools\Filesystem;
-use Tools\ReflectionTrait;
+use Tools\TestSuite\ReflectionTrait;
 
 /**
  * TestCase class
