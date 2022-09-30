@@ -63,7 +63,7 @@ class AssetsMiddlewareTest extends TestCase
 
         //With a no existing file
         $this->expectException(AssetNotFoundException::class);
-        $this->expectExceptionMessage('File `' . Configure::read('Assets.target') . DS . 'no-existing-file.css` doesn\'t exist');
+        $this->expectExceptionMessage('File `' . Configure::read('Assets.target') . DS . "no-existing-file.css` doesn't exist");
         $this->disableErrorHandlerMiddleware();
         $this->get('/assets/no-existing-file.css');
     }

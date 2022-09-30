@@ -61,7 +61,7 @@
 * updated for `php-tools` 1.1.12.
 
 ### 1.4.0
-* removed `ASSETS` costant;
+* removed `ASSETS` constant;
 * removed `IntegrationTestCase` class, use instead `IntegrationTestTrait`
     provided by CakePHP.
 
