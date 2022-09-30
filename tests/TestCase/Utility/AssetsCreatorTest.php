@@ -80,7 +80,7 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `resolveFilePaths()` method
-     * @ŧest
+     * @test
      */
     public function testResolveFilePaths(): void
     {
@@ -98,8 +98,8 @@ class AssetsCreatorTest extends TestCase
             $this->assertEquals($expected, $pathsProperty(new AssetsCreator($path, 'css')));
         }
         foreach ([
-            'subdir/test' => [WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css'],
-            '/othercssdir/test' => [WWW_ROOT . 'othercssdir' . DS . 'test.css'],
+            'sub-dir/test' => [WWW_ROOT . 'css' . DS . 'sub-dir' . DS . 'test.css'],
+            '/other-css-dir/test' => [WWW_ROOT . 'other-css-dir' . DS . 'test.css'],
         ] as $path => $expected) {
             $this->assertEquals($expected, $pathsProperty(new AssetsCreator($path, 'css')));
         }
@@ -107,13 +107,13 @@ class AssetsCreatorTest extends TestCase
         //Tests array
         $expected = [
             WWW_ROOT . 'css' . DS . 'test.css',
-            WWW_ROOT . 'css' . DS . 'subdir' . DS . 'test.css',
-            WWW_ROOT . 'othercssdir' . DS . 'test.css',
+            WWW_ROOT . 'css' . DS . 'sub-dir' . DS . 'test.css',
+            WWW_ROOT . 'other-css-dir' . DS . 'test.css',
         ];
         $result = $pathsProperty(new AssetsCreator([
             'test',
-            'subdir/test',
-            '/othercssdir/test',
+            'sub-dir/test',
+            '/other-css-dir/test',
         ], 'css'));
         $this->assertEquals($expected, $result);
 
@@ -129,28 +129,29 @@ class AssetsCreatorTest extends TestCase
             $this->assertEquals($expected, $pathsProperty(new AssetsCreator($path, 'css')));
         }
 
-        $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'subdir' . DS . 'test.css'];
-        $this->assertEquals($expected, $pathsProperty(new AssetsCreator('TestPlugin.subdir/test', 'css')));
+        $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'sub-dir' . DS . 'test.css'];
+        $this->assertEquals($expected, $pathsProperty(new AssetsCreator('TestPlugin.sub-dir/test', 'css')));
 
-        $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'othercssdir' . DS . 'test.css'];
-        $this->assertEquals($expected, $pathsProperty(new AssetsCreator('TestPlugin./othercssdir/test', 'css')));
+        $expected = [Plugin::path('TestPlugin') . 'webroot' . DS . 'other-css-dir' . DS . 'test.css'];
+        $this->assertEquals($expected, $pathsProperty(new AssetsCreator('TestPlugin./other-css-dir/test', 'css')));
 
         //Tests array
         $expected = [
             Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'test.css',
-            Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'subdir' . DS . 'test.css',
-            Plugin::path('TestPlugin') . 'webroot' . DS . 'othercssdir' . DS . 'test.css',
+            Plugin::path('TestPlugin') . 'webroot' . DS . 'css' . DS . 'sub-dir' . DS . 'test.css',
+            Plugin::path('TestPlugin') . 'webroot' . DS . 'other-css-dir' . DS . 'test.css',
         ];
         $result = $pathsProperty(new AssetsCreator([
             'TestPlugin.test',
-            'TestPlugin.subdir/test',
-            'TestPlugin./othercssdir/test',
+            'TestPlugin.sub-dir/test',
+            'TestPlugin./other-css-dir/test',
         ], 'css'));
         $this->assertEquals($expected, $result);
     }
 
     /**
      * Test for `create()` method, using a css file
+     * @uses \Assets\Utility\AssetsCreator::create()
      * @test
      */
     public function testCreateWithCss(): void
@@ -185,6 +186,7 @@ class AssetsCreatorTest extends TestCase
 
     /**
      * Test for `create()` method, using a js file
+     * @uses \Assets\Utility\AssetsCreator::create()
      * @test
      */
     public function testCreateWithJs(): void
@@ -193,8 +195,8 @@ class AssetsCreatorTest extends TestCase
         $this->assertMatchesRegularExpression('/^[\w\d]+$/', $result);
 
         $expected = 'function otherAlert(){alert("Another alert")}' . PHP_EOL .
-            '$(function(){var msg="Ehi!";alert(msg)})';
-        $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
+            '$(()=>{const msg="Ehi!";alert(msg)})';
+        $file = Configure::read('Assets.target') . DS . $result . '.js';
         $this->assertSameAsFile($file, $expected);
 
         //Tests array
@@ -202,17 +204,17 @@ class AssetsCreatorTest extends TestCase
         $this->assertMatchesRegularExpression('/^[\w\d]+$/', $result);
 
         $expected = 'function otherAlert(){alert("Another alert")}' . PHP_EOL .
-            '$(function(){var msg="Ehi!";alert(msg)});' .
-            'var first="This is first";' .
-            'var second="This is second";' .
+            '$(()=>{const msg="Ehi!";alert(msg)});' .
+            'const first="This is first";' .
+            'const second="This is second";' .
             'alert(first+" and "+second)';
         $file = Configure::read('Assets.target') . DS . sprintf('%s.%s', $result, 'js');
         $this->assertSameAsFile($file, $expected);
     }
 
     /**
-     * Test for `create()` method. It tests the asset is created only if it
-     *  does not exist
+     * Test for `create()` method. The asset is created only if does not exist
+     * @uses \Assets\Utility\AssetsCreator::create()
      * @test
      */
     public function testCreateReturnsExistingAsset(): void

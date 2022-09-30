@@ -24,7 +24,7 @@ use Tools\Exceptionist;
 use Tools\Filesystem;
 
 /**
- * An utility to create assets
+ * A utility to create assets
  */
 class AssetsCreator
 {
@@ -50,7 +50,7 @@ class AssetsCreator
      * Construct. Sets the asset type and paths
      * @param string|array<string> $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException|\Throwable
      */
     public function __construct($paths, string $type)
     {
@@ -80,6 +80,7 @@ class AssetsCreator
      * Internal method to resolve partial file paths and return full paths
      * @param array<string> $paths Partial file paths
      * @return array<string> Full file paths
+     * @throws \Tools\Exception\FileNotExistsException|\Tools\Exception\NotReadableException|\Throwable
      */
     protected function resolveFilePaths(array $paths): array
     {
@@ -108,6 +109,7 @@ class AssetsCreator
     /**
      * Creates the asset
      * @return string
+     * @throws \Throwable
      */
     public function create(): string
     {

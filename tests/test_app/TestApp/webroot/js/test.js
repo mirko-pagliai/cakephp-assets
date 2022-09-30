@@ -3,7 +3,7 @@ function otherAlert()
     alert("Another alert");
 }
 
-$(function () {
-    var msg = "Ehi!";
+$(() => {
+    const msg = "Ehi!";
     alert(msg);
 });

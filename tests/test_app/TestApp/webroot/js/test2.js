@@ -1,4 +1,4 @@
-var first = "This is first";
-var second = "This is second";
+const first = "This is first";
+const second = "This is second";
 
 alert(first + " and " + second);

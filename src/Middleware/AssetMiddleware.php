@@ -35,13 +35,13 @@ class AssetMiddleware implements MiddlewareInterface
      * @param \Psr\Http\Message\ServerRequestInterface $request The request
      * @param \Psr\Http\Server\RequestHandlerInterface $handler Request handler
      * @return \Psr\Http\Message\ResponseInterface A response
-     * @throws \Assets\Http\Exception\AssetNotFoundException
+     * @throws \Assets\Http\Exception\AssetNotFoundException|\Throwable
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         /** @var \Cake\Http\ServerRequest $request */
         $file = Filesystem::instance()->concatenate(Configure::read('Assets.target'), $request->getParam('filename'));
-        Exceptionist::isReadable($file, __d('assets', 'File `{0}` doesn\'t exist', $file), AssetNotFoundException::class);
+        Exceptionist::isReadable($file, __d('assets', "File `{0}` doesn't exist", $file), AssetNotFoundException::class);
 
         $response = new Response();
         $response = $response->withModified(filemtime($file) ?: 0);

@@ -1,7 +1,9 @@
 # 1.x branch
 ## 1.5 branch
 ### 1.5.11
-* fixed little bug: filename patterns for routes can contain `-`.
+* fixed little bug: filename patterns for routes can contain `-`;
+* small and numerous improvements of descriptions, tags and code suggested
+    by PhpStorm.
 
 ### 1.5.10
 * updated for CakePHP 4.4;

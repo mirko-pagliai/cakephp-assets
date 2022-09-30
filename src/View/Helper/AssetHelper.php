@@ -37,6 +37,7 @@ class AssetHelper extends Helper
      * @param string|array<string> $path String or array of css/js files
      * @param string $type `css` or `js`
      * @return string|array<string> Asset path
+     * @throws \Throwable
      */
     protected function path($path, string $type)
     {
