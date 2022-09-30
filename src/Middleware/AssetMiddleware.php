@@ -46,9 +46,9 @@ class AssetMiddleware implements MiddlewareInterface
         $response = new Response();
         $response = $response->withModified(filemtime($file) ?: 0);
         /**
-         * @todo to be removed in a later version
+         * @todo to be removed in a later version, when CakePHP version is at least 4.4
          */
-        $method = version_compare(Configure::version(), '4.4', '>=') ? 'isNotModified' : 'checkNotModified';
+        $method = method_exists($request, 'isNotModified') ? 'isNotModified' : 'checkNotModified';
         if ($response->$method($request)) {
             return $response->withNotModified();
         }
