@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.11
+* fixed little bug: filename patterns for routes can contain `-`.
+
 ### 1.5.10
 * updated for CakePHP 4.4;
 * little fixes.
@@ -50,13 +53,13 @@
 
 ### 1.4.2
 * removed useless `AssetsCreator::filename()` method;
-* added [API](//mirko-pagliai.github.io/cakephp-assets).
+* added [API](https://mirko-pagliai.github.io/cakephp-assets).
 
 ### 1.4.1
 * updated for `php-tools` 1.1.12.
 
 ### 1.4.0
-* removed `ASSETS` contants;
+* removed `ASSETS` costant;
 * removed `IntegrationTestCase` class, use instead `IntegrationTestTrait`
     provided by CakePHP.
 
