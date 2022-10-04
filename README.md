@@ -13,10 +13,10 @@ provides a convenient helper that allows you to combine multiple asset files
 into one single compressed file.
 
 Did you like this plugin? Its development requires a lot of time for me.
-Please consider the possibility of making [a donation](//paypal.me/mirkopagliai):
+Please consider the possibility of making [a donation](https://paypal.me/mirkopagliai):
 even a coffee is enough! Thank you.
 
-[![Make a donation](https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_carte.jpg)](//paypal.me/mirkopagliai)
+[![Make a donation](https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_carte.jpg)](https://paypal.me/mirkopagliai)
 
 * [Installation](#installation)
   + [Installation on older CakePHP and PHP versions](#installation-on-older-cakephp-and-php-versions)
@@ -35,7 +35,7 @@ $ composer require --prefer-dist mirko-pagliai/cakephp-assets
 ```
 
 Then you have to load the plugin. For more information on how to load the plugin,
-please refer to the [Cookbook](//book.cakephp.org/4.0/en/plugins.html#loading-a-plugin).
+please refer to the [Cookbook](https://book.cakephp.org/4.0/en/plugins.html#loading-a-plugin).
 
 Simply, you can execute the shell command to enable the plugin:
 ```bash
@@ -43,7 +43,7 @@ bin/cake plugin load Assets
 ```
 This would update your application's bootstrap method.
 
-By default the plugin uses the `APP/tmp/assets` directory to save the
+By default, the plugin uses the `APP/tmp/assets` directory to save the
 asset files. So you have to create the directory and make it writable:
 
 ```bash
@@ -54,7 +54,7 @@ If you want to use a different directory, read the [Configuration](#configuratio
 
 ### Installation on older CakePHP and PHP versions
 Recent packages and the master branch require at least CakePHP 4.0 and PHP 7.2.
-Instead, the [cakephp3](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp3) branch
+Instead, the [cakephp3](https://github.com/mirko-pagliai/cakephp-assets/tree/cakephp3) branch
 requires at least PHP 5.6.
 
 In this case, you can install the package as well:
@@ -64,7 +64,7 @@ $ composer require --prefer-dist mirko-pagliai/cakephp-assets:dev-cakephp3
 
 Note that the `cakephp3` branch will no longer be updated as of April 27, 2021,
 except for security patches, and it matches the
-[1.5.4](//github.com/mirko-pagliai/cakephp-assets/releases/tag/1.5.4) version.
+[1.5.4](https://github.com/mirko-pagliai/cakephp-assets/releases/tag/1.5.4) version.
 
 ## Configuration
 The plugin uses some configuration parameters and you can set them using the
@@ -106,7 +106,7 @@ method provided by the `HtmlHelper`.
 
 The same also applies to the `AssetHelper::script()` method.
 
-Refer to our [API](//mirko-pagliai.github.io/cakephp-assets).
+Refer to our [API](https://mirko-pagliai.github.io/cakephp-assets).
 
 ## Versioning
 For transparency and insight into our release cycle and to maintain backward

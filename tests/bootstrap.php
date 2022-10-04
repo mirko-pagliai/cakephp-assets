@@ -44,7 +44,9 @@ foreach ([
     CACHE . 'persistent',
     CACHE . 'views',
 ] as $dir) {
-    @mkdir($dir, 0777, true);
+    if (!file_exists($dir)) {
+        mkdir($dir, 0777, true);
+    }
 }
 
 require dirname(__DIR__) . '/vendor/autoload.php';

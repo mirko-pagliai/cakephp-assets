@@ -20,7 +20,7 @@ use Cake\Routing\RouteBuilder;
 $routes->plugin('Assets', function (RouteBuilder $routes) {
     $routes->registerMiddleware('asset', AssetMiddleware::class);
     $routes->get('/{filename}', [])
-        ->setPatterns(['filename' => '[\w\d]+\.(css|js)'])
+        ->setPatterns(['filename' => '[\w-]+\.(css|js)'])
         ->setPass(['filename'])
         ->setMiddleware(['asset']);
 });

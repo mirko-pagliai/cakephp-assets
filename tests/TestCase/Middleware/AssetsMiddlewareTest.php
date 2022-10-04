@@ -30,6 +30,7 @@ class AssetsMiddlewareTest extends TestCase
 
     /**
      * Test for `asset()` method, with a css asset
+     * @uses \Assets\Middleware\AssetMiddleware::process()
      * @test
      */
     public function testAssetWithCss(): void
@@ -60,15 +61,16 @@ class AssetsMiddlewareTest extends TestCase
         $this->assertResponseOk();
         $this->assertNotEquals($lastModified, $this->_response->getHeader('Last-Modified')[0]);
 
-        //With a a no existing file
+        //With a no existing file
         $this->expectException(AssetNotFoundException::class);
-        $this->expectExceptionMessage('File `' . Configure::read('Assets.target') . DS . 'noexistingfile.css` doesn\'t exist');
+        $this->expectExceptionMessage('File `' . Configure::read('Assets.target') . DS . "no-existing-file.css` doesn't exist");
         $this->disableErrorHandlerMiddleware();
-        $this->get('/assets/noexistingfile.css');
+        $this->get('/assets/no-existing-file.css');
     }
 
     /**
      * Test for `asset()` method, with a js asset
+     * @uses \Assets\Middleware\AssetMiddleware::process()
      * @test
      */
     public function testAssetWithJs(): void
