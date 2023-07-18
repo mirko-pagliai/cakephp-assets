@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.12
+* fixed a serious bug for the `AssetMiddleware`, which actually partially prevented it from working.
+
 ### 1.5.11
 * fixed little bug: filename patterns for routes can contain `-`;
 * small and numerous improvements of descriptions, tags and code suggested
