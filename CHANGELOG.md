@@ -2,7 +2,8 @@
 ## 1.5 branch
 ### 1.5.12
 * fixed a serious bug for the `AssetMiddleware`, which actually partially prevented it from working;
-* the `Exceptionist` class provided by me-tools is no longer used (in anticipation of an upcoming deprecation).
+* the `Exceptionist` class provided by me-tools is no longer used (in anticipation of an upcoming deprecation);
+* requires at least php-tools `1.7.1` (to replace the pguardiario/phpuri package).
 
 ### 1.5.11
 * fixed little bug: filename patterns for routes can contain `-`;
