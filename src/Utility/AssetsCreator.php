@@ -50,14 +50,15 @@ class AssetsCreator
      * Construct. Sets the asset type and paths
      * @param string|array<string> $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
-     * @throws \InvalidArgumentException|\Throwable
+     * @throws \InvalidArgumentException
      */
     public function __construct($paths, string $type)
     {
-        Exceptionist::inArray($type, ['css', 'js'], __d('assets', 'Asset type `{0}` not supported', $type), InvalidArgumentException::class);
+        if (!in_array($type, ['css', 'js'])) {
+            throw new InvalidArgumentException(__d('assets', 'Asset type `{0}` not supported', $type));
+        }
 
-        //Note: `resolveFilePaths()` method needs `$type` property;
-        //  `resolveAssetPath()` method needs `$type` and `$paths` properties
+        //Note: `resolveFilePaths()` method needs `$type` property; `resolveAssetPath()` method needs `$type` and `$paths` properties
         $this->type = $type;
         $this->paths = $this->resolveFilePaths((array)$paths);
         $this->asset = $this->resolveAssetPath();
