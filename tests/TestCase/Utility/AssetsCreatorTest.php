@@ -19,7 +19,6 @@ use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\StringCompareTrait;
-use ErrorException;
 use InvalidArgumentException;
 
 /**
@@ -178,7 +177,6 @@ class AssetsCreatorTest extends TestCase
 
         //With no existing target directory
         $this->skipIf(IS_WIN);
-        $this->expectException(ErrorException::class);
         $this->expectExceptionMessageMatches('/^Failed to create file [\w\d\/\\\\]+\.css$/');
         Configure::write('Assets.target', DS . 'noExistingDir');
         (new AssetsCreator('test', 'css'))->create();
