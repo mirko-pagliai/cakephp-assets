@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.13
+* added tests for PHP 8.2.
+
 ### 1.5.12
 * fixed a serious bug for the `AssetMiddleware`, which actually partially prevented it from working;
 * the `Exceptionist` class provided by me-tools is no longer used (in anticipation of an upcoming deprecation);
