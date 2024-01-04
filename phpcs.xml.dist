@@ -4,4 +4,11 @@
     <file>.</file>
 
     <rule ref="./vendor/mirko-pagliai/php-tools/sniffer-ruleset.xml"/>
+
+    <rule ref="CakePHP.Commenting.TypeHint.IncorrectFormat">
+        <severity>0</severity>
+    </rule>
+    <rule ref="CakePHP.Functions.ClosureDeclaration.SpaceAfterFunction">
+        <severity>0</severity>
+    </rule>
 </ruleset>
