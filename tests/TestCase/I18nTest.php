@@ -14,8 +14,8 @@ declare(strict_types=1);
  */
 namespace Assets\Test\TestCase;
 
-use Assets\TestSuite\TestCase;
 use Cake\I18n\I18n;
+use Cake\TestSuite\TestCase;
 
 /**
  * I18nTest class

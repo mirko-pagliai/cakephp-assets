@@ -14,9 +14,9 @@ declare(strict_types=1);
  */
 namespace Assets\Test\TestCase\View\Helper;
 
-use Assets\TestSuite\TestCase;
 use Assets\View\Helper\AssetHelper;
 use Cake\Core\Configure;
+use Cake\TestSuite\TestCase;
 use Cake\View\Helper\HtmlHelper;
 use Cake\View\View;
 

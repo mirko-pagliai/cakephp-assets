@@ -14,23 +14,25 @@ declare(strict_types=1);
  */
 namespace Assets\Test\TestCase\Utility;
 
-use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\StringCompareTrait;
+use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
+use Tools\TestSuite\ReflectionTrait;
 
 /**
  * AssetsCreatorTest class
  */
 class AssetsCreatorTest extends TestCase
 {
+    use ReflectionTrait;
     use StringCompareTrait;
 
     /**
-     * Test for `__construct()` method
      * @test
+     * @uses \Assets\Utility\AssetsCreator::__construct()
      */
     public function testConstruct(): void
     {
@@ -53,8 +55,8 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `resolveAssetPath()` method
      * @test
+     * @uses \Assets\Utility\AssetsCreator::resolveAssetPath()
      */
     public function testResolveAssetPath(): void
     {
@@ -78,8 +80,8 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `resolveFilePaths()` method
      * @test
+     * @uses \Assets\Utility\AssetsCreator::resolveFilePaths()
      */
     public function testResolveFilePaths(): void
     {
@@ -149,9 +151,8 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `create()` method, using a css file
-     * @uses \Assets\Utility\AssetsCreator::create()
      * @test
+     * @uses \Assets\Utility\AssetsCreator::create()
      */
     public function testCreateWithCss(): void
     {
@@ -183,9 +184,8 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `create()` method, using a js file
-     * @uses \Assets\Utility\AssetsCreator::create()
      * @test
+     * @uses \Assets\Utility\AssetsCreator::create()
      */
     public function testCreateWithJs(): void
     {
@@ -211,9 +211,8 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `create()` method. The asset is created only if not exist
-     * @uses \Assets\Utility\AssetsCreator::create()
      * @test
+     * @uses \Assets\Utility\AssetsCreator::create()
      */
     public function testCreateReturnsExistingAsset(): void
     {
@@ -238,8 +237,8 @@ class AssetsCreatorTest extends TestCase
     }
 
     /**
-     * Test for `path()` method
      * @test
+     * @uses \Assets\Utility\AssetsCreator::path()
      */
     public function testPath(): void
     {
