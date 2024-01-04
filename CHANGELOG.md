@@ -1,9 +1,17 @@
 # 1.x branch
 ## 1.5 branch
+### 1.5.13
+* several small code and test improvements;
+* added tests for PHP 8.2.
+
+### 1.5.12
+* fixed a serious bug for the `AssetMiddleware`, which actually partially prevented it from working;
+* the `Exceptionist` class provided by me-tools is no longer used (in anticipation of an upcoming deprecation);
+* requires at least php-tools `1.7.1` (to replace the pguardiario/phpuri package).
+
 ### 1.5.11
 * fixed little bug: filename patterns for routes can contain `-`;
-* small and numerous improvements of descriptions, tags and code suggested
-    by PhpStorm.
+* small and numerous improvements of descriptions, tags and code suggested by PhpStorm.
 
 ### 1.5.10
 * updated for CakePHP 4.4;
@@ -17,8 +25,7 @@
 * updated for `php-tools` 1.5.8.
 
 ### 1.5.7
-* ready for CakePHP 4.3. The `AssetMiddleware` was moved from
-    `Assets\Routing\Middleware` to `Assets\Middleware`.
+* ready for CakePHP 4.3. The `AssetMiddleware` was moved from `Assets\Routing\Middleware` to `Assets\Middleware`.
 
 ### 1.5.6
 * migration to github actions.
@@ -62,8 +69,7 @@
 
 ### 1.4.0
 * removed `ASSETS` constant;
-* removed `IntegrationTestCase` class, use instead `IntegrationTestTrait`
-    provided by CakePHP.
+* removed `IntegrationTestCase` class, use instead `IntegrationTestTrait` provided by CakePHP.
 
 ## 1.3 branch
 ### 1.3.1
@@ -71,8 +77,8 @@
 * updated for `php-tools` 1.1.6.
 
 ### 1.3.0
-* the plugin now uses the `AssetsMiddleware` instead of a controller to
-    "serve" assets. The `AssetsController` has therefore been deleted;
+* the plugin now uses the `AssetsMiddleware` instead of a controller to "serve" assets. The `AssetsController` has
+  therefore been deleted;
 * fixed license headers.
 
 ## 1.2 branch
@@ -87,18 +93,15 @@
     `RuntimeException`. This allows compatibility with CakePHP 3.6 branch;
 * added `IntegrationTestCase` and `TestCase` classes;
 * full support for Windows, added Appveyor tests;
-* now it uses the `mirko-pagliai/php-tools` package. This also replaces
-    `mirko-pagliai/reflection`.
+* now it uses the `mirko-pagliai/php-tools` package. This also replaces `mirko-pagliai/reflection`.
 
 ### 1.1.7
 * the `Last-Modified` header is set up and sent to the client. It indicates the
     date and time at which the asset file was modified for the last time;
-* the timestamp is attached to the assets, if required by the application
-    configuration (`Asset.timestamp`);
+* the timestamp is attached to the assets, if required by the application configuration (`Asset.timestamp`);
 * added `AssetCreator:filename()` and `AssetCreator::path()` methods;
-* `AssetCreator::getAssetPath()` method renamed as `resolveAssetPath()` and
-    `AssetCreator::resolvePath()` method renamed as `resolveFilePaths()`. This
-    creates less confusion about the names and functions of class methods.
+* `AssetCreator::getAssetPath()` method renamed as `resolveAssetPath()` and `AssetCreator::resolvePath()` method renamed
+  as `resolveFilePaths()`. This creates less confusion about the names and functions of class methods.
 
 ### 1.1.6
 * updated for CakePHP 3.5.
@@ -111,8 +114,7 @@
 * added `ASSETS` constant.
 
 ### 1.1.3
-* added `AssetNotFoundException` class. This exception is thrown when you
-    request an asset that is not available;
+* added `AssetNotFoundException` class. This exception is thrown when you request an asset that is not available;
 * methods that have been deprecated with CakePHP 3.4 have been replaced;
 * updated for CakePHP 3.4.
 
@@ -120,16 +122,13 @@
 * fixed bug. Urls no longer contain the type of asset, but only the filename.
 
 ### 1.1.1
-* the `AssetCreator` class has been rewritten, using only objects and improving
-    the code;
+* the `AssetCreator` class has been rewritten, using only objects and improving the code;
 * you can configure the plugin both before and after it is loaded.
 
 ### 1.1.0
 * it uses `matthiasmullie/minify` instead of `clean-css` and `UglifyJS`;
-* the `Asset` utility has been renamed as `AssetsCreator` and now it uses the
-    temporary directory (`APP/tmp/assets/`);
-* added the `AssetsController` with the `asset()` method, which takes care of
-    sending assets;
+* the `Asset` utility has been renamed as `AssetsCreator` and now it uses the temporary directory (`APP/tmp/assets/`);
+* added the `AssetsController` with the `asset()` method, which takes care of sending assets;
 * added tests for `AssetsController`, `AssetsCreator` and `AssetHelper` classes.
 
 ## 1.0 branch

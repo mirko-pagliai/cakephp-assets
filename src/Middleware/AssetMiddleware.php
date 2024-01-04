@@ -22,7 +22,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Tools\Exceptionist;
 use Tools\Filesystem;
 
 /**
@@ -35,20 +34,22 @@ class AssetMiddleware implements MiddlewareInterface
      * @param \Psr\Http\Message\ServerRequestInterface $request The request
      * @param \Psr\Http\Server\RequestHandlerInterface $handler Request handler
      * @return \Psr\Http\Message\ResponseInterface A response
-     * @throws \Assets\Http\Exception\AssetNotFoundException|\Throwable
+     * @throws \Assets\Http\Exception\AssetNotFoundException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         /** @var \Cake\Http\ServerRequest $request */
         $file = Filesystem::instance()->concatenate(Configure::read('Assets.target'), $request->getParam('filename'));
-        Exceptionist::isReadable($file, __d('assets', "File `{0}` doesn't exist", $file), AssetNotFoundException::class);
+        if (!is_readable($file)) {
+            throw new AssetNotFoundException(__d('assets', "File `{0}` doesn't exist", $file));
+        }
 
         $response = new Response();
         $response = $response->withModified(filemtime($file) ?: 0);
         /**
          * @todo to be removed in a later version, when CakePHP version is at least 4.4
          */
-        $method = method_exists($request, 'isNotModified') ? 'isNotModified' : 'checkNotModified';
+        $method = method_exists($response, 'isNotModified') ? 'isNotModified' : 'checkNotModified';
         if ($response->$method($request)) {
             return $response->withNotModified();
         }

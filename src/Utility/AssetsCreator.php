@@ -18,9 +18,9 @@ namespace Assets\Utility;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use InvalidArgumentException;
+use LogicException;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
-use Tools\Exceptionist;
 use Tools\Filesystem;
 
 /**
@@ -50,14 +50,15 @@ class AssetsCreator
      * Construct. Sets the asset type and paths
      * @param string|array<string> $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
-     * @throws \InvalidArgumentException|\Throwable
+     * @throws \InvalidArgumentException
      */
     public function __construct($paths, string $type)
     {
-        Exceptionist::inArray($type, ['css', 'js'], __d('assets', 'Asset type `{0}` not supported', $type), InvalidArgumentException::class);
+        if (!in_array($type, ['css', 'js'])) {
+            throw new InvalidArgumentException(__d('assets', 'Asset type `{0}` not supported', $type));
+        }
 
-        //Note: `resolveFilePaths()` method needs `$type` property;
-        //  `resolveAssetPath()` method needs `$type` and `$paths` properties
+        //Note: `resolveFilePaths()` method needs `$type` property; `resolveAssetPath()` method needs `$type` and `$paths` properties
         $this->type = $type;
         $this->paths = $this->resolveFilePaths((array)$paths);
         $this->asset = $this->resolveAssetPath();
@@ -80,7 +81,7 @@ class AssetsCreator
      * Internal method to resolve partial file paths and return full paths
      * @param array<string> $paths Partial file paths
      * @return array<string> Full file paths
-     * @throws \Tools\Exception\FileNotExistsException|\Tools\Exception\NotReadableException|\Throwable
+     * @throws \LogicException
      */
     protected function resolveFilePaths(array $paths): array
     {
@@ -89,8 +90,7 @@ class AssetsCreator
         return array_map(function (string $path) use ($loadedPlugins): string {
             $pluginSplit = pluginSplit($path);
 
-            //Note that using `pluginSplit()` is not sufficient, because
-            //  `$path` may still contain a dot
+            //Note that using `pluginSplit()` is not sufficient, because `$path` may still contain a dot
             if (!empty($pluginSplit[0]) && in_array($pluginSplit[0], $loadedPlugins)) {
                 [$plugin, $path] = $pluginSplit;
             }
@@ -102,14 +102,18 @@ class AssetsCreator
             //Appends the file extension, if not already present
             $path = pathinfo($path, PATHINFO_EXTENSION) == $this->type ? $path : sprintf('%s.%s', $path, $this->type);
 
-            return Exceptionist::isReadable($path);
+            if (!is_readable($path)) {
+                throw new LogicException(__d('assets', 'File or directory `' . $path . '` is not readable'));
+            }
+
+            return $path;
         }, $paths);
     }
 
     /**
      * Creates the asset
      * @return string
-     * @throws \Throwable
+     * @throws \LogicException|\ErrorException
      */
     public function create(): string
     {
@@ -122,7 +126,9 @@ class AssetsCreator
             //Writes the file
             $Filesystem = new Filesystem();
             $success = $Filesystem->createFile($path, $minifier->minify(), 0777, true);
-            Exceptionist::isTrue($success, __d('assets', 'Failed to create file {0}', $Filesystem->rtr($this->path())));
+            if (!$success) {
+                throw new LogicException(__d('assets', 'Failed to create file {0}', $Filesystem->rtr($this->path())));
+            }
         }
 
         return pathinfo($path, PATHINFO_FILENAME);
