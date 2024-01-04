@@ -57,7 +57,7 @@ jobs:
         - name: Run PHPUnit
           run: |
             if [[ ${{ matrix.php-version }} == '8.0' ]]; then
-             export XDEBUG_MODE=coverage && vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
+             export XDEBUG_MODE=coverage && vendor/bin/phpunit --coverage-clover=coverage.xml
             else
               vendor/bin/phpunit
             fi
@@ -95,11 +95,11 @@ jobs:
 
         - name: Run psalm
           if: success() || failure()
-          run: vendor/bin/psalm.phar --output-format=github --php-version=8.0
+          run: vendor/bin/psalm --output-format=github --php-version=8.0
 
         - name: Run phpstan
           if: success() || failure()
-          run: vendor/bin/phpstan.phar analyse --error-format=github
+          run: vendor/bin/phpstan analyse --error-format=github
 
 
   testsuite-windows:
@@ -134,4 +134,4 @@ jobs:
       run: composer update
 
     - name: Run PHPUnit
-      run: vendor/bin/phpunit --verbose
+      run: vendor/bin/phpunit
