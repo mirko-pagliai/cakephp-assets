@@ -31,29 +31,26 @@ class AssetMiddleware implements MiddlewareInterface
 {
     /**
      * Serves assets if the request matches one
-     * @param \Psr\Http\Message\ServerRequestInterface $request The request
+     * @param \Psr\Http\Message\ServerRequestInterface $Request The request
      * @param \Psr\Http\Server\RequestHandlerInterface $handler Request handler
      * @return \Psr\Http\Message\ResponseInterface A response
      * @throws \Assets\Http\Exception\AssetNotFoundException
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $Request, RequestHandlerInterface $handler): ResponseInterface
     {
-        /** @var \Cake\Http\ServerRequest $request */
-        $file = Filesystem::instance()->concatenate(Configure::read('Assets.target'), $request->getParam('filename'));
+        /** @var \Cake\Http\ServerRequest $Request */
+        $file = Filesystem::instance()->concatenate(Configure::read('Assets.target'), $Request->getParam('filename'));
         if (!is_readable($file)) {
             throw new AssetNotFoundException(__d('assets', "File `{0}` doesn't exist", $file));
         }
 
-        $response = new Response();
-        $response = $response->withModified(filemtime($file) ?: 0);
-        /**
-         * @todo to be removed in a later version, when CakePHP version is at least 4.4
-         */
-        $method = method_exists($response, 'isNotModified') ? 'isNotModified' : 'checkNotModified';
-        if ($response->$method($request)) {
-            return $response->withNotModified();
+        $Response = new Response();
+        $Response = $Response->withModified(filemtime($file) ?: 0);
+        
+        if ($Response->isNotModified($Request)) {
+            return $Response->withNotModified();
         }
 
-        return $response->withFile($file)->withType(pathinfo($file, PATHINFO_EXTENSION));
+        return $Response->withFile($file)->withType(pathinfo($file, PATHINFO_EXTENSION));
     }
 }
