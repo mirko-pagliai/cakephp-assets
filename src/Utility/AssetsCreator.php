@@ -70,7 +70,7 @@ class AssetsCreator
      */
     protected function resolveAssetPath(): string
     {
-        $basename = md5(serialize(array_map(fn(string $path): array =>  [$path, filemtime($path)], $this->paths)));
+        $basename = md5(serialize(array_map(fn(string $path): array => [$path, filemtime($path)], $this->paths)));
 
         return Filesystem::instance()->concatenate(Configure::read('Assets.target'), $basename . '.' . $this->type);
     }

@@ -46,7 +46,6 @@ class AssetMiddleware implements MiddlewareInterface
 
         $Response = new Response();
         $Response = $Response->withModified(filemtime($file) ?: 0);
-        
         if ($Response->isNotModified($Request)) {
             return $Response->withNotModified();
         }

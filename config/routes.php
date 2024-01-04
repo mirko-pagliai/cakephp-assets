@@ -17,7 +17,7 @@ use Assets\Middleware\AssetMiddleware;
 use Cake\Routing\RouteBuilder;
 
 /** @var \Cake\Routing\RouteBuilder $routes */
-$routes->plugin('Assets', function (RouteBuilder $routes) {
+$routes->plugin('Assets', function (RouteBuilder $routes): void {
     $routes->registerMiddleware('asset', AssetMiddleware::class);
     $routes->get('/{filename}', [])
         ->setPatterns(['filename' => '[\w-]+\.(css|js)'])
