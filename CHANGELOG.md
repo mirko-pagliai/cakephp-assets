@@ -1,6 +1,7 @@
 # 1.x branch
 ## 1.5 branch
 ### 1.5.13
+* several small code and test improvements;
 * added tests for PHP 8.2.
 
 ### 1.5.12

@@ -14,11 +14,11 @@ declare(strict_types=1);
  */
 namespace Assets\Test\TestCase\Utility;
 
-use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\StringCompareTrait;
+use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
 use Tools\TestSuite\ReflectionTrait;
 

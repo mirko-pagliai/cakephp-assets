@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace Assets\Test\TestCase\Middleware;
 
 use Assets\Http\Exception\AssetNotFoundException;
-use Assets\TestSuite\TestCase;
 use Assets\Utility\AssetsCreator;
 use Cake\Core\Configure;
+use Cake\TestSuite\TestCase;
 use Cake\TestSuite\IntegrationTestTrait;
 
 /**
