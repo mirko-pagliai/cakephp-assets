@@ -32,27 +32,27 @@ class AssetsCreator
      * Asset full path
      * @var string
      */
-    protected $asset;
+    protected string $asset;
 
     /**
      * File paths that will be transformed into a single asset
-     * @var array<string>
+     * @var string[]
      */
-    protected $paths = [];
+    protected array $paths = [];
 
     /**
      * Asset type (`css` or `js`)
      * @var string
      */
-    protected $type;
+    protected string $type;
 
     /**
      * Construct. Sets the asset type and paths
-     * @param string|array<string> $paths String or array of css files
+     * @param string|string[] $paths String or array of css files
      * @param string $type Extension (`css` or `js`)
      * @throws \InvalidArgumentException
      */
-    public function __construct($paths, string $type)
+    public function __construct(string|array $paths, string $type)
     {
         if (!in_array($type, ['css', 'js'])) {
             throw new InvalidArgumentException(__d('assets', 'Asset type `{0}` not supported', $type));
@@ -70,9 +70,7 @@ class AssetsCreator
      */
     protected function resolveAssetPath(): string
     {
-        $basename = md5(serialize(array_map(function (string $path): array {
-            return [$path, filemtime($path)];
-        }, $this->paths)));
+        $basename = md5(serialize(array_map(fn(string $path): array =>  [$path, filemtime($path)], $this->paths)));
 
         return Filesystem::instance()->concatenate(Configure::read('Assets.target'), $basename . '.' . $this->type);
     }
@@ -113,7 +111,7 @@ class AssetsCreator
     /**
      * Creates the asset
      * @return string
-     * @throws \LogicException|\ErrorException
+     * @throws \LogicException
      */
     public function create(): string
     {

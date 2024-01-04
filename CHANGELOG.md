@@ -2,6 +2,7 @@
 ## 1.6 branch
 ### 1.6.0
 * requires at least PHP 8.1;
+* fixed typehints;
 * added tests for PHP 8.3.
 
 ## 1.5 branch
