@@ -15,38 +15,11 @@ declare(strict_types=1);
  */
 namespace Assets\TestSuite;
 
-use Cake\Core\Configure;
 use Cake\TestSuite\TestCase as CakeTestCase;
-use Tools\Filesystem;
-use Tools\TestSuite\ReflectionTrait;
 
 /**
  * TestCase class
  */
 abstract class TestCase extends CakeTestCase
 {
-    use ReflectionTrait;
-
-    /**
-     * Called before every test method
-     * @return void
-     */
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->loadPlugins(['Assets' => []]);
-    }
-
-    /**
-     * Called after every test method
-     * @return void
-     * @throws \Throwable
-     */
-    public function tearDown(): void
-    {
-        Filesystem::instance()->unlinkRecursive(Configure::readOrFail('Assets.target'), false, true);
-
-        parent::tearDown();
-    }
 }
