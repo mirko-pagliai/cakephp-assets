@@ -30,16 +30,16 @@ class AssetHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = ['Html'];
+    public array $helpers = ['Html'];
 
     /**
      * Gets the asset path
-     * @param string|array<string> $path String or array of css/js files
+     * @param string|string[] $path String or array of css/js files
      * @param string $type `css` or `js`
-     * @return string|array<string> Asset path
+     * @return string|string[] Asset path
      * @throws \Throwable
      */
-    protected function path($path, string $type)
+    protected function path(string|array $path, string $type): string|array
     {
         if (Configure::read('debug') && !Configure::read('Assets.force')) {
             return $path;
@@ -59,25 +59,24 @@ class AssetHelper extends Helper
 
     /**
      * Compresses and adds a css file to the layout
-     * @param string|array<string> $path String or array of css files
+     * @param string|string[] $path String or array of css files
      * @param array $options Array of options and HTML attributes
      * @return string|null Html, `<link>` or `<style>` tag
      * @throws \Throwable
      */
-    public function css($path, array $options = []): ?string
+    public function css(string|array $path, array $options = []): ?string
     {
         return $this->Html->css($this->path($path, 'css'), $options);
     }
 
     /**
      * Compresses and adds js files to the layout
-     * @param string|array<string> $url String or array of js files
+     * @param string|string[] $url String or array of js files
      * @param array $options Array of options and HTML attributes
-     * @return string|null String of `<script />` tags or null if `$inline` is
-     *  false or if `$once` is true
+     * @return string|null String of `<script />` tags or null if `$inline` is false or if `$once` is true
      * @throws \Throwable
      */
-    public function script($url, array $options = []): ?string
+    public function script(string|array $url, array $options = []): ?string
     {
         return $this->Html->script($this->path($url, 'js'), $options);
     }

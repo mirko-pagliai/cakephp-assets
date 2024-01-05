@@ -23,6 +23,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Tools\Filesystem;
+use function Cake\I18n\__d;
 
 /**
  * Handles serving assets
@@ -41,19 +42,15 @@ class AssetMiddleware implements MiddlewareInterface
         /** @var \Cake\Http\ServerRequest $request */
         $file = Filesystem::instance()->concatenate(Configure::read('Assets.target'), $request->getParam('filename'));
         if (!is_readable($file)) {
-            throw new AssetNotFoundException(__d('assets', "File `{0}` doesn't exist", $file));
+            throw new AssetNotFoundException(__d('assets', 'File `{0}` doesn\'t exist', $file));
         }
 
-        $response = new Response();
-        $response = $response->withModified(filemtime($file) ?: 0);
-        /**
-         * @todo to be removed in a later version, when CakePHP version is at least 4.4
-         */
-        $method = method_exists($response, 'isNotModified') ? 'isNotModified' : 'checkNotModified';
-        if ($response->$method($request)) {
-            return $response->withNotModified();
+        $Response = new Response();
+        $Response = $Response->withModified(filemtime($file) ?: 0);
+        if ($Response->isNotModified($request)) {
+            return $Response->withNotModified();
         }
 
-        return $response->withFile($file)->withType(pathinfo($file, PATHINFO_EXTENSION));
+        return $Response->withFile($file)->withType(pathinfo($file, PATHINFO_EXTENSION));
     }
 }

@@ -60,9 +60,8 @@ class AssetsCreatorTest extends TestCase
      */
     public function testResolveAssetPath(): void
     {
-        $resolveAssetPathMethod = function (AssetsCreator $assetCreatorInstance) {
-            return $this->invokeMethod($assetCreatorInstance, 'resolveAssetPath');
-        };
+        $resolveAssetPathMethod = fn(AssetsCreator $assetCreatorInstance): string =>
+            $this->invokeMethod($assetCreatorInstance, 'resolveAssetPath');
 
         $expected = Configure::read('Assets.target') . DS . sprintf('%s.%s', md5(serialize([[
             $file = WWW_ROOT . 'css' . DS . 'test.css',
@@ -85,9 +84,8 @@ class AssetsCreatorTest extends TestCase
      */
     public function testResolveFilePaths(): void
     {
-        $pathsProperty = function (AssetsCreator $assetCreatorInstance) {
-            return $this->getProperty($assetCreatorInstance, 'paths');
-        };
+        $pathsProperty = fn(AssetsCreator $assetCreatorInstance): array =>
+            $this->getProperty($assetCreatorInstance, 'paths');
 
         $expected = [WWW_ROOT . 'css' . DS . 'test.css'];
         foreach ([
