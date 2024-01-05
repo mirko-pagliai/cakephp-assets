@@ -45,8 +45,8 @@
         "cs-check": "phpcs --standard=phpcs.xml.dist",
         "cs-fix": "phpcbf --standard=phpcs.xml.dist",
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
-        "phpstan": "phpstan.phar analyse",
-        "psalm": "psalm.phar --php-version=8.0",
+        "phpstan": "phpstan analyse",
+        "psalm": "psalm --php-version=8.2",
         "stan": [
             "@phpstan",
             "@psalm"
