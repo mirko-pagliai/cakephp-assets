@@ -20,6 +20,8 @@ even a coffee is enough! Thank you.
 
 * [Installation](#installation)
   + [Installation on older CakePHP and PHP versions](#installation-on-older-cakephp-and-php-versions)
+    - [For PHP 7.2 and CakePHP 4 or later](#for-php-72-and-cakephp-4-or-later)
+    - [For PHP 5.6 and CakePHP 3 or later](#for-php-56-and-cakephp-3-or-later)
 * [Configuration](#configuration)
   + [Configuration values](#configuration-values)
 * [How to use](#how-to-use)
@@ -53,9 +55,28 @@ $ mkdir tmp/assets && chmod 775 tmp/assets
 If you want to use a different directory, read the [Configuration](#configuration) section.
 
 ### Installation on older CakePHP and PHP versions
-Recent packages and the master branch require at least CakePHP 4.0 and PHP 7.2.
-Instead, the [cakephp3](https://github.com/mirko-pagliai/cakephp-assets/tree/cakephp3) branch
-requires at least PHP 5.6.
+Recent packages and the master branch require at least CakePHP 5.0 and PHP 8.1
+and the current development of the code is based on these and later versions of
+CakePHP and PHP.
+However, there are still some branches compatible with previous versions of
+CakePHP and PHP.
+
+#### For PHP 7.2 and CakePHP 4 or later
+The [cakephp4](//github.com/mirko-pagliai/cakephp-assets/tree/cakephp4) branch
+requires at least PHP `>=7.2` and CakePHP `^4.0`.
+
+In this case, you can install the package as well:
+```bash
+$ composer require --prefer-dist mirko-pagliai/cakephp-assets:dev-cakephp4
+```
+
+Note that the `cakephp4` branch will no longer be updated as of January 5, 2024,
+except for security patches, and it matches the
+[1.5.13](//github.com/mirko-pagliai/cakephp-assets/releases/tag/1.5.13) version.
+
+#### For PHP 5.6 and CakePHP 3 or later
+The [cakephp3](https://github.com/mirko-pagliai/cakephp-assets/tree/cakephp3) branch
+requires at least PHP 5.6 and CakePHP 3.
 
 In this case, you can install the package as well:
 ```bash
