@@ -22,6 +22,8 @@ use LogicException;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
 use Tools\Filesystem;
+use function Cake\Core\pluginSplit;
+use function Cake\I18n\__d;
 
 /**
  * A utility to create assets

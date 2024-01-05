@@ -1,8 +1,7 @@
 # 1.x branch
 ## 1.6 branch
 ### 1.6.0
-* requires at least CakePHP 4.4 (tentatively, waiting to request CakePHP 5.0);
-* requires at least PHP 8.1;
+* requires at least PHP 8.1, CakePHP 5 and PHPUnit 10;
 * fixed typehints;
 * added tests for PHP 8.3.
 

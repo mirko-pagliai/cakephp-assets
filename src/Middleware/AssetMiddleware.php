@@ -23,6 +23,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Tools\Filesystem;
+use function Cake\I18n\__d;
 
 /**
  * Handles serving assets
